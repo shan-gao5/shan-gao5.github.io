@@ -39,5 +39,6 @@ echo "entry names  ${entrynames[@]}"
 cat template > index.html
 
 for i in "${!newhtml[@]}"; do
+	echo "${newhtml[i]}" >> list
 	echo "<p><a href=\"${newhtml[i]}\">${entrynames[i]}</a>" >> index.html
 done
