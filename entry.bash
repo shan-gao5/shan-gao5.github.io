@@ -26,11 +26,14 @@ for i in $(find * -type f \( -iname "*.html" ! -iname "index.html" \)); do
 		newhtml=("${newhtml[@]}" "$i")
 		entrynames=("${entrynames[@]}" "$x")
 		
+		
 	else
 		echo "$i already exists"
 		continue
 	fi
 done
+
+
 
 echo "entry file namse: ${newhtml[@]}"
 echo "entry names  ${entrynames[@]}"
