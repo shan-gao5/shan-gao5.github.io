@@ -36,7 +36,7 @@ echo "entry file namse: ${newhtml[@]}"
 echo "entry names  ${entrynames[@]}"
 
 
-cat template > index.html
+
 
 for i in "${!newhtml[@]}"; do
 	echo "${newhtml[i]}" >> list
