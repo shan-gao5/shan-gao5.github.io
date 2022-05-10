@@ -8,9 +8,9 @@ A good quote from one of my favorite books
 
 ### Some Links
 
-[Mathematics](/math.html)
+[Mathematics](math.html)
 
-[Physics](/physics.html)
+[Physics](physics.html)
 
 [Computer Science](cs.html)
 
