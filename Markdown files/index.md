@@ -12,7 +12,7 @@ A good quote from one of my favorite books
 
 [Physics](physics.html)
 
-[Computer Science](cs.html)
+[Computer Science](computerscience.html)
 
 The personal site of a very precious friend named [Simon Chen](https://simon-chen.me/my-story.html)
 
