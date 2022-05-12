@@ -14,6 +14,8 @@ A good quote from one of my favorite books
 
 [Computer Science](computerscience.html)
 
+[writings](writings.html)
+
 The personal site of a very precious friend named [Simon Chen](https://simon-chen.me/my-story.html)
 
 
