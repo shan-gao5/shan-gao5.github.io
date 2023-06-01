@@ -1,0 +1,216 @@
+\documentclass[12pt]{article}
+    \usepackage{amsmath}
+    \usepackage{amsthm}
+    \usepackage{amsfonts}
+    \usepackage{amssymb}
+    \usepackage{float}
+    \usepackage{enumerate}
+    \usepackage{xfrac}
+    \usepackage{graphicx}
+    \usepackage{mdframed}
+    \usepackage{multicol}
+    \usepackage{verbatim}
+    \usepackage{tikz}
+    \usepackage[margin = .8in]{geometry}
+    \geometry{letterpaper}
+    \linespread{1.2}
+    \newcommand{\RR}{\mathbb{R}} 
+    \newcommand{\cringe}[1]{ \( \displaystyle #1 \)}
+    \newcommand{\NN}{\mathbb{N}}
+    \newcommand{\ZZ}{\mathbb{Z}} 
+    \newcommand{\QQ}{\mathbb{Q}}
+    \newcommand{\mmod}[1]{\quad (\text{mod }#1)}
+    \newcommand\setItemnumber[1]{\setcounter{enumi}{\numexpr#1-1\relax}}
+    \newcommand\sgr[1]{\langle #1 \rangle}
+    \newcommand\set[1]{\left\lbrace #1 \right\rbrace} 
+    \newcommand\abs[1]{\left| #1 \right|} 
+    \newcommand\parens[1]{\left( #1 \right)} 
+    \newcommand\brac[1]{\left[ #1 \right]} 
+    \newcommand\dist[1]{\text{dist}(#1 )}
+    \newcommand\ideal[1]{\left\langle #1 \right\rangle}
+    \newcommand \bld[1]{\boldsymbol{#1}}
+    
+    
+\begin{document}
+
+\begin{itemize}
+	\item[1.] 
+			\begin{itemize}
+			\item[a)]
+		Using the Matching Market Algorithm, we try to find market clearing prices for the following valuation table between buyers $I, II, III$ and $IV$ and sellers $a,b,c$ and $d$
+	\begin{figure}[H]
+	\centering
+  \includegraphics[width=75mm]{table.png}
+  \caption{Valuation table}
+\end{figure}
+	Notice that in iteration 1, we have for $I$:
+	\[
+		\text{argmax}_{j} v_{I,j} - p_{j} = \set{b,d}
+	\]
+	For $II$ : 
+	\[
+		\text{argmax}_{j} v_{II,j} - p_{j} = \set{c}
+	\]
+	For $III$:
+	\[
+		\text{argmax}_{j} v_{III,j} - p_{j} = \set{b}
+	\]
+	For $IV$:
+	\[
+		\text{argmax}_{j} v_{IV,j} - p_{j} = \set{b}
+	\]
+	Notice that $\set{I,III,IV}$ are unsuppliable since $\Gamma(\set{I,III,IV}) = \set{b,d}$.
+	So we increase the price of $p_a$ and $p_c$ by 1.
+	So $\bold{p}_1 = (0,1,0,1)$. 
+	We can now compute the best response graph for the next iteration:	
+	\\In iteration 2, we have for $I$:
+	\[
+		\text{argmax}_{j} v_{I,j} - p_{j} = \set{b,c,d}
+	\]
+	For $II$ : 
+	\[
+		\text{argmax}_{j} v_{II,j} - p_{j} = \set{c}
+	\]
+	For $III$:
+	\[
+		\text{argmax}_{j} v_{III,j} - p_{j} = \set{b,c}
+	\]
+	For $IV$:
+	\[
+		\text{argmax}_{j} v_{IV,j} - p_{j} = \set{b}
+	\]
+	Notice that $\Gamma(\set{I,II,III,IV}) = \set{b,c,d}$ so this is an unsuppliable set 
+	
+	\item [b)]
+		Consider this payoff graph 
+		\begin{figure}[H]
+		\centering
+		\includegraphics[width=100mm, angle=270]{FIGURE1.jpeg}
+		\caption{Matching graph}
+			
+		\end{figure}
+		Clearly the most equitable matching is with $M = \set{(B_1,S_1),(B_2,S_2),(B_3,S_3)}$ with $\displaystyle \max \limits_{ij, i^\prime j^\prime \in M} \abs{v_{ij} - v_{i^\prime j^\prime}} = 0$. However, even though this outcome guarantees no excess supply and demand, it is not pareto efficient. Indeed, no matter what the price vector $\bold{p} = (p_1,p_2,p_3)$, there exists a matching $M^\prime = \set{(B_1,S_3),(B_2,S_1),(B_3,S_2)}$ with all buyers being strictly better off. Consider the profits for player 1,2 and 3 for payoff vector $\bold{p}$, $3 - p_1$, $3-p_2$ and $3-p_3$. No matter what profit vector we choose, it is clear that maching $M^\prime$ yielding profits of $8-p_3$, $7-p_1$ and $9-p_2$ for player 1,2 and 3 respectively is strictly better for $\bold{all}$ buyers. 
+		
+	\end{itemize}
+	\item[2.]
+	In the Fisher's model, suppose that we have $n$ players and $m$ goods, with a price vector $\bld{p}$ set before hand, $\bld{p} = (p_1,p_2,\ldots,p_m)$, there are also $q_j$ units for each good $j$, and each player $i$ has a valuation function $u_{ij}$ that gives the utility per unit of good $j$. Every player has a linear utility function depending on their allocation bundle $\bld{x}_i = (x_{i1},x_{i2},\ldots,x_{im})$.\\
+		We need to determine each players demand set $\Gamma_i$. In fact, we need to determine, for all player $i \in [n]$
+		\[
+			\Gamma_i = \displaystyle \arg \max\limits_{j : x_j > 0 \land \bold{p}^T \bold{x} \leq b_i} U_i(\bold{x}) 
+		\]
+		 Since each player's utility function is linear, the bundle that gives the most utility to any player is comprised of the items that gives the player the most utility per dollar spent. Generally, it is only comprised of the item $l_1 = \arg \max_{j \in [m]} \frac{u_{ij}}{p_j}$ that maximizes the players utility per dollar spent. But if the player is able to purchase the whole quantity of item $l_1$, that means $p_{l_1} \cdot q_{l_1} \leq b_i$, then the second best item that maximizes the players utility per dollar spent is also in the demand set, $l_2 = \arg \max_{j \neq l_1} \frac{u_{ij}}{p_j}$, and if $p_{l_1} \cdot q_{l_1} + p_{l_2} \cdot q_{l_2} \leq b_i$ we repeat, and by induction, every player's demand set has the items that comprises the bundle that maximizes the players utility. 
+		 \\ This is because, for $\bold{p}$ to be a market clearing price vector, we need each player get her demand \textbf{bundle} $\displaystyle \bold{X}_i = \arg \max_{\bold{x} : \bold{p}^T \bold{x} \leq b_i} U_i(\bold{x})$ . 
+		 
+		 	It follows that if there is an allocation with price vector $\bold{x}$ with some players getting items other than one in it's demand set $\Gamma_{i}$, then automatically, it is not market clearing. 
+		 	\\
+		 	\textbf{setup of flow network}
+		 	\\
+		 	We set up a flow network, on a bipartite graph $G = (J \cup I, E)$ where $J = [m]$ and $I = [n]$, such that there is a super source $s$ with edges, $(s, j)$ for all $j \in J$ with capacity $u_{(s,j)} = p_j \cdot q_j$,  a super sink $t$ with edges $(i,t)$ for all $i \in I$ with capacity $u_{(i,t)} = b_i$ and finally edges $(j,i)$ where $j \in \Gamma_i$, for all $i \in I$ with capacity infinite, so all edges $e = (j,i) \in J\times I$ has $u_{e} = \infty$. Notice that necessarily, for $\bold{p}$ to be market clearing, we have, by the setup of $\Gamma_i$ only being comprised a items in the best affordable bundle for buyer $i$, 
+		 	\[
+		 		\sum_{j \in \hat{J}} p_j \cdot q_j \leq b(\Gamma(\hat{J})) \quad \forall \hat{J} \subseteq J
+		 	\]
+		 	By construction, we guarantee no excess demand, since the min-cut is at least $\displaystyle \sum_{j \in J} p_j \cdot q_j$. Indeed, letting $S^*$ be the min cut and $\hat{J} = S^* \cap J$, we know that $\Gamma(\hat{J}) \subseteq S^*$ otherwise $\text{cap}(S^*) = \infty$
+		 	\begin{align*}
+		 		\text{cap}(S^*) &= \sum_{j \in J\setminus \hat{J}} p_j \cdot q_j + b(\Gamma(\hat{J}))\\
+		 									&\geq \sum_{j \in J\setminus \hat{J}} p_j \cdot q_j +\sum_{j \in \hat{J}} p_j \cdot q_j  \\
+		 									&= \sum_{j \in J} p_j \cdot q_j
+		 	\end{align*}
+		 	To test excess supply, we test if the max flow  (min-cut) at least the budget of all buyers, so 
+		 	\[\bold{f^*} \geq \sum_{i \in I} b_i\]
+		 	Since finding the min-cut is a polynomial time solvable problem (using Edmond-Karps algorithm) we are able to test if $\bold{p}$ is a market clearing price vector. 
+		 	\\
+	\textbf{alternative proof}
+	\\
+	In the Fisher's model, suppose that we have $n$ players and $m$ goods, with a price vector $\bld{p}$ set before hand, $\bld{p} = (p_1,p_2,\ldots,p_m)$, there are also $q_j$ units for each good $j$, and each player $i$ has a valuation function $u_{ij}$ that gives the utility per unit of good $j$. Every player has a linear utility function depending on their allocation bundle $\bld{x}_i = (x_{i1},x_{i2},\ldots,x_{im})$
+	\[
+	U_i(x_i) = \sum_{j \in [m]} u_{ij}\cdot x_{ij}
+	\]
+	Since this utility function is linear, we are able to model this using a linear program.
+
+
+
+\begin{align*}
+	\text{maximize}& \qquad   \sum_{i \in [n]} \sum\limits_{j \in [m]} u_{ij}\cdot x_{ij}\\
+	\text{subject to}\\
+								 &  \displaystyle \sum\limits_{i \in [n]} x_{ij} \leq q_j  \qquad  \forall j \in [m]\\
+							& \displaystyle \sum\limits_{j \in [m]} x_{ij}\cdot p_j \leq b_i \qquad  \forall i \in [n] \\
+							& x_{ij} \geq 0 \qquad  \forall i \in [n], j\in [m]
+\end{align*}
+Since this LP has a polynomial amount of variables and contraints, there exists known polynomial time algorithms such as the Ellipsoid method that can solve this LP in $\text{poly}(n,m)$. 
+	
+\item[3.]
+	\begin{itemize}
+		\item[a)] Let $M$ be the vertices in the matching returned by the greedy algorithm, and let $M^*$ be the optimal matching. Let $i \in M$, denote 
+		\[M^*_i = \set{j \in M^* \colon j \geq i \text{ and } S_i \cap S_j \neq \emptyset}\]
+		So $j \in M^*$ is in the set $M^*_i$ if either $j=i$ or $j$ is a later buyer that has been skipped by the greedy algorithm. 
+		Observe that 
+		\[
+M^* \subseteq \bigcup_{i \in M} M^*_i
+		\]
+		Since if $j \in M^*$ then it is either in $M$ so $j=i$ for some $i \in M$ or it has been skipped by the greedy algorithm in which case $j \in M^*_i$ for some $i$. And then we have, 
+		\[
+			b(M^*) \leq \sum_{i \in M} \sum_{j \in M^*_i} b_j
+		\]
+		However notice that the amount of elements in each $M_i^*$ is at most 2, since the cardinality of each $S_i$ is $2$ and each $j \in M^*_i$ has to have their target subset $S_j$ being pairwise disjoint, so in each $M^*_i$ there can be at most $i$ and some $j \geq i $. That means, for each $M^*_i$, 
+		\[
+			\sum_{j \in M^*_i} b_j \leq b_i + b_j \leq b_i + b_i = 2b_i \quad \text{ for some $j \geq i$} 
+		\]
+		Thus 
+		\[
+			b(M^*) \leq \sum_{i \in M} \sum_{j \in M^*_i} b_j \leq \sum_{i \in M} 2b_i = 2 \sum_{i \in M} b_i = 2 b(M)
+		\]
+		Which shows that this is a 2-approximation algorithm
+		\item[b)] There exists method to solve this in polynomial time. This problem is actually just the matching market problem in disguise. We can regroup the $n$ desired subsets $S_1, S_2, \ldots, S_n$ into sets $K_1, K_2, \ldots, K_r$ which each set having an associated index set of bidders $I_1, I_2, \ldots, I_r$ where $\forall a \in [r]$  $K_a$ is either the set where all the desired subsets of bidders in it's associated index set share one common item. 
+		\[K_a  = \bigcap_{b \in I_a} S_b = c \in [m] \]
+		Or there might be the case where multiple buyers wants the same subset that is disjoint with all other subsets, in which case 
+		the intersection of all desired subsets of bidders in its associated index set contains two items. For example, in the case where all $S_i$'s are disjoint then $r = n$ and the grouped sets $K_1, K_2,\ldots, K_r$ are the same as the desired sets for each player. 
+		At this point we can write the primal IP of this problem as such 
+		\begin{align*}
+			\text{maximize} &\quad \sum_{i \in [n]} \sum_{j \in [r]}u_{ij}\cdot x_{ij}\\
+				\text{subject to} \\
+				&\sum_{j \in [r]} x_{ij} \leq 1 \quad \forall i \in [n]\\
+				&\sum_{i \in [n]} x_{ij} \leq 1 \quad \forall j \in [r]\\
+				&x_{ij} \in \set{0,1}
+		\end{align*}
+		where 
+		\[
+			u_{ij} = \begin{cases}
+				b_i \quad \text{if } i \in I_j\\
+				0 \quad \text{otherwise}
+			\end{cases}
+		\]
+		This is because only one buyer in $I_j$ can get it's desired subset, no two bidders can get allocated subsets with non empty intersections. Notice that in the LP relaxation of the primal,  
+		\begin{align*}
+			\text{maximize} &\quad \sum_{i \in [n]} \sum_{j \in [r]}u_{ij}\cdot x_{ij}\\
+				\text{subject to} \\
+				&\sum_{j \in [r]} x_{ij} \leq 1 \quad \forall i \in [n]\\
+				&\sum_{i \in [n]} x_{ij} \leq 1 \quad \forall j \in [r]\\
+				&x_{ij} \in \set{0,1}
+		\end{align*}
+		This represents the primal LP relaxation for the matching market, where the constrain matrix $A$ is totally unimodular so the solution is integral. There are also a polynomial amount of variables and constrains since $r \leq n$, so applying the ellipsoid method, we are able to find the optimal allocation in polynomial time. Note that we can also represent this by a maximum weight matching in a bipartite graph, which is solvable in polytime using the Hungarian algorithm. 
+		\item[4.]
+		Before solving this, we introduce some notation. There are $n$ jobs and $k$ machines. Each job $j$ has a load $s_j$ associated to it. For each job $j \in [n]$ we define 
+		\[
+			m_j \in [k]
+		\]
+		To be the machine to which job $j$ is assigned.\\ 
+		For each machine $m \in [k]$, we define 
+		\[
+			\bold{M}_m= \set{j \in [n] \colon j \text{ is assigned to }m}
+		\]
+		to be the set of jobs assigned to machine $m$.
+		and 
+		\[
+			L(m) = \sum_{j \in \bold{M}_m} s_j 
+		\]
+		to be the total load on machine $m$. The objective of each job $j$ is to mimize 
+		\[
+			 \sum_{j^\prime \in \bold{M}_m_j} s_j
+		\]
+		We have an initial allocation $\mathcal{P} = \set{\bold{M}_{m_1}, \bold{M}_{m_2}, \ldots, \bold{M}_{m_n}}$. \\
+		Applying best response dynamics, each distinct job $j$ makes a best response move. That means each job chooses a machine that has minimal load. So
+		
+		
+			\end{itemize}
+\end{itemize}
+\end{document}
