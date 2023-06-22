@@ -1,0 +1,33 @@
+\documentclass[12pt]{article}
+
+
+
+\usepackage{amsmath}
+
+\usepackage{amsthm}
+\usepackage{amssymb}
+\theoremstyle{definition}% default
+\newtheorem{definition}{Definition}[section]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{proposition}{Proposition}[section]
+\begin{document}
+\section{Basic measure}
+\begin{definition}[Interval]
+	$I \subseteq \mathbb{R}$ is called an \textbf{interval} subset of the reals, it is defined as $I = [a,b]:= \{x \in \mathbb{R} \colon a \leq x \leq y\}$ 
+\end{definition}
+\begin{definition}[length]
+	The \textbf{length} of an interval is denoted as $|I| = b-a$.
+\end{definition}
+\begin{definition}[boxes]
+	A box is defined as $B \subseteq \mathbb{R}^n$ where $B = I_1 \times I_2 \times \ldots \times I_n$ is a cartesian product of intervals, the \textbf{volume} of a box is defined as $|B| = |I_1| \times |I_2| \times \ldots \times |I_n|$.
+\end{definition}
+\begin{definition}[elementary set]
+	any finite union of boxes in $\mathbb{R}^n$.
+\end{definition}
+We now show some properties of elementary sets.
+\begin{proposition}[set union and intersection]
+	The union and intersection of two elementary sets $E, F \subset \mathbb{R}$ is also elementary. 
+\end{proposition}
+\end{document}
+
+
