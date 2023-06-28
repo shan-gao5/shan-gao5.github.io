@@ -1,0 +1,49 @@
+\documentclass[12pt]{article}
+
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{newtxmath,newtxtext}
+\theoremstyle{definition}%
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}[theorem]{Example}
+
+\begin{document}
+
+\section{events}
+\begin{definition}[sample space]
+	The set of all possible outcomes of an experiment is called the $\textbf{sample space}$ and is denoted by $\Omega$
+
+\end{definition}
+
+
+\begin{example}
+	Head or Tails has sample space $\Omega = \{H, T\}$,
+
+	
+\end{example}
+
+\begin{definition}[Field]
+	A field $\mathcal{F}$ is a subcollection of the collection of all subsets of $\Omega$. 
+	\begin{align*}
+		\mathcal{F} \subseteq \{A \colon A \subseteq \Omega\}
+	\end{align*}
+	This subcollection needs to satisfy:
+	\begin{enumerate}
+		\item 	if $A, B \in \mathcal{F}$, then $A \cup B \in \mathcal{F}$ and $A \cap B \in \mathcal{F}$
+
+		\item if $A \in \mathcal{F}$ then $A^c \in \mathcal{F}$
+		\item the empty set $\emptyset$ belongs to $\mathcal{F}$
+	\end{enumerate}
+	It follows from the properties of a field $\mathcal{F}$ that
+	\begin{align*}
+		\text{ if } A_1,A_2,\ldots, A_n \in \mathcal{F} \text{ then } \bigcup_{i = 1}^{n}A_i \in \mathcal{F}
+	\end{align*}
+\end{definition}
+We note that $\omega$ is notation used for a member of $\Omega$
+\end{document}
+
+
