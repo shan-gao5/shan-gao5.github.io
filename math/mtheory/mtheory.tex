@@ -1,0 +1,37 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{definition}{Definition}[section]
+
+
+\begin{document}
+\section{measure theory prerequisites}
+
+\begin{definition}
+	Let $S$ be a set, an \textbf{algebra} on a set of subsets of $S$: $\Sigma_0$ is called an algebra on $S$ (or an algebra on $2^S$) if 
+	\begin{enumerate}
+		\item $S \in \Sigma_0$ 
+	\item $F \in \Sigma_0 \implies F^c := S\setminus F \in \Sigma_0$ 
+	\item $F, G \in \Sigma_0 \implies F \cup G \in \Sigma_0$ 
+		
+	\end{enumerate}
+	From these rules, obvious other rules follows such as, $\emptyset \in \Sigma_0$ obviously since $\emptyset = S^c \in \Sigma_0$. Also letting $F, G \in \Sigma_0$, then $(F^c \cup G^c)^c = F\cap G \in \Sigma_0$ 
+	Thus, an algebra on S is a family of subsets of $S$ that are stable under finitely many set operations.
+\end{definition}
+This definition is algebraic in the sense that $\cap$ is the product operation and symmetric difference being 
+\begin{align*}
+	A \Delta B := (A \cup B)\setminus(A \cap B)
+\end{align*}
+We can extend this definition to form a $\sigma$-algebra on $S$ which takes the rules and extends them towards their countable definition. That means, if $\Sigma$ is an algebra on $S$, such that whenever $F_n \in \Sigma$ ($n \in \mathbb{N}$) then 
+\begin{align*}
+	\bigcup_{n} F_n \in \Sigma
+\end{align*}
+Obviously set intersection follows
+\begin{align*}
+	\bigcap_n F_n = \left( \bigcup_n F_n^c \right)^c \in \Sigma
+\end{align*}
+
+\end{document}
