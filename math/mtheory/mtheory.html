@@ -173,7 +173,7 @@
 <body>
 <h1 id="measure-theory-prerequisites">measure theory prerequisites</h1>
 <div class="definition">
-<p><strong>Definition 1</strong>. <em>Let <span
+<p><strong>Definition 1</strong> (algebra). <em>Let <span
 class="math inline">\(S\)</span> be a set, an <strong>algebra</strong>
 on a set of subsets of <span class="math inline">\(S\)</span>: <span
 class="math inline">\(\Sigma_0\)</span> is called an algebra on <span
@@ -434,6 +434,72 @@ class="math inline">\(F\)</span>, so <span class="math display">\[F:=
 <span class="math inline">\(\mu(F) = 0\)</span><br />
 Now we aim to introduce <span
 class="math inline">\(\pi\)</span>-systems</p>
+<div class="proposition">
+<p><strong>Proposition 2</strong> (some basic properties of measures).
+<em>We aim to introduce some basic results</em></p>
+<ol>
+<li><p><em><strong>monotonicity</strong> if <span
+class="math inline">\(A,B \in \Sigma\)</span>, and <span
+class="math inline">\(A \subseteq B\)</span>, then <span
+class="math inline">\(\mu(A) \leq \mu(B)\)</span></em></p></li>
+<li><p><em><strong>subadditive</strong> Letting <span
+class="math inline">\((A_n) \subseteq \Sigma\)</span>,
+then</em></p></li>
+<li><p><em><span class="math display">\[\mu \left(\bigcup_i^\infty
+A_i\right) \leq \sum_i^\infty \mu(A_i)\]</span> Note that subadditivity
+is applicable to the finite case as well.</em></p></li>
+</ol>
+</div>
+<div class="proposition">
+<p><strong>Proposition 3</strong> (Continuity 1). <em>Letting <span
+class="math inline">\(A_n \in \Sigma\)</span> for all <span
+class="math inline">\(n\)</span>. If <span class="math inline">\(A_n
+\uparrow A\)</span>, then <span class="math display">\[\begin{aligned}
+    \mu\left(\bigcup_n^\infty A_n\right) = \lim_{n \to \infty} \mu(A_n)
+\end{aligned}\]</span></em></p>
+<div class="proof">
+<p><em><em>Proof.</em> Letting <span class="math inline">\(B_1 =
+A_1\)</span>, and setting <span class="math inline">\(B_n =
+A_{n+1}\setminus A_n\)</span>, notice that all the <span
+class="math inline">\(B_i\)</span>’s are disjoint (draw a picture,
+knowing that <span class="math inline">\(A_n \subseteq A_{n+1}\)</span>
+for all <span class="math inline">\(n\)</span>). We know that, by
+construction, <span class="math display">\[\bigcup_n^\infty B_n =
+\bigcup_n^\infty A_n\]</span> Then by countable additivity, we have
+<span class="math display">\[\begin{aligned}
+            \mu(\bigcup_i B_i) = \sum_i \mu(B_i) &amp;= \lim_{n \to
+\infty} \sum_i^n \mu(B_i)\\
+            &amp;= \lim_{n \to \infty} \mu\left(\bigcup_i^n B_i\right)\\
+            &amp;= \lim_{n \to \infty} \mu(A_i)
+        
+\end{aligned}\]</span> ◻</em></p>
+</div>
+</div>
+<div class="proposition">
+<p><strong>Proposition 4</strong> (continuity 2). <em>If <span
+class="math inline">\(A_n \downarrow A\)</span>, then <span
+class="math display">\[\lim_{n \to \infty} \mu(A_n) = \mu\left(\bigcap_n
+A_n\right)\]</span></em></p>
+</div>
+<div class="theorem">
+<p><strong>Theorem 2</strong>. <em>Given a set <span
+class="math inline">\(S\)</span> and an algebra <span
+class="math inline">\(\Sigma_0\)</span>, assume that <span
+class="math inline">\(\mu\)</span> is a non-negative set function: <span
+class="math display">\[\mu \colon \Sigma_0 \to [0,\infty[\]</span> (that
+means finitely additive), then<br />
+<span class="math inline">\(\mu\)</span> is <strong>countably
+additive</strong> <span class="math inline">\(\iff (A_n) \subseteq
+\Sigma_0\)</span> and <span class="math inline">\(A_n \downarrow
+\emptyset\)</span> then <span class="math inline">\(\lim_{n \to \infty}
+\mu(A_n) =0\)</span>. Remember that since <span
+class="math inline">\(\mu\)</span> is a additive set function, then
+<span class="math inline">\(\mu(\emptyset) = 0\)</span>. THIS IS THE
+SEQUENTIAL REPRESENTATION OF CONTINUITY at a point in the domain <span
+class="math inline">\(\Sigma_0\)</span>.</em></p>
+</div>
+<p>This is straightforward to prove by unraveling the definition of each
+statement.</p>
 <div id="def:pi-system" class="definition">
 <p><strong>Definition 9</strong> (<span
 class="math inline">\(\pi\)</span>-systems). <em>Let <span
@@ -469,7 +535,7 @@ class="math inline">\(\sigma\)</span>-algebra generated from the <span
 class="math inline">\(\pi\)</span>-system.</em></p>
 </div>
 <div class="theorem">
-<p><strong>Theorem 2</strong> (Carathéodory’s Extension Theorem).
+<p><strong>Theorem 3</strong> (Carathéodory’s Extension Theorem).
 <em>Let S be a set, let <span class="math inline">\(\Sigma_0\)</span> be
 an algebra on <span class="math inline">\(S\)</span>, and let <span
 class="math display">\[\Sigma := \sigma(\Sigma_0)\]</span> Then if <span
@@ -510,7 +576,7 @@ modification setting the set <span class="math inline">\(\{0\}\)</span>
 to have lebesgue measure 0.</em></p>
 </div>
 <div class="lemma">
-<p><strong>Lemma 3</strong> (Elementary inequalities). <em>LEt <span
+<p><strong>Lemma 4</strong> (Elementary inequalities). <em>Let <span
 class="math inline">\((S,\Sigma,\mu)\)</span> be a measured space.
 Then</em></p>
 <ol>

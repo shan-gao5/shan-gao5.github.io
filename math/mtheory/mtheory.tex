@@ -6,16 +6,18 @@
 \usepackage{thmtools}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{definition}{Definition}[section]
-\newtheorem{corollary}{Corollary}[theorem]
 \newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}{Corollary}[section]
 \newtheorem{proposition}{Proposition}[theorem]
-\newtheorem{example}{Example}[definition]
+\newtheorem{exercise}{Exercise}[section]
+\newtheorem{example}{Example}[section]
+
 
 \begin{document}
 \listoftheorems
 \section{measure theory prerequisites}
 
-\begin{definition}
+\begin{definition}[algebra]
 	Let $S$ be a set, an \textbf{algebra} on a set of subsets of $S$: $\Sigma_0$ is called an algebra on $S$ (or an algebra on $2^S$) if 
 	\begin{enumerate}
 		\item $S \in \Sigma_0$ 
@@ -155,6 +157,54 @@ $$
 $$
 almost everwhere if $\mu(F) = 0$\\
 Now we aim to introduce $\pi$-systems
+\begin{proposition}[some basic properties of measures]
+	We aim to introduce some basic results
+	\begin{enumerate}
+		\item \textbf{monotonicity} if $A,B \in \Sigma$, and $A \subseteq B$, then $\mu(A) \leq \mu(B)$
+		\item \textbf{subadditive} Letting $(A_n) \subseteq \Sigma$, then  
+		\item 
+		$$
+			\mu \left(\bigcup_i^\infty A_i\right) \leq \sum_i^\infty \mu(A_i)
+		$$ Note that subadditivity is applicable to the finite case as well.
+		
+	\end{enumerate}
+	
+	
+\end{proposition}
+
+\begin{proposition}[Continuity 1]
+Letting $A_n \in \Sigma$ for all $n$. If $A_n \uparrow A$, then 
+\begin{align*}
+	\mu\left(\bigcup_n^\infty A_n\right) = \lim_{n \to \infty} \mu(A_n)
+\end{align*}
+	\begin{proof}
+		Letting $B_1 = A_1$, and setting $B_n = A_{n+1}\setminus A_n$, notice that all the $B_i$'s are disjoint (draw a picture, knowing that $A_n \subseteq A_{n+1}$ for all $n$). We know that, by construction, 
+		\[
+			\bigcup_n^\infty B_n = \bigcup_n^\infty A_n
+		\]
+		Then by countable additivity, we have 
+		\begin{align*}
+			\mu(\bigcup_i B_i) = \sum_i \mu(B_i) &= \lim_{n \to \infty} \sum_i^n \mu(B_i)\\
+			&= \lim_{n \to \infty} \mu\left(\bigcup_i^n B_i\right)\\
+			&= \lim_{n \to \infty} \mu(A_i) 
+		\end{align*}
+	\end{proof}
+\end{proposition}
+\begin{proposition}[continuity 2]
+If $A_n \downarrow A$, then 
+\[
+	\lim_{n \to \infty} \mu(A_n) = \mu\left(\bigcap_n A_n\right)
+\]
+\end{proposition}
+
+\begin{theorem}
+Given a set $S$ and an algebra $\Sigma_0$, assume that $\mu$ is a non-negative set function:
+$$\mu \colon \Sigma_0 \to [0,\infty[$$
+(that means finitely additive), then \\
+$\mu$ is \textbf{countably additive} $\iff (A_n) \subseteq \Sigma_0 $ and $A_n \downarrow \emptyset$ then $\lim_{n \to \infty} \mu(A_n) =0$. Remember that since $\mu$ is a additive set function, then $\mu(\emptyset) = 0$. THIS IS THE SEQUENTIAL REPRESENTATION OF CONTINUITY at a point in the domain $\Sigma_0$. 
+\end{theorem}
+This is straightforward to prove by unraveling the definition of each statement.
+
 \begin{definition}[$\pi$-systems] \label{def:pi-system}
 	Let $S$ be a set, a $\pi$-system on $S$ is a family of subsets $\mathcal{I}$ on $S$ that is stable under finite intersection, that means letting $I_1, I_2 \in I$, then 
 	$$
@@ -194,7 +244,7 @@ By corollary 1.6.1 that means if $\mu_0$ is finite, then the induced measure is 
 	Then $\mu_0$ is well defined and additive on $\Sigma_0$. Moreover $\mu_0$ is countably additive on $\Sigma_0$. Hence by the previous theorem, there exists a unique measure $\mu$ on $(0,1]$ extending $\mu_0$ on $\Sigma_0$. The lesbesgue measure on $[0,1]$ is obtained by a trivial modification setting the set $\{0\}$ to have lebesgue measure 0.
 \end{definition}
 \begin{lemma}[Elementary inequalities]
-	LEt $(S,\Sigma,\mu)$ be a measured space. Then 
+	Let $(S,\Sigma,\mu)$ be a measured space. Then 
 	\begin{enumerate}
 		\item $\mu(A\cup B) \leq \mu(A) + \mu(B) (A,B \in \Sigma)$
 		\item $\mu\left(\bigcup_{i \leq n} F_i\right) \leq \sum_{i \leq n} \mu(F_i)$
