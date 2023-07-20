@@ -1,0 +1,111 @@
+\documentclass[12pt]{article}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mdframed}
+\title{prob exercises (stolen)}
+\author{Shan Gao}
+
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+	\item Assume that $S$ is a set and $\{E_n \colon n \geq 1\}$ is a sequence of subsets of $S$. Set $\Sigma:= \sigma(\{E_n \colon n \geq 1\})$. Prove that if $A \in \Sigma$ and $A \subseteq \bigcap_{n \geq 1} E_n$, then $A = \emptyset$ or $A = \bigcap_{n \geq 1} E_n$. 
+		\begin{proof}[Solution]
+			Using the hint, we consider
+			$$
+			\Pi := \left\{E \in \Sigma \colon \text{ either } E \supset \bigcap_{n \geq 1} E_n \text{ or } E^c \supset \bigcap_{n \geq 1} E_n \right\}
+			$$
+			And try to show that $\Pi = \Sigma$, which recovers the solution to our problem(draw a picture). To do this, we need to show that $\Pi$ is a $\sigma$-algebra that contains $E_n$. Trivially, it does contain $\{E_n\}_{n \geq 1}$, so we only need to show that it is a sigma algebra. We need to verify that conditions that make it a sigma algebra.  
+			\begin{enumerate}
+				\item $S \in \Pi$ and $\emptyset = S\setminus S \in \Pi$ 
+				\item Take an arbitrary sequence $\{B_n\colon n \geq 1\} \subseteq \Pi$. Say that for some $n \geq 1$, $B_n \supset \bigcap_{k \geq 1} E_k$, then $\bigcup_{n \geq 1}B_n \supset \bigcap_{k \geq 1} E_k$, so in that case we get closure under countable union. The other case is that for all $n$, $B_n^c \supset \bigcap_{k \geq 1} E_k$, then $\left(\bigcup_{n \geq 1} B_n \right) \supset \bigcap_{k \geq 1} E_k$, which recovers closure under coutable union for \textbf{all} cases.  
+			\end{enumerate}
+And we are done
+
+
+
+		\end{proof}
+	\item $S$ is a set, and $\mathcal{C}$ is a collection of subsets of $S$. Consider a set $A$, not necessarily an element of $\mathcal{C}$.
+		\begin{itemize}
+			\item[i)] Show that $\sigma(\mathcal{C})_{\cap A}$ is a $\sigma$-algebra in $A$. 
+				\begin{proof}[solution]
+					We verify each condition for a $\sigma$-algebra
+					\begin{enumerate}
+						\item Obviously $A \in \sigma(\mathcal{C})_{\cap A}$, since $S \in \sigma(\mathcal{C})$ and $A \cap S = A$. 
+						\item $\emptyset \in \sigma(\mathcal{C})_{\cap A}$
+						\item Take an arbitrary sequence of sets $\{E_n \colon n \geq 1\} \subseteq \sigma(\mathcal{C})_{\cap A}$, each $E_n$ for all $n$, can be represented as an intersection of two sets $D_n \cap A$, where $D_n \in \sigma(\mathcal{C})$, that means 
+							\begin{align*}
+								\bigcup_{n \geq 1} E_n = \bigcup_{n \geq 1} D_n \cap A = \left(\bigcup_{n \geq 1} D_n\right) \cap A \in \sigma\left(\mathcal{C}\right)_{\cap A} 
+							\end{align*}
+					\end{enumerate}
+				
+				\end{proof}
+			\item[ii)] Show that $\sigma_A (\mathcal{C}_{\cap A}) = \sigma(\mathcal{C})_{\cap A}$
+				\begin{proof}[solution]
+					$\subseteq$ is obvious, but let's unwrap the definition
+					\begin{align}\label{eq:1}
+						\sigma_A(\mathcal{C})_{\cap A} = \sigma_A (\{ B \cap A \colon B \in \mathcal{C})
+					\end{align}
+					and 
+					\begin{align*}
+						\sigma(\mathcal{C})_{\cap A} = \{B \cap A \colon B \in \sigma(\mathcal{C})\}
+					\end{align*}
+					We already know that $\sigma(\mathcal{C})_{\cap A}$ is a sigma algebra containing the set that generated the $\sigma$-alg at \ref{eq:1}. \\
+					$\supset$, for the reverse direction, it is a bit less trivial. To do this we consider the hint given. Let 
+					\begin{align*}
+						\Sigma = \{B \in \sigma(\mathcal{C}) \colon B \cap A \in \sigma_A(\mathcal{C}_{\cap A})\}
+					\end{align*}
+					We want to show that $\Sigma = \sigma(\mathcal{C})$ and is a $\sigma$-algebra. The proof is the same as exercise i).
+				\end{proof}
+		\end{itemize}
+	\item Prove that $\mathcal{B} ( \mathbb{R} ) = \sigma (\{ (-\infty, x] \colon x \in \mathbb{Q}\}) $ 
+		\begin{proof}[solution]
+			Since a countable union is countable, to show the $\supset$ direction, we only need to show that any interval $(-\infty, x]$, with $x \in \mathbb{Q}$, can be expressed a countable union of elements in $\mathcal{B} (\mathbb{R})$, Indeed, that is the case with 
+			\begin{align*}
+				(-\infty, x] = \bigcap_{n \geq 1} \left(-\infty, x + \frac{1}{n}\right) 
+			\end{align*}
+			Taking the countable union of the above with the complement of each open interval recovers what we wanted. For the reverse inclusion, we can recall from analysis 2 that each open set is a countable union of open intervals, so we only need to show that each $(a,b)$ with $a < b$ and $a , b \in \mathbb{R}$ can be written as a countable union of sets in $\{(-\infty, x] \colon x \in \mathbb{Q}\}$. But first consider than for any $u \in \mathbb{R}$ with $u > a$, $(a,u]$ can be written as $(-\infty, u] \setminus (-\infty, a]$, then
+			\begin{align*}
+				(a,b) = \bigcup_{n \geq 1} \left ( a, b - \frac{\varepsilon}{n} \right]
+			\end{align*}
+			letting $\varepsilon = \frac{b-a}{2}$. We can do something quite interesting
+				\end{proof}
+			\item Show that $\Sigma = \sigma(\{\{x\} \colon x \in \mathbb{R}\}) \subsetneq  \mathcal{B}(\mathbb{R})$
+				\begin{proof}[solution]
+					Consider the set
+					
+								\begin{align*}
+					\mathcal{G} = \{ E \in \mathbb{R} \colon E \text{ is countable or } E^c \text{ is countable } \} \cup \{\emptyset, \mathbb{R}\}
+				\end{align*}
+				We want to show that $\mathcal{G} = \Sigma$. We need to show that $\mathcal{G}$ is a $\sigma$-algebra first. The only non trivial condition is closure under countable union. Consider a sequence $\{E_n \colon n \geq 1\} \in \mathcal{G}$, if $A_n$ is countably for all $n$, then we get closure for free. If $A_n^c$ is countable for some $n_0$ , then
+				\begin{align*}
+					\left(\bigcup_{n \geq 1} A_n \right)^c = \bigcap_{n \geq 1} A_n^c \in \mathcal{G} 
+				\end{align*}
+				That means, by definition of $\mathcal{G}$, $\bigcup_{n \geq 1} A_n \in \mathcal{G}$, thus it is a sigma algebra. It's obvious that $\Sigma \subseteq \mathcal{G}$, and we've shown the other direction thus $\Sigma = \mathcal{G}$. But then there's a contradiction since we can take any open interval like $(0,1)$, which is in $\mathcal{B}(\mathbb{R})$, but not in $\Sigma$. 
+				\end{proof}
+			\item 
+				Consider the following set 
+				\begin{align*}
+					\Sigma_0 = \left\{\bigcup_{i=1}^k (a_i, b_i] \colon k \in \mathbb{N} \text{ and } a_1 < b_1 < a_2 < b_2 < \ldots < a_k < b_k \right\}
+				\end{align*}
+				This is an algebra (not a $\sigma$-algebra). Consider the following set function $\mu \colon \Sigma_0 \to [0,\infty]$
+				\begin{align*}
+					\text{for all $A \in \Sigma_0$ } \quad \mu(A) = \begin{cases}
+						1 & \text{ if $A \supseteq (\frac{1}{2}, \frac{1}{2} + \varepsilon] $ for some $\varepsilon > 0$} \\
+						0 & \text{otherwise}
+					\end{cases}
+				\end{align*}
+				Show that $\mu$ is finitely additive but not countably additive.
+				\begin{proof}[solution]
+					Denote $F_n = \bigcup_{i = 1}^{k_n} (a_i^n, b_i^n]$ to be a finite sequence such that $F_i \cap F_j = \emptyset$ if $i \neq j$. Considering the set $\mathcal{F} = \{F_n \colon 1 \leq n \leq N\}$ for some $n \in \mathbb{N}$. We break it down into cases. \\
+					Case 1: $\mu(F_n) = 0$ for all $n \leq N$, that means for all $n$ less than $N$, $F_n \cap (\frac{1}{2}, \frac{1}{2} + \varepsilon_n] = \emptyset$, but that means, if we take the smallest epsilon, call it $\varepsilon_0 = \min_{n \leq N} \varepsilon_n$, then $\bigcup_{n}^N F_n \cap \varepsilon_0 = \emptyset$. \\
+					Case 2: There exists some $k \in \mathbb{N}$ such that $\mu(F_k) = 1$, taking the union we just get a bigger set. 
+					To show that it's not countably additive, we just need to show that it's not countinuous at $\emptyset$, let $A_n = (\frac{1}{2}, \frac{1}{2} + \frac{1}{n})$, clearly $A_n \downarrow \emptyset$, but $\mu(A_n) \to 1$. 
+			\end{proof}	
+		
+\end{enumerate}
+
+
+\end{document}
