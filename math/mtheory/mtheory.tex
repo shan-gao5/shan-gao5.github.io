@@ -4,6 +4,8 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{thmtools}
+\theoremstyle{definition}
+
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{definition}{Definition}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -252,7 +254,54 @@ By corollary 1.6.1 that means if $\mu_0$ is finite, then the induced measure is 
 			$$
 				\mu(A \cup B) = \mu(A) + \mu(B) - \mu(A \cap B) \quad (A,B \in \Sigma)
 			$$
+		
 	\end{enumerate}
+	\end{lemma}
+\begin{definition}[set theoretical $\lim \inf$ and $\lim \sup$]
+Let $\{A_n \colon n \geq 1\} \subseteq \mathcal{F}$ where $F \subseteq 2^\Omega$, then 
+\begin{align}
+	\limsup_{n \to \infty} A_n := \bigcap_{n = 1}^\infty \bigcup_{m=n}^\infty A_m = \lim_{n \to \infty} \bigcup_{m=n}^\infty A_m \\
+	\liminf_{n \to \infty} A_n := \bigcup_{n = 1}^\infty \bigcap_{m=n} A_m = \lim_{n \to \infty} \bigcap_{m=n}^\infty A_m
+\end{align}
 
-\end{lemma}
+	
+\end{definition}
+
+
+\begin{proposition}[some conclusion on $\liminf$ and $\limsup$]
+We aim to introduce to elementary properties. 
+\begin{enumerate}
+	\item if $w \in \limsup_{n} A_n$ then $\forall n \geq 1$ there exists an index $m_n$ such that $w \in A_{m_n} \iff \exists \text{a subsequence } \{m_n \colon n \geq 1\}$ such that $m_n \to \infty$ as $n \to \infty$ and $w \in A_{m_n}$ for all $n \geq 1 \iff$ $w$ is in infinitely many $A_n$'s. 
+	\item if $w \in \liminf_{n} A_n$, then there exists an $n \geq 1$ such that $w \in A_m$ for all $m \geq n$
+	\item Obviously, $\liminf \subseteq \limsup$. HOWEVER, if they are equal, then the set theoretic limit exists and we call it $\lim_n A_n$, and it's defined to be equal to the $\liminf$ and the $\limsup$. If $A_n$ is monotonic, then for sure it exists.
+\end{enumerate}
+
+
+	
+\end{proposition}
+\begin{proposition}[DE MORGAN'S LAW FOR SET THEORETIC LIMITS]
+	$$\limsup_n A_n^c = (\liminf_n A_n)^c$$
+	and
+	$$\liminf_n A_n^c = (\limsup_n A_n)^c$$
+	and
+	$$(\limsup_n A_n) \setminus (\liminf_n A_n) = \limsup_n (A_n \setminus A_{n+1})$$
+	\\
+	
+\end{proposition}
+\begin{proposition}[some more conclusion about set theoretic limits]
+	\begin{enumerate}asd
+		\item $$(\limsup_n A_n) \cap (\limsup_n B_n) \supset \limsup_n (A_n \cap B_n)$$
+		Note that the opposite inclusion is generally not TRUE
+		\item $$(\limsup_n A_n) \cup (\limsup_n B_n) = \limsup_n (A_n \cup B_n)$$
+		\item $$(\liminf_n A_n) \cap (\liminf_n B_n) = \liminf_n (A_n \cap B_n)$$
+		\item $$(\liminf_n A_n) \cup (\liminf_n B_n) \subseteq (\liminf_n (A_n \cup B_n))$$
+		
+	\end{enumerate}
+\end{proposition}
+\begin{theorem}[Borel-Cantelli 1]
+	If $$\sum_{n}^\infty \mathbb{P}(A_n) < \infty$$ then, $$\mathbb{P}(\limsup_n A_n) = 0$$
+\end{theorem}
+
+
+
 \end{document}
