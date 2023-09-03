@@ -1,7 +1,77 @@
 \documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\declaretheorem[numberwithin=section]
+{theorem, definition}
+\declaretheorem{lemma, proposition, corollary, examples}[
+style=plain,
+numberwithin=theorem
+]
 
-
+\author{Shan Gao}
+\title{Geo topo 1 notes}
+\date{fall 2023}
 \begin{document}
-this is a test
+\section{Lecture 1}
+\begin{definition}[Topological space]\label{def:ts}
+    A topological space is a set $X$ along with a collection of subsets which are called open set
+    \begin{enumerate}
+        \item $\emptyset$, $X$ are open 
+        \item let 
+            $$
+            \{U_\alpha\}_{\alpha \in I}
+            $$ be any collection of open sets, where $I$ is an arbitrary index set (not necessarily countable), then
+            $$
+            \bigcup_{\alpha \in I} U_\alpha
+            $$ is open
+        \item if $U_1$, $U_2$ are open sets then $U_1 \cap U_2$ is open (open under finite intersections)
+    \end{enumerate}
+\end{definition}
+\begin{examples}
+    $\mathbb{R}^n$ with it's usual open sets : $U \subset \mathbb{R}^n$ is open if for any $x \in U$, there exists a $r > 0$ such that $B_r(x) \subseteq U$
+\end{examples}
+\begin{lemma}[topology on $\mathbb{R}^n$]\label{lem:rntopo}
+    We can see that this defines a topology on $\mathbb{R}^n$, we just need to check some of the conditions. The first and second conditions are trivial to verify. As for the third condition, letting $U_1$ and $U_2$ be any open set, we know that, for each $x \in U_1 \cap U_2$, there are suitable radii $r_1, r_2$ that we can use to fit an open ball in each one of the latter sets, we simply need to take $r = \min(r_1,r_2)$, and we are done.
+\end{lemma}
+\begin{definition}[metric space]
+    A metric space $(X,d)$ is a set endowed with a distance map $d \colon X \times X \to \mathbb{R}$, such that         \begin{itemize}
+        \item $d(x,y) > 0$ and $d(x,y) = 0 \implies x = y$
+        \item $d(x,y) = d(y,x) \forall x,y \in X$
+        \item $d(x,z) \leq d(x,y) + d(y,z) \forall x,y,z \in X$
+    \end{itemize} 
+\end{definition}
+\begin{lemma}[any metric space is a topology]
+    Any metric space is a topology using the following rule for open sets: Any set $U \in X$ is open if $\exists r > 0$ such that $B_r(x) = \{y \in X \colon d(y,x) < r\} \subseteq U$, by lemma \ref{lem:rntopo}
+\end{lemma}
+This does not mean that there is a bijection between metric spaces and topological spaces. \textbf{many metrics produce the same topology},for example, $\mathbb{R}^n$ with the $l_p$ metric generate the same topology for any $p$
+\begin{examples}
+    \begin{itemize}
+        \item $X = \{a,b\}$ the open sets are $\emptyset, X$ and any of the two elements, $\{a\}$. Easy to verify that this is a topology.
+        \item "Trivial topology", any set $X$ can be made a toplogy with the open sets being only $\emptyset$ and $X$ itself. This is the same topology generate by the metric $d(x,y) = 0 \forall x,y \in X$. 
+        \item  Every subset of $X$ is open, so open sets $ = 2^x$, this is the same as setting the distance between two elements to be $0$ if they are the same and $1$ if they are distinct, that way we can do something like $B_{\frac{1}{2}} = \{x\}$, so every subset can be open. 
+        \item let $X$ be any set, we can define the \textbf{cofinite topology} : $U \in X$ is open, if $U^c$ is finite, and $\emptyset$ is open. Easy to check that this is a topology.
+    \end{itemize}
+\end{examples}
+\begin{definition}[closed set definition for topology]
+    We can define a topology using closed sets, $F \subseteq X$ is called closed if $F^c = X\setminus F$ is open. These closed sets satisfy these conditions
+    \begin{itemize}
+        \item $\emptyset, X$ are closed
+        \item $\{F_\alpha\}_{\alpha \in I}$ are closed then $ \bigcup_{\alpha \in I} F_\alpha$ is closed.
+        \item if $F_1, F_2$ are closed, then $F_1 \cup F_2$ is closed. 
+    \end{itemize}
+
+\end{definition} 
+\begin{examples}
+    We supplement this with an example of a cofinite topology, letting $K$ be a field and $f \in K[z]$, we denote the vanishing set of $f$ as $V(f) = \{a \in K \colon f(a) = 0\}$, for example if $K = \mathbb{R}$ and $f = (x-1)(x-2)$, then $V(f) = \{1,2\}$. $\{ V(f) \colon f \in K[z]\}$ is the collection of all finite sets, if you set these sets as the closed sets, then you recover the cofinite topology.
+\end{examples}
+\begin{definition}[sequential limits]
+    $X$ is a topological space and $\{x_n\}_{n \geq 1}$ is a sequence in $X$ (basically a map from $\mathbb{N} \to X$. We say that $x \in X$ is a limit of the sequence if, for all open neighborhoods $U$ (a open subset $U$ such that $x \in U$) of $x$, $\exists N$ such that if $n \geq N$, then $x_n \in U$.  
+\end{definition}
+\begin{definition}[continuous]
+    $X,Y$ are two topological spaces, then $f$ is continuous if $\forall U \subseteq Y$ open, $f^{-1}(U) is open in X$ 
+\end{definition} 
+
 
 \end{document}
