@@ -151,8 +151,39 @@ And we are done
 						By translation invariance, we have any interval $(a,b]$ in the reals where $a<b$ has measure, $\mu(a,b]= \mu(0,b-a] = c(b-a)$. It's straightforward to see that $\mu = c\lambda$ on the algebra $\Sigma_0$ as defined in question \ref{q:5}, which is trivially a $\pi$ system, thus they agree on $\mathcal{B}(0,1]$
 					\end{proof}
 			\end{itemize}
+			\item find $\limsup$ and $\liminf$ of $A_n = [\frac{1}{n}, 1]$ if $n$ is odd, and $A_n = [-1,-\frac{1}{n}]$ if $n$ is even. 
+			\begin{proof}[Solution.]
+				Take any $a \in [-1,1]\setminus\{0\}$, then $a$ is in infinitely many $A_n$'s so we can conclude that $[-1,1]\setminus\{0\} \subseteq \limsup_{n \to \infty} A_n$. Meanwhile, $A_n \subseteq [-1,1]\setminus\{0\}$ for all $n$, so $\limsup_n A_n = [-1,1]\setminus\{0\}$. As for $\liminf$, since $A_n \cap A_{n+1} = \emptyset$, $\liminf_n A_n = \emptyset$. 
+			\end{proof}
 			
-		
+			
+			\item Letting $\mathbb{I}_A$ be the indicator function for if some element $s$ is in $A$ or not. Show that $\mathbb{I}_{\limsup_n A_n} (s) = \limsup_n (\mathbb{I}_{A_n}(s))$
+				\begin{proof}
+					\begin{align*}
+						\mathbb{I}_{\limsup_n A_n} (s)=1 &\iff s \in \limsup_n A_n(s)\\
+						&\iff \exists \{A_{n_k} \colon k \geq 1\} \subseteq \{A_n\}_{n \geq 1} \text{ s.t } s \in A_{n_k} \forall k\\
+						&\iff  \mathbb{I}_{A_{n_k}}(s) = 1 \text{ for all }k\\
+						&\iff \limsup_{n \to \infty}(\mathbb{I}_{A_n}(s)) =1
+					\end{align*}
+				\end{proof}
+		\item Given a probability space $(\Omega, \mathcal{F}, \mathbb{P})$. Let $\{A_n\}_{n \geq 1} \subseteq \mathcal{F}$ be a sequence of events. 
+			\begin{itemize}
+				\item[(i)] Prove that $\lim_{n \to \infty}\mathbb{P}\big(\liminf_{k \to \infty}(A_n\setminus A_k)\big) = 0$
+				\begin{proof}[Solution.]
+					First of all, for any $n \geq 1$, $\liminf_{k \to \infty} (A_n \setminus A_k)=\emptyset$ since eventually $k=n$. Thus the $\limsup_{n \to \infty}$ of the latter is obviously $\emptyset$. Otherwise, another proof would be to assume that there is an element $w \in \limsup_{n \to \infty} \liminf_{k \to \infty} (A_n \setminus A_k)$, then that means $w$ is in infinitely many $(\liminf_{k \to \infty}(A_n \setminus A_k))_n$. Suppose for the sake of contradiction that $w$ is in one of the latter for some index $n_l$, that means $w \in \liminf_{k \to \infty} (A_{n_l} \setminus A_k)$, that means there exists a $k$ such that for all $j > k$, $w \in A_{n_l}\setminus A_j$, but if $k=n_l$ that's impossible, which results in a contradiction. 
+				\end{proof}
+				\item[(ii)] Note that $A_n \setminus A^* = A_n \cap (\limsup_{k \to \infty} A_k)^c = A_n \cap \liminf_{k \to \infty} A_k^c = \liminf_{k \to \infty} (A_n \cap A_k^c)$, which by $(i)$, gives us the desired result. Next applying (i) to a sequence $\{A_n^c}\}_{n \geq 1}$, we have that 
+				\begin{align*}
+					0 = \lim_n \mathbb{P}(\liminf_k (A_n^c \setminus A_k^c))= \lim_n \mathbb{P}(A_* \setminus A_n)
+				\end{align*}
+				\item[(iii)] Recall that set theoretical symmetric difference is $A \Delta B = (B\setminus A) \cup (A \setminus B)$ 
+				. Prove that, assuming $A^* = A_* = A$, then show that $\lim_{n \to \infty}\mathbb{P}(A_n \Delta A)	 =0$.
+				\begin{proof}[Solution.]
+					First of all, there exists $\mathbb{P}(A_n \Delta A) = \mathbb{P}(A_n \setminus A) + \mathbb{P}(A \setminus A_n)  = \mathbb{P}(A_n \setminus A^*) + \mathbb{P}(A_*\setminus A_n) = 0$ by (ii)
+				\end{proof}
+				\item[(iv)] Now prove the same thing under a weaker condition 
+			\end{itemize}
+
 \end{enumerate}
 
 

@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <meta name="author" content="Shan Gao" />
+  <title>Geo topo 1 notes</title>
+  <style>
+    html {
+      color: #1a1a1a;
+      background-color: #fdfdfd;
+    }
+    body {
+      margin: 0 auto;
+      max-width: 36em;
+      padding-left: 50px;
+      padding-right: 50px;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      hyphens: auto;
+      overflow-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      font-kerning: normal;
+    }
+    @media (max-width: 600px) {
+      body {
+        font-size: 0.9em;
+        padding: 12px;
+      }
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+    @media print {
+      html {
+        background-color: white;
+      }
+      body {
+        background-color: transparent;
+        color: black;
+        font-size: 12pt;
+      }
+      p, h2, h3 {
+        orphans: 3;
+        widows: 3;
+      }
+      h2, h3, h4 {
+        page-break-after: avoid;
+      }
+    }
+    p {
+      margin: 1em 0;
+    }
+    a {
+      color: #1a1a1a;
+    }
+    a:visited {
+      color: #1a1a1a;
+    }
+    img {
+      max-width: 100%;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      margin-top: 1.4em;
+    }
+    h5, h6 {
+      font-size: 1em;
+      font-style: italic;
+    }
+    h6 {
+      font-weight: normal;
+    }
+    ol, ul {
+      padding-left: 1.7em;
+      margin-top: 1em;
+    }
+    li > ol, li > ul {
+      margin-top: 0;
+    }
+    blockquote {
+      margin: 1em 0 1em 1.7em;
+      padding-left: 1em;
+      border-left: 2px solid #e6e6e6;
+      color: #606060;
+    }
+    div.abstract {
+      margin: 2em 2em 2em 2em;
+      text-align: left;
+      font-size: 85%;
+    }
+    div.abstract-title {
+      font-weight: bold;
+      text-align: center;
+      padding: 0;
+      margin-bottom: 0.5em;
+    }
+    code {
+      font-family: Menlo, Monaco, Consolas, 'Lucida Console', monospace;
+      font-size: 85%;
+      margin: 0;
+      hyphens: manual;
+    }
+    pre {
+      margin: 1em 0;
+      overflow: auto;
+    }
+    pre code {
+      padding: 0;
+      overflow: visible;
+      overflow-wrap: normal;
+    }
+    .sourceCode {
+     background-color: transparent;
+     overflow: visible;
+    }
+    hr {
+      background-color: #1a1a1a;
+      border: none;
+      height: 1px;
+      margin: 1em 0;
+    }
+    table {
+      margin: 1em 0;
+      border-collapse: collapse;
+      width: 100%;
+      overflow-x: auto;
+      display: block;
+      font-variant-numeric: lining-nums tabular-nums;
+    }
+    table caption {
+      margin-bottom: 0.75em;
+    }
+    tbody {
+      margin-top: 0.5em;
+      border-top: 1px solid #1a1a1a;
+      border-bottom: 1px solid #1a1a1a;
+    }
+    th {
+      border-top: 1px solid #1a1a1a;
+      padding: 0.25em 0.5em 0.25em 0.5em;
+    }
+    td {
+      padding: 0.125em 0.5em 0.25em 0.5em;
+    }
+    header {
+      margin-bottom: 4em;
+      text-align: center;
+    }
+    #TOC li {
+      list-style: none;
+    }
+    #TOC ul {
+      padding-left: 1.3em;
+    }
+    #TOC > ul {
+      padding-left: 0;
+    }
+    #TOC a:not(:hover) {
+      text-decoration: none;
+    }
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    /* The extra [class] is a hack that increases specificity enough to
+       override a similar rule in reveal.js */
+    ul.task-list[class]{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      font-size: inherit;
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
+  </style>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js"
+  type="text/javascript"></script>
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header id="title-block-header">
+<h1 class="title">Geo topo 1 notes</h1>
+<p class="author">Shan Gao</p>
+<p class="date">fall 2023</p>
+<div class="abstract">
+<div class="abstract-title">Abstract</div>
+<p>Personal notes of MATH 576 taught by Professor Joel Kamnitzer during
+the fall semester of 2023</p>
+</div>
+</header>
+<h1 id="lecture-1">Lecture 1</h1>
+<div class="definition">
+<p><span id="def:ts" label="def:ts"></span> A topological space is a set
+<span class="math inline">\(X\)</span> along with a collection of
+subsets which are called open set</p>
+<ol>
+<li><p><span class="math inline">\(\emptyset\)</span>, <span
+class="math inline">\(X\)</span> are open</p></li>
+<li><p>let <span class="math display">\[\{U_\alpha\}_{\alpha \in
+I}\]</span> be any collection of open sets, where <span
+class="math inline">\(I\)</span> is an arbitrary index set (not
+necessarily countable), then <span
+class="math display">\[\bigcup_{\alpha \in I} U_\alpha\]</span> is
+open</p></li>
+<li><p>if <span class="math inline">\(U_1\)</span>, <span
+class="math inline">\(U_2\)</span> are open sets then <span
+class="math inline">\(U_1 \cap U_2\)</span> is open (open under finite
+intersections)</p></li>
+</ol>
+</div>
+<div class="examples">
+<p><span class="math inline">\(\mathbb{R}^n\)</span> with it’s usual
+open sets : <span class="math inline">\(U \subset \mathbb{R}^n\)</span>
+is open if for any <span class="math inline">\(x \in U\)</span>, there
+exists a <span class="math inline">\(r &gt; 0\)</span> such that <span
+class="math inline">\(B_r(x) \subseteq U\)</span></p>
+</div>
+<div class="lemma">
+<p><span id="lem:rntopo" label="lem:rntopo"></span> We can see that this
+defines a topology on <span class="math inline">\(\mathbb{R}^n\)</span>,
+we just need to check some of the conditions. The first and second
+conditions are trivial to verify. As for the third condition, letting
+<span class="math inline">\(U_1\)</span> and <span
+class="math inline">\(U_2\)</span> be any open set, we know that, for
+each <span class="math inline">\(x \in U_1 \cap U_2\)</span>, there are
+suitable radii <span class="math inline">\(r_1, r_2\)</span> that we can
+use to fit an open ball in each one of the latter sets, we simply need
+to take <span class="math inline">\(r = \min(r_1,r_2)\)</span>, and we
+are done.</p>
+</div>
+<div class="definition">
+<p>A metric space <span class="math inline">\((X,d)\)</span> is a set
+endowed with a distance map <span class="math inline">\(d \colon X
+\times X \to \mathbb{R}\)</span>, such that</p>
+<ul>
+<li><p><span class="math inline">\(d(x,y) &gt; 0\)</span> and <span
+class="math inline">\(d(x,y) = 0 \implies x = y\)</span></p></li>
+<li><p><span class="math inline">\(d(x,y) = d(y,x) \forall x,y \in
+X\)</span></p></li>
+<li><p><span class="math inline">\(d(x,z) \leq d(x,y) + d(y,z) \forall
+x,y,z \in X\)</span></p></li>
+</ul>
+</div>
+<div class="lemma">
+<p>Any metric space is a topology using the following rule for open
+sets: Any set <span class="math inline">\(U \in X\)</span> is open if
+<span class="math inline">\(\exists r &gt; 0\)</span> such that <span
+class="math inline">\(B_r(x) = \{y \in X \colon d(y,x) &lt; r\}
+\subseteq U\)</span>, by lemma <a href="#lem:rntopo"
+data-reference-type="ref"
+data-reference="lem:rntopo">[lem:rntopo]</a></p>
+</div>
+<p>This does not mean that there is a bijection between metric spaces
+and topological spaces. <strong>many metrics produce the same
+topology</strong>,for example, <span
+class="math inline">\(\mathbb{R}^n\)</span> with the <span
+class="math inline">\(l_p\)</span> metric generate the same topology for
+any <span class="math inline">\(p\)</span></p>
+<div class="examples">
+<ul>
+<li><p><span class="math inline">\(X = \{a,b\}\)</span> the open sets
+are <span class="math inline">\(\emptyset, X\)</span> and any of the two
+elements, <span class="math inline">\(\{a\}\)</span>. Easy to verify
+that this is a topology.</p></li>
+<li><p>"Trivial topology", any set <span
+class="math inline">\(X\)</span> can be made a toplogy with the open
+sets being only <span class="math inline">\(\emptyset\)</span> and <span
+class="math inline">\(X\)</span> itself. This is the same topology
+generate by the metric <span class="math inline">\(d(x,y) = 0 \forall
+x,y \in X\)</span>.</p></li>
+<li><p>Every subset of <span class="math inline">\(X\)</span> is open,
+so open sets <span class="math inline">\(= 2^x\)</span>, this is the
+same as setting the distance between two elements to be <span
+class="math inline">\(0\)</span> if they are the same and <span
+class="math inline">\(1\)</span> if they are distinct, that way we can
+do something like <span class="math inline">\(B_{\frac{1}{2}} =
+\{x\}\)</span>, so every subset can be open.</p></li>
+<li><p>let <span class="math inline">\(X\)</span> be any set, we can
+define the <strong>cofinite topology</strong> : <span
+class="math inline">\(U \in X\)</span> is open, if <span
+class="math inline">\(U^c\)</span> is finite, and <span
+class="math inline">\(\emptyset\)</span> is open. Easy to check that
+this is a topology.</p></li>
+</ul>
+</div>
+<div class="definition">
+<p>We can define a topology using closed sets, <span
+class="math inline">\(F \subseteq X\)</span> is called closed if <span
+class="math inline">\(F^c = X\setminus F\)</span> is open. These closed
+sets satisfy these conditions</p>
+<ul>
+<li><p><span class="math inline">\(\emptyset, X\)</span> are
+closed</p></li>
+<li><p><span class="math inline">\(\{F_\alpha\}_{\alpha \in I}\)</span>
+are closed then <span class="math inline">\(\bigcup_{\alpha \in I}
+F_\alpha\)</span> is closed.</p></li>
+<li><p>if <span class="math inline">\(F_1, F_2\)</span> are closed, then
+<span class="math inline">\(F_1 \cup F_2\)</span> is closed.</p></li>
+</ul>
+</div>
+<div class="examples">
+<p>We supplement this with an example of a cofinite topology, letting
+<span class="math inline">\(K\)</span> be a field and <span
+class="math inline">\(f \in K[z]\)</span>, we denote the vanishing set
+of <span class="math inline">\(f\)</span> as <span
+class="math inline">\(V(f) = \{a \in K \colon f(a) = 0\}\)</span>, for
+example if <span class="math inline">\(K = \mathbb{R}\)</span> and <span
+class="math inline">\(f = (x-1)(x-2)\)</span>, then <span
+class="math inline">\(V(f) = \{1,2\}\)</span>. <span
+class="math inline">\(\{ V(f) \colon f \in K[z]\}\)</span> is the
+collection of all finite sets, if you set these sets as the closed sets,
+then you recover the cofinite topology.</p>
+</div>
+<div class="definition">
+<p><span class="math inline">\(X\)</span> is a topological space and
+<span class="math inline">\(\{x_n\}_{n \geq 1}\)</span> is a sequence in
+<span class="math inline">\(X\)</span> (basically a map from <span
+class="math inline">\(\mathbb{N} \to X\)</span>. We say that <span
+class="math inline">\(x \in X\)</span> is a limit of the sequence if,
+for all open neighborhoods <span class="math inline">\(U\)</span> (a
+open subset <span class="math inline">\(U\)</span> such that <span
+class="math inline">\(x \in U\)</span>) of <span
+class="math inline">\(x\)</span>, <span class="math inline">\(\exists
+N\)</span> such that if <span class="math inline">\(n \geq N\)</span>,
+then <span class="math inline">\(x_n \in U\)</span>.</p>
+</div>
+<div class="definition">
+<p><span class="math inline">\(X,Y\)</span> are two topological spaces,
+then <span class="math inline">\(f\)</span> is continuous if <span
+class="math inline">\(\forall U \subseteq Y\)</span> open, <span
+class="math inline">\(f^{-1}(U)\)</span> is open in <span
+class="math inline">\(X\)</span></p>
+</div>
+<div class="lemma">
+<p><span id="lem:seqcont" label="lem:seqcont"></span> let <span
+class="math inline">\(f \colon X \to Y\)</span> be a continuous
+function, and <span class="math inline">\((x_n) \subseteq X\)</span> is
+a sequence in <span class="math inline">\(X\)</span>, if <span
+class="math inline">\(x_n \to x \in X\)</span>, then <span
+class="math inline">\(f(x_n) \to f(x)\)</span>.</p>
+</div>
+<div class="proof">
+<p><em>Proof.</em> We know that <span class="math inline">\(x_n \to
+x\)</span> in <span class="math inline">\(X\)</span>, we want to show
+that <span class="math inline">\(f(x_n) \to f(x)\)</span> if <span
+class="math inline">\(f\)</span> is continuous. Precisely, we want to
+show that any open neighborhood of <span
+class="math inline">\(f(x)\)</span> contains <strong>all but finitely
+many</strong> <span class="math inline">\(f(x_n)\)</span>s. Let <span
+class="math inline">\(U \subseteq Y\)</span> be open open neighborhood
+of <span class="math inline">\(f(x)\)</span>, since <span
+class="math inline">\(f(x) \in U\)</span>, then <span
+class="math inline">\(x \in f^{-1}(U)\)</span>. The latter set is open,
+by continuity of <span class="math inline">\(f\)</span>, thus there
+exists an <span class="math inline">\(N\)</span> such that <span
+class="math inline">\(\forall n \geq N\)</span>, <span
+class="math inline">\(x_n \in f^{-1}(U)\)</span>, therefore, <span
+class="math inline">\(f(x_n) \in f(f^{-1}(U)) \subseteq
+U\)</span>. ◻</p>
+</div>
+<p>There are some warnings that we need to consider:</p>
+<ul>
+<li><p>A sequence might have more than 1 limit. For example, with the
+trivial topology, any sequence converges to every other point, since
+every point has only one open neighborhood, which is the whole
+set.</p></li>
+<li><p>The converse of lemma <a href="#lem:seqcont"
+data-reference-type="ref" data-reference="lem:seqcont">[lem:seqcont]</a>
+might not be true.</p></li>
+</ul>
+<div class="definition">
+<p><span class="math inline">\(f\colon X \to Y\)</span> is called a
+homeomorphism if</p>
+<ul>
+<li><p><span class="math inline">\(f\)</span> is continuous</p></li>
+<li><p><span class="math inline">\(f\)</span> is a bijection</p></li>
+<li><p><span class="math inline">\(f^{-1} \colon Y \to X\)</span> is
+continuous</p></li>
+</ul>
+<p>In this case, we can write that <span class="math inline">\(X \cong
+Y\)</span>, such that <span class="math inline">\(f(f^{-1}(x)) =
+f^{-1}(f(x)) = id\)</span>. <strong>warning</strong> : First and second
+condition does not necessarily imply the third.</p>
+</div>
+<div class="examples">
+<p>Here is an example of a function from <span
+class="math inline">\([0,1)\)</span> to the half circle</p>
+<figure id="fig:ex1">
+<img src="ex1.png" style="width:5cm" />
+<figcaption>Bad figure of example</figcaption>
+</figure>
+<p>This is an example of the previous warning, we will come back to this
+later</p>
+</div>
+<p>But first</p>
+<div class="theorem">
+<p>Let <span class="math inline">\(X\)</span> be a topological space,
+and <span class="math inline">\(A \subseteq X\)</span>, then
+automatically we can define a topology on <span
+class="math inline">\(A\)</span> with <span
+class="math display">\[\text{open sets } = \{U \cap A \colon U \text{ is
+open in } X\}\]</span> Quickly checking that this is a topology on <span
+class="math inline">\(A\)</span>, the first condition is easily
+satisfied, the second condition is satisfied via De Morgan’s law (check
+this), and the third is also satisfied using commutativity of
+intersection (check this too).</p>
+</div>
+<p>Coming back to the example, <span class="math inline">\(X = [0,1)
+\subseteq \mathbb{R}\)</span> is a topology on <span
+class="math inline">\([0,1)\)</span>. What are the open sets</p>
+<ul>
+<li><p>any <span class="math inline">\((a,b)\)</span> with <span
+class="math inline">\(0 \leq a \leq b \leq 1\)</span> is open,
+obviously.</p></li>
+<li><p>any <span class="math inline">\([0,b)\)</span> with <span
+class="math inline">\(b \leq 1\)</span> is open, since, for example,
+<span class="math inline">\((-1, b) \cap [0,1)\)</span> is open in <span
+class="math inline">\([0,1)\)</span>.</p></li>
+</ul>
+<p>Finally, we come back to the example</p>
+<div class="lemma">
+<p>We are in fact talking about the function <span
+class="math inline">\(f\)</span> from the previous example, <span
+class="math inline">\(f\)</span> is continuous, easily checkable and it
+is indeed a bijection. However it doesn’t necessarily provide a function
+inverse. Indeed, we want to show that <span
+class="math inline">\(f^{-1}\)</span> from the circle in <span
+class="math inline">\(\mathbb{R}^2\)</span> to <span
+class="math inline">\([0,1)\)</span> is not continuous. We can do this
+with a simple example, intuitively</p>
+<figure id="fig:ex2">
+<img src="ex2.png" style="width:7cm" />
+<figcaption>Alternating function on each side of 0 on the
+circle</figcaption>
+</figure>
+<p>We can have an alternating sequence that come closer and closer to
+the <span class="math inline">\(0\)</span> point of the circle, however
+when you unwrap the circle, those points obviously do not converge on a
+straight line.<br />
+More formally, we can show that there exists an open set on the line
+that is not open on the circle, consider <span
+class="math inline">\((0,\frac{1}{2}]\)</span>, this is open on <span
+class="math inline">\(X = (0,1]\)</span>, however in <span
+class="math inline">\(\mathbb{R}^2\)</span> open sets are intersections
+of (literally) open balls with the circle. The preimage of <span
+class="math inline">\((0,\frac{1}{2}]\)</span> on the circle is</p>
+<figure id="fig:ex3">
+<img src="ex3.png" style="width:7cm" />
+<figcaption>preimage</figcaption>
+</figure>
+</div>
+<p>As you can see, we cannot fit an open ball around the point <span
+class="math inline">\(0\)</span> on the circle, therefore it cannot be
+open.</p>
+</body>
+</html>

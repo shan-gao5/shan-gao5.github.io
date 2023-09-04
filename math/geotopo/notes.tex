@@ -3,6 +3,8 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{thmtools}
+\usepackage{graphicx}
+\usepackage[]{float}
 \declaretheorem[numberwithin=section]
 {theorem, definition}
 \declaretheorem{lemma, proposition, corollary, examples}[
@@ -99,6 +101,47 @@ There are some warnings that we need to consider:
 	\textbf{warning} : First and second condition does not necessarily imply the third.
 \end{definition}
 \begin{examples}[Stuff with Zhao's cool example]
-asd		
+	Here is an example of a function from $[0,1)$ to the half circle
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=5cm]{ex1.png}
+		\caption{Bad figure of example}
+		\label{fig:ex1}
+	\end{figure}	
+	This is an example of the previous warning, we will come back to this later
+	
+
 \end{examples}
+But first
+\begin{theorem}[Any subset of a topology is a topology]
+	Let $X$ be a topological space, and $A \subseteq X$, then automatically we can define a topology on $A$ with $$\text{open sets } = \{U \cap A \colon U \text{ is open in } X\}$$
+	Quickly checking that this is a topology on $A$, the first condition is easily satisfied, the second condition is satisfied via De Morgan's law (check this), and the third is also satisfied using commutativity of intersection (check this too). 
+\end{theorem}
+Coming back to the example, $X = [0,1) \subseteq \mathbb{R}$ is a topology on $[0,1)$. What are the open sets
+\begin{itemize}
+	\item any $(a,b)$ with $0 \leq a \leq b \leq 1$ is open, obviously.
+	\item any $[0,b)$ with $b \leq 1$ is open, since, for example, $(-1, b) \cap [0,1)$ is open in $[0,1)$. 
+\end{itemize}
+Finally, we come back to the example
+\begin{lemma}[Unwrapping of the circle is not continuous]
+	We are in fact talking about the function $f$ from the previous example, $f$ is continuous, easily checkable and it is indeed a bijection. However it doesn't necessarily provide a function inverse. Indeed, we want to show that $f^{-1}$ from the circle in $\mathbb{R}^2$ to $[0,1)$ is not continuous. We can do this with a simple example, intuitively
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=7cm]{ex2.png}
+		\caption{Alternating function on each side of 0 on the circle}
+		\label{fig:ex2}
+	\end{figure}
+	We can have an alternating sequence that come closer and closer to the $0$ point of the circle, however when you unwrap the circle, those points obviously do not converge on a straight line. 
+	\\
+	More formally, we can show that there exists an open set on the line that is not open on the circle, consider $(0,\frac{1}{2}]$, this is open on $X = (0,1]$, however in $\mathbb{R}^2$ open sets are intersections of (literally) open balls with the circle. The preimage of $(0,\frac{1}{2}]$ on the circle is 
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=7cm]{ex3.png}
+		\caption{preimage}
+		\label{fig:ex3}
+	\end{figure}
+\end{lemma}
+As you can see, we cannot fit an open ball around the point $0$ on the circle, therefore it cannot be open. 
+
+
 \end{document}
