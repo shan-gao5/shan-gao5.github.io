@@ -14,6 +14,10 @@ numberwithin=theorem
 \title{Geo topo 1 notes}
 \date{fall 2023}
 \begin{document}
+\maketitle
+\begin{abstract}
+	Personal notes of MATH 576 taught by Professor Joel Kamnitzer during the fall semester of 2023 
+\end{abstract}
 \section{Lecture 1}
 \begin{definition}[Topological space]\label{def:ts}
     A topological space is a set $X$ along with a collection of subsets which are called open set
@@ -70,8 +74,31 @@ This does not mean that there is a bijection between metric spaces and topologic
     $X$ is a topological space and $\{x_n\}_{n \geq 1}$ is a sequence in $X$ (basically a map from $\mathbb{N} \to X$. We say that $x \in X$ is a limit of the sequence if, for all open neighborhoods $U$ (a open subset $U$ such that $x \in U$) of $x$, $\exists N$ such that if $n \geq N$, then $x_n \in U$.  
 \end{definition}
 \begin{definition}[continuous]
-    $X,Y$ are two topological spaces, then $f$ is continuous if $\forall U \subseteq Y$ open, $f^{-1}(U) is open in X$ 
+    $X,Y$ are two topological spaces, then $f$ is continuous if $\forall U \subseteq Y$ open, $f^{-1}(U)$ is open in $X$ 
 \end{definition} 
-
-
+\begin{lemma}[sequential continuity]\label{lem:seqcont}
+	let $f \colon X \to Y$ be a continuous function, and $(x_n) \subseteq X$ is a sequence in $X$, if $x_n \to x \in X$, then $f(x_n) \to f(x)$. 	
+\end{lemma}
+\begin{proof}
+	We know that $x_n \to x$ in $X$, we want to show that $f(x_n) \to f(x)$ if $f$ is continuous. Precisely, we want to show that any open neighborhood of $f(x)$ contains \textbf{all but finitely many} $f(x_n)$s. Let $U \subseteq Y$ be open open neighborhood of $f(x)$, since $f(x) \in U$, then $x \in f^{-1}(U)$. The latter set is open, by continuity of $f$, thus there exists an $N$ such that $\forall n \geq N$, $x_n \in f^{-1}(U)$, therefore, $f(x_n) \in f(f^{-1}(U)) \subseteq U$. 
+	
+\end{proof}
+There are some warnings that we need to consider: 
+\begin{itemize}
+	\item A sequence might have more than 1 limit. For example,  with the trivial topology, any sequence converges to every other point, since every point has only one open neighborhood, which is the whole set. 
+	\item The converse of lemma \ref{lem:seqcont} might not be true. 
+\end{itemize}
+\begin{definition}
+	$f\colon X \to Y$ is called a homeomorphism if 
+	\begin{itemize}
+		\item $f$ is continuous
+		\item $f$ is a bijection
+		\item $f^{-1} \colon Y \to X$ is continuous
+	\end{itemize}
+	In this case, we can write that $X \cong Y$, such that $f(f^{-1}(x)) = f^{-1}(f(x)) = id$.
+	\textbf{warning} : First and second condition does not necessarily imply the third.
+\end{definition}
+\begin{examples}[Stuff with Zhao's cool example]
+asd		
+\end{examples}
 \end{document}
