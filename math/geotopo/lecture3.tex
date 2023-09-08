@@ -1,0 +1,69 @@
+\documentclass{tufte-handout}
+
+%\geometry{showframe}% for debugging purposes -- displays the margins
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{thmtools}
+\declaretheorem[numberwithin=section]
+{theorem, definition}
+\declaretheorem{lemma, proposition, corollary}[
+style=plain,
+numberwithin=theorem
+]
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+\title{Lecture 3 MATH 576}
+\author{Shan Gao}
+\date{Fall 2023}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% Provides paragraphs of dummy text
+\usepackage{lipsum}
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+\begin{document}
+\section{Continuation of Hausdorff and etc}
+\begin{proposition}[Limits of sequeneces in Hausdorff space are unique]
+    IF $X$ is Hausdorff, then a sequence in $X$ has at most one limit
+    
+\end{proposition}
+\begin{proof}
+    Suppose $\{x_n\}_{n \in \mathbb{N}}$ converges to $x$ and $y$ with $x \neq y$. By $T_2$, we have that there exists $U$ and $V$ open in $X$ such that $x \in U$ and $y \in V$ and $X \cap V = \emptyset$. Then that means that there exists $N_1$ such that if $n \geq N_1$, then $x_n \in U$, similarly $\exists N_2$ such that if $n \geq N_2$, $x_n \in V$. Then pick $N = \max(N_1, N_2)$, we have that $x_n \in U$ and $x_n \in V$, which contradicts the fact that $U \cap V = \emptyset$. 
+\end{proof}
+\begin{definition}[basis]
+    let $X$ be a topological space and $\mathcal{B}$ is called a basis if it's a collection of sets such that for all $U \in X$ open in $X$, $U$ is a union of elements in $\mathcal{B}$, so 
+    \[
+        U = \bigcup_{B \subseteq U \colon B \in \mathcal{B}}
+        \]
+\end{definition}
+
+
+\end{document}
