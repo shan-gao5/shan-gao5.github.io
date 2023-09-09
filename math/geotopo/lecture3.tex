@@ -61,9 +61,82 @@ numberwithin=theorem
 \begin{definition}[basis]
     let $X$ be a topological space and $\mathcal{B}$ is called a basis if it's a collection of sets such that for all $U \in X$ open in $X$, $U$ is a union of elements in $\mathcal{B}$, so 
     \[
-        U = \bigcup_{B \subseteq U \colon B \in \mathcal{B}}
+        U = \bigcup_{B \subseteq U \colon B \in \mathcal{B}} B
         \]
-\end{definition}
+	In other words, each open set $U$ is the union of all basic open sets in $U$
 
+\end{definition}
+\begin{definition}[axioms of basis collection]
+	A collection of subsets of $X$ is called a basis if 
+	\begin{itemize}
+		\item $\forall x \in X$, $\exists B \in \mathcal{B}$ such that $x \in B$
+		\item $\forall B_1, B_2 \in \mathcal{B}$ and $x \in B_1 \cap B_2$, $\exists B_3 \in B_1 \cap B_2$ and $x \in B_3$
+	\end{itemize}
+\end{definition}
+\begin{lemma}[defining topology off basis]
+	How to define a topology on $X$ whose open sets are unions of elements of $\mathcal{B}$ TFAE
+	\begin{itemize}
+		\item $U \in X$ is open $\iff$ it's the union of basic open sets contained in $U$, $$ U = \bigcup_{B \in U\colon B \in \mathcal{B}} B$$
+		\item $U \in X$ is open $\iff \forall x \in U$, there exists a $B \in \mathcal{B}$ such that $x \in B$ and $B \subseteq U$. 
+	\end{itemize}
+\end{lemma}
+\begin{proof}
+	\begin{itemize}
+		\item Union of every element of $\mathcal{B}$ in $X$ is $X$ so $X$ is open, and $\emptyset$ is the empty union so it's open as well
+		\item (Finite intersection) let $x \in U \cap V$ where $U \cap V$ are open sets as described previously using basic sets, then $\exists B_1 \in U$ and $\exists B_2 \in V$ such that $B_1, B_2 \in \mathcal{B}$. This means that there exists a $B_3 \in \mathcal{B}$ such that $B_3 \subseteq B_1 \cap B_2$, then by the second axiom for basis, $x \in B_3$, which, by our lemma, along with the fact that $B_3 \subseteq U \cap V$, $U \cap V$ is open.
+	\end{itemize}
+	There are many ways to define a topology on a product space.
+	\begin{definition}[Product Topology]
+		$X$ and $Y$ are topological spaces, $X \times Y = \{(x,y) \colon x \in X, y \in Y\}$ is a topological space if we endow it with the following definition of open sets : $$\text{ open sets } = \{ U \times V \colon U \subseteq X \text{ open }, V \subseteq Y \text { open } \}$$	
+	\end{definition}
+	\begin{proof}
+		This is a basis, we just need to verify the axioms for a basis. Let $(x,y) \in X \times Y$, then obviously since $x \in X$ and $y \in Y$, there exists $U \subseteq X$ and $V \subseteq Y$ such that $x \in U$ and $y \in V$, thus $(x,y) \in U \times V$. For the second axiom, let $U_1 \times V_1$ and $U_2 \times V_2$ be two basis elements and $(x,y) \in (U_1 \times V_1 ) \cap (U_2 \times V_2) = (U_1 \cap U_2) \times (V_1 \cap V_2)$, thus $x \in (U_1 \cap U_2)$ and $y \in V_1 \cap V_2$, therefore there exists so letting $B_3 = (U_1 \cap U_2) \times ( V_1 \cap V_2)$ be a basic open set (finite intersection), we are done. 
+
+	\end{proof}
+	For example $\mathbb{R}$ with the usual topology, the basic open sets are open balls, but can also be open rectangles as well. 
+	\begin{lemma}[Projections are continuous]\label{lem:1}
+			The projections $X \times Y \to X$ and $X \times Y \to Y$ are continuous
+	\end{lemma}
+	\begin{lemma}[Product topology is the weakest topology with this property, everything else has more open sets]\label{lem:2}
+		The product topology is the weakest topology with this property, everything else has more open sets
+
+		
+	\end{lemma}
+	\begin{lemma}[unique continuous map]\label{lem:3}
+		For any topological space with the two above properties, letting $Z$ be another topological space with continuous maps $f \colon Z \to X$, and $g \colon Z \to Y$, there exists a unique continuous map $h \colon Z \to X\times Y$ making the triangles commute.
+	\end{lemma}
+	\begin{lemma}[Same lemma but with disjoint unions]\label{lem:4}
+		Let $Z$ be a topological space with maps $f \colon X \to Z$ and $g \colon Y \to Z$, then there exists a unique continuous map $h \colon X \cup Y \to Z$ (where $X \times Y = \emptyset$ it's a disjoint union) such that the triangles commute.	
+	\end{lemma}
+	But what in the world does the triangles commuting mean, apart from some weird category theory dark magic. 
+	\begin{definition}[Triangles commute]
+		\begin{itemize}
+			\item $f(z) = p(h(z))$
+			\item $g(z) = q(h(z))$
+			\item $h(z) = (f(z), g(z))$
+
+		\end{itemize}
+	\end{definition}
+	We want to prove lemma \ref{lem:1}
+	\begin{proof}
+		Projections are continuous, pick $U \subseteq X$ open, then $p^{-1}(U) = U \times Y$ is in $\mathcal{B}$ (product topology) so it's open in $X \times Y$, thus $p$ is continuous.
+	\end{proof}
+	proof of lemma \ref{lem:2}
+	\begin{proof}
+		Suppose $T$ is another topology on $X \times Y$ such that $p,q$ are continuous, then for all $U \subseteq X$ open in $X$ and $V \subseteq Y$ open in $Y$, we have that $p^{-1}(U) = U \times Y$ is open in $T$, and $q^{-1}(V) = X \times V$ is also open in $T$, and observe the following:
+		$$
+			U \times V = (U \cap X) \times (Y \cap Y) = (U\times Y ) \cap (X \times V) 
+		$$
+		Thus every open set in the product topology is open in $T$. 
+	\end{proof}
+	We want to prove lemma 3 now, that $h \colon Z \to X\times Y$ is continuous
+	\begin{proof}
+		First of all show that it's continuous,letting $U,V$ be open in $X$ and $Y$ respectively,
+		$$
+			h^{-1}(U \times V) = f^{-1}(U) \cap g^{-1}(V)
+		$$ 
+		Since $f,g$ are continuous, then $f^{-1}(U) \cap g^{-1}(V)$ are open
+	\end{proof}
+\end{proof}
 
 \end{document}

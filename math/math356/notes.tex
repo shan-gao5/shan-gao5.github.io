@@ -77,4 +77,25 @@ numberwithin=theorem
 	\begin{proof}
 		Fix $\varepsilon > 0$, then $\mathbb{P}([x-\varepsilon, x + \varepsilon]) = 2\varepsilon$, but that means, $\mathbb{P}(\{x\}) < 2\varepsilon$, so we are done
 	\end{proof}
+	\section{lecture 2}
+	\begin{corollary}[finite additivity]
+	We can recall Kolmogorov's axioms, these axioms actually mean that for any finite sequence of events in $\mathcal{F}$ which are disjoint then 
+	$$\mathbb{P}(\bigcup_{i = 1}^n A_i) = \sum_{i = 1}^n \mathbb{P}(A_i)$$
+	The proof of this is trivial
+	\end{corollary}
+	A consequence of this is that $\mathbb{P}(A \cup A^c) = \mathbb{P}(A) + \mathbb{P}(A^c)$ for any event, so $\mathbb{P}(A) = 1- \mathbb{P}(A^c)$
+	We now introduce some experiment models that could be helpful
+	\begin{enumerate}
+		\item If we are sampling with replacement, and the probability model, with a uniform probability measure, is 
+			$$ \Omega = [50]\times [50] \times [50]$$
+			then the probability of any point in the outcome is 
+			$$\mathbb{P}(\text{outcome}) = \frac{1}{50^3}$$
+		\item If we are sampling without replacement, then 
+			$$ \Omega = \{(i,j,k) \colon i,j,k \in [50] \text{ and } i\neq j \neq k \} $$
+			For example 
+			$$ \mathbb{P}(\{22,7,48\}) = \frac{1}{50 \cdot 49 \cdot 48}$$
+
+	\end{enumerate}
+
+	
 \end{document}
