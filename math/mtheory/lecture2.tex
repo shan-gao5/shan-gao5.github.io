@@ -129,5 +129,80 @@ In the definition for exterior measures, we can replace the closed cubes by open
 	$$
 	So any other covering has volume greater than our constructed covering, thus the infimum, taking the outer measure has $\sum_{k=1}^\infty \text{Vol}(\overline{Q}_k) \leq m_* (O)$, and we get the resulting equality
 \end{proof}
+\section{lecture 3}
+First of all some corrections to the second lecture, if we have a sequence of rectangles $(R_k)_{k \in \mathbb{N}}$ that cover a rectangle $R$ then 
+\begin{enumerate}
+	\item[(i)] if $R \subseteq \bigcup_{k=1}^\infty R_k$ then $Vol(R) \leq \sum_{k=1}^\infty Vol(R_k)$
+	\item[(ii)] if $\bigcup_{k=1}^\infty R_k \subseteq R$ and the rectangles are mutually disjoint then $\sum_{k=1}^\infty \leq Vol(R)$. 
+\end{enumerate}
+We prove these statements, if $Vol(R)=0$, then there is nothing to prove, otherwise, if $Vol(R) > 0$ , then let $R_\varepsilon$ be a compact (closed. since rectangles are already bounded) such that $R_\varepsilon \subseteq R$ such that
+$$Vol(R_\varepsilon) > Vol(R) - \varepsilon$$
+by shrinking the sides of the original rectangle $R$ (if needed). \\
+Now let $R_{k, \varepsilon}$ be an \textbf{open} rectangle such that 
+$$R_k \subseteq R_{k, \varepsilon}$$
+and
+$$Vol(R_{k, \varepsilon}) < Vol(R_k) + \varepsilon 2 ^k$$
+\begin{marginfigure}%
+	\includegraphics[width=\linewidth]{lec3fig1.png}
+	\caption{don't do this to me}        
+	\label{fig:lec3fig3}
+\end{marginfigure}
+we then get this nice inequality by taking the sum over the volumes for all $k$
+$$ \sum_{k = 1}^\infty Vol(R_{k , \varepsilon}) < \sum_{k = 1}^\infty Vol(R_k) + \varepsilon \overbrace{\sum_{k=1}^\infty 2^k}^{\to 1}$$
+We have that 
+$$ R_\varepsilon \subseteq R \subseteq \bigcup_{k = 1}^\infty R_{k, \varepsilon} $$ . Note that $R_\varepsilon$ is compact, and $(R_{k , \varepsilon})_{k \in \mathbb{N}}$ is an open cover, so we can actually take a FINITE SUBCOVER (WOW!).Just in case you got lost in this vast, vast, vast, proof. Also, just in case you forgot, we're trying to prove (i) here, \textbf{remember} \footnote{or else you die trying to follow the rest}. Therefore, 
+$$ \exists (R_{k_i, \varepsilon})_{1 \leq i \leq n}$$ 
+such that $$R_\varepsilon \subseteq \bigcup_{i = 1}^n R_{k_i, \varepsilon}$$
+Indeed, it covers $R_\varepsilon$ as well.
+(I don't know what this mean I'm including this in here for future clarifications) By extending the sides of the rectangles of $R_\varepsilon$ and $R_{k_i, \varepsilon}$ we get that 
+$$\sum_{i = 1}^n Vol(R_{k_i, \varepsilon}) - Vol(R) = \sum_{j = 1}^n Vol(R_j^\prime) $$ 
+For some rectangles $(R_j^\prime)_{1 \leq j \leq n}$. 
+It follows that 
+$$Vol(R) - \varepsilon < Vol(R_\varepsilon) \leq \sum_{k=1}^n Vol(R_{k_i, \varepsilon}) \leq \sum_{k=1}^\infty Vol(R_{k, \varepsilon}) < \sum_{k = 1}^\infty Vol(R_k) + \varepsilon$$
+Therefore we have,
+
+$$Vol(R) - \varepsilon <  \sum_{k = 1}^\infty Vol(R_k) + \varepsilon $$, so we can conclude that a
+$$Vol(R) \leq  \sum_{k = 1}^\infty Vol(R_k) $$
+\subsection{outer measure (continued)}
+For every rectangle $R$, we have that $m_* (R) = Vol(R)$
+\begin{proof}
+	Using the equivalent definition of $m_*(R)$ with rectangles (infimum of the volume of all possible coverings of $R$ with open/closed rectangles), since $R$ is one possible covering, then $m_*(R) \leq Vol(R)$. Conversly, consider coverings of that rectangle by rectangles. Let $(R_k)_{k \in \mathbb{N}}$ be rectangles such that 
+	$$ R \subseteq \bigcup_{k = 1}^\infty R_k$$
+	where 
+	$$ Vol(R) \leq \sum_{k = 1}^\infty Vol(R_k)$$
+	(see the proof of (i))
+	And then we take the infimum on the right to get $Vol(R) \leq m_*(R)$ so the equality is shown	
+\end{proof}
+\begin{proposition}[measure of set infimum version ]
+		For every set $A \subseteq \mathbb{R}^d$, $m_*(A) = \inf \{m_*(O) \colon O \text{ open set that contains } A\}$
+	\end{proposition}
+	\begin{proof}
+		By Monotonicity since $A \subseteq O$, then $m_*(A) \leq m_*(O)$, hence  $m_*(A) \leq \inf \{m_*(O) \colon O\supset A\}$ 
+		\begin{itemize}
+			\item If $m_*(A) = \infty$ there is nothing more to prove
+			\item If $m_*(A) < \infty$, we want to show that $m_*(A) \geq \inf\{m_*(O) \colon O \supset A\}$
+
+		\end{itemize}
+		But by using the equivalent definition of $m_*(A)$ with open cubes, there exists open cubes $(Q_k)_{k \in \mathbb{N}}$ such that 
+		$$ A \subseteq \bigcup_{k = 1}^\infty Q_k \quad \text{ and } \quad \sum_{k = 1}^\infty Vol(Q_k) \leq m_*(A) + \varepsilon$$
+		If $O_\varepsilon = \bigcup_{k=1}^\infty Q_k$, then $O_\varepsilon$ open in $\mathbb{R}^d$ and, since $A \subseteq O_\varepsilon$, and $m_*(O_\varepsilon) \leq \sum_{k=1}^\infty Vol(Q_k)$ by definition of outer measure of $O_\varepsilon$ since $(Q_k)_{k \in \mathbb{N}}$ is one possible covering of $O_\varepsilon$. It follows that 
+		$$\inf\{m_*(O) \colon O \text{ open }, A \subseteq O\} \leq m_*(O_\varepsilon) \leq \sum_{k=1}^\infty Vol(Q_k) \leq m_*(A) + \varepsilon$$, thus letting $\varepsilon \to 0$, we get that 
+		\[ \inf\{m_*(O) \colon O \text{ open }, A \subseteq O\} \leq m_*(A) + \varepsilon \]
+	\end{proof}
+	\begin{proposition}[Countable subadditivity]
+		For every $(A_k)_{k \in \mathbb{N}}$ subsets of $\mathbb{R}^d$ 
+		\[ Vol\left(\bigcup_{k =1}^\infty A_k \right) \leq \sum_{k=1}^\infty Vol(A_k) \implies m_*\left(\bigcup_{k=1}^\infty A_k \right) \leq \sum_{k=1}^\infty m_*(A_k) \]
+
+	\end{proposition}
+	\begin{proof}
+		if $m_*(A_k) = \infty$ for some $k$, then there is nothing to prove. If $m_*(A)  < \infty$, then by definition, $\forall \varepsilon > 0$ there exists $(Q_{k,j,\varepsilon})_{j \in \mathbb{N}}$ closed cubes such that $A_k \subseteq \bigcup_{j=1}^\infty Q_{k,j,\varepsilon}$ and $\sum_{k=1}^\infty Vol(Q_{k,j,\varepsilon}) < m_*(A_k) + \varepsilon 2^{-k}$. Then 
+		$$\bigcup_{k=1}^\infty A_k \subseteq \bigcup_{k=1}^\infty \bigcup_{j=1}^\infty Q_{k,j,\varepsilon}$$
+		Which gives 
+		$$m_*\left(\bigcup_{k=1}^\infty A_k\right) \leq \sum_{k \geq 1} \sum_{j \geq 1} Vol(Q_{k,j,\varepsilon}) \leq \sum_{k=1}^\infty m_*(A_k) + \varepsilon \sum_{k=1}^\infty 2^{-k}$$
+		Letting $\varepsilon \to 0$, we then obtain what we watned $m_*(\bigcup_{k=1}^\infty A_k) \leq \sum_{k=1}^\infty m_*(A_k) $
+	\end{proof}
+	\begin{proposition}
+		Let $A_1, A_2 \subseteq \mathbb{R}^d$ be such that $d(A_1,A_2) > 0$, then the sum of their outer measures
+	\end{proposition}	
 
 \end{document}

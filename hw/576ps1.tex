@@ -11,11 +11,16 @@
 \begin{enumerate}
 	\item 
 		\begin{itemize}
-			\item[(a)] We want to show that $[0,1] \subseteq \mathbb{R}$ endowed with the subspace topology is connected. Assume it's disconnected, so there exists $U,V \subseteq [0,1]$ open such that $U \cap V = \emptyset$ and $U \cup V = [0,1]$. Note that all the open sets in $[0,1]$ are generated from the set $G = \{[0,a), (b,1], (c,d) \colon a \in (0,1], b \in [0,1), c,d \in [0,1]\}$. Suppose $1 \in V$ WLOG, and let $s = \sup U \cap [0,1]$, $s$ cannot be in $U$ since it cannot be one, and since $U$ is open, there exists an open ball of radius $\varepsilon$ that contains $u$, so there exists a greater element than $s$ in the open ball that is in $U$. $s$ cannot belong to $V$ either, it cannot be $1$ since that would imply that $V$ is not open (it would contain one single point), and it cannot be $0$ either since $U$ wouldn't be open, so $0 < s < 1$, but since $V$ open $s$ is contained in an open ball $B \subseteq V$, so we can find an element of $V$ smaller than $s$ that would still be an upper bound for $U \cap [0,1]$. 
+			\item[(a)] We want to show that $[0,1] \subseteq \mathbb{R}$ endowed with the subspace topology is connected. Assume it's disconnected, so there exists $U,V \subseteq [0,1]$ open such that $U \cap V = \emptyset$ and $U \cup V = [0,1]$. Note that all the open sets in $[0,1]$ are generated from the set $$G = \{[0,a), (b,1], (c,d) \colon a \in (0,1], b \in [0,1), c,d \in [0,1]\}$$ Suppose $1 \in V$ WLOG, and let
+				$$s = \sup U \cap [0,1]$$
+				We want to show that $s \notin U$ and $s \notin V$. We break it down into cases:\\
+				\begin{itemize} \item (Suppose $x \in U$) Either $s = 0$ or $s \in (0,1)$. If $s = 0$, then $U$ would be closed, since it would just be a singleton. If $s \in (0,1)$, since $U$ is open, there exists an open ball of radius $\varepsilon$ that contains $u$, so there exists a greater element than $s$ in the open ball that is in $U$ thus $s$ is not an upper bound, and therefore, not a supremum. 
+				\item (Suppose $s \in V$) $s$ cannot be $1$ since that would imply that $V$ is not open (it would contain one single point), and it cannot be $0$ either since $U$ wouldn't be open, so $s \in (0,1)$, but since $V$ is open, $s$ is contained in an open ball $B_\varepsilon(s) \subseteq V$, so we can find an element of $V$ smaller than $s$ that would still be an upper bound for $U \cap [0,1]$ which contradicts the assumption that $s$ is a supremum. 
+				\end{itemize}
 			\item[(b)] Suppose $\bar{A}$ is not connected, that means there exists $U,V$ open in $\bar{A}$ that partition $\bar{A}$.  But then 
-				$$A = (U \cap A) \cup (V \cap A)$$. $U \cap A$
-				and $V \cap A$ are open in $A \subseteq \bar{A}$, that means one of the two is empty. Suppose $U \cap A = \emptyset$, then $$V \cap A = A \implies V =A$$. That means $U = \bar{A} \setminus A$,which is not an open set, since letting $x \in \bar{A} \setminus A = \bar{A} \cap A^c$, any open neighborhood of $x$ will intersect $A^c$.
-			\item Suppose $f(X)$ not connected, then there exists $U,V$ open in $f(X)$ such that $U \cap V = \emptyset$, and $U \cup V = f(X)$, then applying the preimage, we have 
+				$$A = (U \cap A) \cup (V \cap A)$$ $U \cap A$
+				and $V \cap A$ are open in $A \subseteq \bar{A}$. Suppose $A$ is connected, that means either $U \cap A$ and $V \cap A$ is empty. Suppose that $U \cap A$ is empty. By our assumption, $U \neq \emptyset$, let $x \in U$ , nothing that $U = W \cap \bar{A}$ for some $W$ open in $X$, and $x \in \bar{A}$. Then, since $W$ is an open neighborhood of $x$, $W \cap A \neq \emptyset$, but then $U \cap A = (W \cap \bar{A}) \cap A = W \cap (\bar{A} \cap A) = W \cap A \neq \emptyset$, thus we obtain a contradiction, so $A$ is disconnected. Thus we proved the contrapositive, so $A$ connected $\implies$ $\bar{A}$ connected.
+			\item[(c)] Suppose $f(X)$ not connected, then there exists $U,V$ open in $f(X)$ such that $U \cap V = \emptyset$, and $U \cup V = f(X)$, then applying the preimage, we have 
 				$$
 				f^{-1}(U \cap V) = f^{-1}(U) \cap f^{-1}(V) = \emptyset
 				$$
@@ -26,7 +31,14 @@
 				Since $f^{-1}(U)$ and $f^{-1}(V)$ are open in $X$, this leads to a contradiction since those would partition $X$, a connected set. 
 			
 		\end{itemize}
-	\item $(\implies)$ let $F \subseteq Y$ be a closed set in $Y$, then $F^c$ is open, that means 
+	\item First of all note that for any $A \subseteq Y$, $f^{-1}(A^c) = f^{-1}(A)^c$, since 
+		\begin{align*}
+			x \in f^{-1}(A^c) &\iff f(x) \in A^c \\
+					  &\iff f(x) \notin A \\
+					  &\iff x \notin f(A) \\
+					  &\iff x \in f(A)^c
+		\end{align*}
+	 $(\implies)$ let $F \subseteq Y$ be a closed set in $Y$, then $F^c$ is open, that means 
 		$$
 			f^{-1}(F^c) = f^{-1}(F)^c 
 		$$
@@ -38,16 +50,42 @@
 			f^{-1}(W) &= (f^{-1}(W) \cap A) \cup (f^{-1}(W) \cap B)\\
 				  &= \overbrace{f_{| A}^{-1}(W)}^{\text{open in $X$}} \cup \overbrace{f_{| B}^{-1}(W)}^{\text{open in $X$}} \\
 		\end{align*}
+		Thus $f$ is continuous.
 	\item[(b)]
 		Using question number 2, letting $F$ be a closed set in $Y$
 		\begin{align*}
 			f^{-1}(F) &= (f^{-1}(F) \cap A) \cup (f^{-1}(F) \cap B)\\
 				  &= \overbrace{f_{| A}^{-1}(F)}^{\text{closed  in $X$}} \cup \overbrace{f_{| B}^{-1}(F)}^{\text{closed in $X$}} \\
-		\end{align*}
-	\item IDK
-
+		\end{align*}, thus $f$ is continuous.
+	\item Let $X = \mathbb{R}$ with the usual topology, and $A = (-\infty, 0)$ and $B = [0,+\infty)$. Clearly $A \cup B = \mathbb{R}$.  \\Let $f(x) = \begin{cases}
+			1 & x \in (-\infty, 0)\\
+			2 & x \in [0,+\infty)
+		\end{cases}$\\
+		Clearly $f_{|A}$ and $f_{|B}$ are continous, since constant real valued functions are continuous on their domain, but there is an obvious discontinuity for $f \colon X \to Y$ at $x=0$.
+	
 		\end{itemize}
-	\item We know that $$\Delta^c = \{(x,y) \colon x\neq y, x \in X, y \in Y\}$$ is open in $X \times X$. Thus letting $x,y \in X$ and $x \neq y$, we know that $(x,y) \in \Delta^c$, so there exists a open neighborhood $U \times V \subseteq \Delta^c$ that is open in the product topology of $X \times X$ such that $x \in U$ and $y \in V$, and by definition of $\Delta^c$, $U \cap V = \emptyset$, which gives us the necessary condition for Hausdorff.
-\end{enumerate}
+	\item We want to show that the set $\Delta^c = \{(x,y) \colon x \neq y\} \subseteq X \times X$ is open. Assume that $X$ is hausdorff, let $(x,y) \in \Delta^c$, therefore $x \neq y$. By $T_2$, there exists subsets $U,V$ open in $X$ such that $x \in U$ and $y \in V$ and $U \cap V = \emptyset$, thus $U \times V \subseteq \Delta^c$. We can conclude that, since $U \times V$ is open in the product topology of $X \times X$, $\Delta^c$ is open, thus $\Delta$ is closed. Conversely, we know that $$\Delta^c = \{(x,y) \colon x\neq y, x \in X, y \in Y\}$$ is open in $X \times X$. Thus letting $x,y \in X$ and $x \neq y$, we know that $(x,y) \in \Delta^c$, so there exists a open neighborhood $U \times V \subseteq \Delta^c$ that is open in the product topology of $X \times X$ such that $x \in U$ and $y \in V$, and by definition of $\Delta^c$, $U \cap V = \emptyset$, which gives us the condition for Hausdorff. 
+	\item Considering $\mathbb{R}$ with the cofinite topology. The sequence $x_n = \frac{1}{n}$ converges everywhere. Let $x \in \mathbb{R}$ be an arbitrary point, then let $U$ be any open neighborhood of $x$. We want to show that $\exists N \in \mathbb{N}$ such that $\forall n >N$, $x_n \in U$. Suppose the contrary, that means $\forall N \in \mathbb{N}$ $\exists n > N$, $x_n \notin U$. That means there exists infinitely many $x_n \in U^c$, but that's not possible since $U^c$ is closed, thus finite. We can conclude that all but finitely many $x_n$'s are in $U$, and since and $x$ is arbitrary, then $x_n$ converges everywhere in $\mathbb{R}$. 
+	\item 
+		\begin{itemize}
+			\item[(a)] Consider $\mathbb{R}$ with the usual topology, with $A = (0,1)$ and $B = (1,2)$, then $A \cap B = \emptyset$ which is closed, thus $\overline{A \cap B} = \emptyset$. However, $\overline{A} \cap \overline{B} = 1$, counterexample.
+			\item[(b)] Let $x \in \overline{A \cap B}$, then let $U$ be an open neighborhood of $x$, by closure we know that $U \cap (A \cup B) = (U\cap A) \cup (A \cap B) \neq \emptyset$, so either $U \cap A \neq \emptyset$ or $U \cap B \neq \emptyset$, thus $x$ is either in the closure of $A$ or in the closure of $B$, thus $x \in \overline{A} \cup \overline{B}$. Conversely, suppose $x \in \overline{A} \cup \overline{B}$, thus letting $U$ be an open neighborhood of $x$, either $U \cap A \neq \emptyset$ or $U \cap B \neq \emptyset$, in any case, $U \cap (A\cup B) \neq \emptyset$, thus $x \in \overline{A \cup B}$. 
+			\item[(c)] Suppose $A \subseteq B$, and let $x \in \bar{A}$, then every open neighborhood of $x$ intersects $A$, then let $U$ be one of such open neighborhoods, then $U \cap A \neq \emptyset$, but since $A \subseteq B$, then $U \cap B \neq \emptyset$, thus every open neighborhood of $x$ intersects $B$, thus $x \in \overline{B}$. 
+		\end{itemize}
+	\item \begin{itemize}
+			\item[(a)]Since we already have that $g_1$ and $g_2$ agree on everypoint in $A$, we need to show that they also agree on $\overline{A}\setminus{A}$. Suppose not, then there exists an $a \in \overline{A}\setminus A$ such that $g_1(a) \neq g_2(a)$, then by $T_2$ there exists $U, V \subseteq Y$ open in $Y$, such that $g_1(a) \in U$ and $g_2(a) \in V$, and $U \cap V = \emptyset$. Then observe that
+		$$g_1^{-1}(U) \cap g_2^{-1}(V)$$ is an open set that contains $a$ since $g_1$ and $g_2$ are continuous. Then by def of open set, there exists an open neighborhood $W \subseteq g_1^{-1}(U) \cap g_2^{-1}(V)$ such that $a \in W$. But since $a \in \overline{A}\setminus{A}$, then $a$ is in the closure of $A$, but not in $A$. Then by closedness, since $W$ is an open nbd of $a$, it must intersect $A$ non-trivially, then
+		$$ \exists b \in W \text{ such that } b \in A \text{ and } b \neq a$$
+		but then,
+		\begin{align*}
+			b \in g_1^{-1}(U) \text{ and } f(b) \in f(g^{-1}(U)) \subseteq U\\
+			b \in g_2^{-1}(V) \text{ and } f(b) \in f(g^{-1}(V)) \subseteq V
+		\end{align*}
+		Which gives a contradiction since $U \cap V = \emptyset$.
+\item[(b)] A straightforward counterexample would be to let $Y = \{0,1\}$ with the trivial topology, that means the only open sets are $\{\emptyset, Y \}$, and $X = \mathbb{R}$ with $A = (0,1) \subseteq \mathbb{R}$ be any open interval in $\mathbb{R}$, then any real valued function from $A$ to $Y$ is continuous since for any $U$ open in $Y$, that means, $U$ is the empty set or $Y$, $f^{-1}(U)$ is the empty set or $A$ which is open in $X$. It's obvious that $f_1 \colon [0,1] \to \mathbb{R}$ and $f_2 \colon [0,1] \to \mathbb{R}$ are continuous extensions (every function into the trivial topology is continuous), with $f_1 = f_2 = f$ on $(0,1)$, but $f_1(1) = 1$ and $f_2(1) = 0$, then $f_1 \neq f_2$ on $[0,1]$. 
+\item Consider $f \colon (0,1) \to \mathbb{R}$ (Not the extended real numbers) with the usual topology on the domain and the codomain. $\mathbb{R}$ is Hausdorff and it's a continuous function on $(0,\infty)$. There exists no continuous extension from $[0,1]$ because $\frac{1}{x}$ is not defined at $0$. Suppose there exists one, then $\bar{f} = f$ on $(0,\infty)$ and $f$ is continuous at $x =0$, then the sequence $x_n = \frac{1}{n}$ converges to $0$, thus $\bar{f}(x_n) \to \bar{f}(0)$, but $\bar{f}(x_n)$ does not converge in $\mathbb{R}$ therefore, $\bar{f}$ cannot be continuous.
 
+\end{itemize}
+ 
+\end{enumerate}
 \end{document}
