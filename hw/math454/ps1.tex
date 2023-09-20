@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+
+
+
+\title{Math 454 PS1}
+
+
+\begin{document}
+	\maketitle
+	\section{problem 1}
+	Let $(Q_k)_{k \in \mathbb{N}}$ be a covering of $A$ by open cubes, then $(\overline{Q}_k)_{k \in \mathbb{N}}$ is a covering by closed cubes, and every closed cube is a closed rectangle. Therefore, we have, by monotonicity, 
+	$$ m_*(A) \leq m_*'(A) \leq m_*''(A) $$
+	We want to show that converse of all these inequalities. 
+	\begin{itemize}
+		\item ($m_*''(A) \leq m_*'(A)$), since all closed cubes in $\mathbb{R}^d$ is the closure of an open cube, we can write 
+			$$(\overline{Q}_k)_{k \in \mathbb{N}}$$
+			be an arbitrary covering of $A$ by closed cubes. We can construct a covering by rectangles such that 
+			$$ R_k = \overline{Q}_k \quad \forall k \in \mathbb{N}$$
+			Thus 
+			$$ \sum_{k = 1}^\infty Vol(R_k) = \sum_{k = 1}^\infty Vol(\overline{Q}_k)$$
+			Taking the infimum on the left and right, we have 
+			$$ m_*''(A) \leq m_*'(A)$$
+		\item ($m_*'(A) \leq m_*(A)$), let $(Q_k)_{k \in \mathbb{N}}$ be a covering of $A$ with closed cubes, then 
+			$$\bigcup_{k =1}^\infty \overline{Q}_k$$ 
+		is a covering of $A$ by closed cubes, since $Q_k \subset \overline{Q}_k$ for all $k$. But since $Vol(Q_k) = Vol(\overline{Q}_k)$ for all $k$, then, it's obvious that
+		$$\sum_{k = 1}^\infty  Vol(\overline{Q}_k) = \sum_{k=1}^\infty Vol(Q_k)$$
+		Taking the infimum on the left and right, we get the inequality that we want.
+	\item ($m_*(A) \leq m_*''(A)$) This one is a bit spicy. Let $(R_k)_{k \in \mathbb{N}}$ be an arbitrary covering of $A$ with rectangles. By fact (2),
+		$$ \exists ((Q_{k,j})_{j \in \mathbb{N}}) \text{ cubes with disjoint interiors}$$
+		such that 
+		$$\bigcup_{j = 1}^\infty Q_{k,j} = R_k$$
+		It follows that, by fact (3)
+		
+		$$ \sum_{j=1}^\infty Vol(Q_{k,j}) \leq Vol(R_k)$$
+		Then, by fact (1), define, $\forall \varepsilon >0$, $(Q_{k,j,\varepsilon})_{j \in \mathbb{N}}$ to be open cubes such that 
+		$$Vol(Q_{k,j,\varepsilon}) \leq Vol(Q_{k,j}) + \varepsilon2^{-k} 2^{-j}$$
+
+		Note that $(Q_{k,j,\varepsilon})_{j \in \mathbb{N} \colon k \in \mathbb{N}}$ is a valid countable \footnote{countable union of countable set is countable} covering of $A$ with open cubes since
+		$$ \bigcup_{k = 1}^\infty \left(\bigcup_{j = 1}^\infty Q_{k.j,\varepsilon}\right) \supseteq \bigcup_{k=1}^\infty R_k \supseteq A$$
+		We then have that 
+		$$ \sum_{j = 1}^\infty Vol(Q_{k,j,\varepsilon}) \leq  Vol(R_k) + \varepsilon \underbrace{\sum_{j=1}^\infty 2^{-j}}_{\to 1}  2^{-k} \leq Vol(R_k)  +\varepsilon 2^{-k}$$
+		then 
+		$$ \sum_{k=1}^\infty \left( \sum_{j=1}^\infty Vol(Q_{k,j,\varepsilon}) \right) \leq \sum_{k=1}^\infty Vol(R_k) + \varepsilon \underbrace{\sum_{k=1}^\infty 2^{-k}}_{\to 1} =  \sum_{k=1}^\infty Vol(R_k) + \varepsilon$$
+		letting $\varepsilon \to 0$, we get the resulting inequality
+		$$\sum_{k=1}^\infty \left( \sum_{j=1}^\infty Vol(Q_{k,j,\varepsilon})\right ) \leq \sum_{k=1}^\infty Vol(R_k)$$
+			Since $(R_k)_{k \in \mathbb{N}}$ is an arbitrary covering of $A$, then taking the infimum on the left, we get
+			$$ m_*(A) \leq \sum_{k=1}^\infty Vol(R_k)$$
+
+			and taking the infimum on the right we get 
+			$$ m_*(A) \leq m_*''(A)$$
+
+
+
+
+
+
+	\end{itemize}
+\end{document}
+
