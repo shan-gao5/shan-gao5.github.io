@@ -1,0 +1,117 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{fancyhdr,graphics,graphicx,xy}
+\usepackage{blkarray}
+\usepackage{ifthen}
+\usepackage{amssymb,amsmath,mathtools,color}
+\pagestyle{fancy}
+\usepackage{xparse}
+\usepackage{float}
+\usepackage{nicematrix}
+
+
+%\textwidth = 6.5 in
+%\textheight = 9 in
+%\oddsidemargin = 0.0 in
+%\evensidemargin = 0.0 in
+%\topmargin = 0.0 in
+%\headheight = 0.0 in
+%\headsep = 0.0 in
+%\parskip = 0.2in
+%\parindent = 0.0in
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% General math macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\tf}{\tfrac} 
+\renewcommand{\Re}{\mathrm{Re}}
+
+\newcommand{\Def}{\coloneqq}
+\newcommand{\lgg}{\operatorname{lg}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}} 
+\newcommand{\Quat}{\mathbb{J}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\LP}{\operatorname{L}}
+\newcommand{\abs}[1]{\left| {#1} \right|}
+\newcommand{\sgn}{\operatorname{sgn}}
+
+\newcommand{\tendsto}{\to}
+\newcommand{\tendto}{\to}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Probability Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\stdcg}{N_\bbc(0,1)}
+
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\expect}{\mathbb{E}}
+\newcommand{\Exp}{\mathbb{E}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\filt}{\mathscr{F}}
+\newcommand{\Prob}{\prob}
+\renewcommand{\Pr}{\prob}
+\newcommand{\Ent}{\operatorname{Ent}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\dtv}{d_{TV}}
+\newcommand{\weakto}{\Rightarrow}
+\newcommand{\lawof}{\mathscr{L}}
+\newcommand{\Bernoulli}{\operatorname{Bernoulli}}
+\newcommand{\Binomial}{\operatorname{Binom}}
+\newcommand{\Poisson}{\operatorname{Poisson}}
+\newcommand{\Normal}{\operatorname{Normal}}
+\newcommand{\Unif}{\operatorname{Unif}}
+\newcommand{\As}{\ensuremath{\text{a.s.}}}
+\newcommand{\distequals}{\overset{\mathrm{d}}{=}}
+
+
+\newcommand{\asstnumber}{5}
+\newcommand{\assigntop}{
+	\setlength{\headheight}{33.40004pt}
+  \fancyhead[L]{}
+  \fancyhead[C]{\Large Math 356 -- Fall 2023\\ Assignment \asstnumber}
+  \fancyhead[R]{ }
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+\newcommand{\p}[1]{\mathbb{P}(#1)}
+\newcommand{\px}[1]{\mathbb{P}_x(#1)}
+\newcommand{\py}[1]{\mathbb{P}_y(#1)}
+\newcommand{\I}[1]{\mathbf{1}_{#1}}
+\newcommand{\e}{\mathbb{E}}
+
+\begin{document}
+\assigntop
+
+\section*{Question 1}
+
+\subsection*{(a)} 
+Let $G$ be a $3$-regular graph. Show that if $G$ contains a Hamiltonian cycle then $\chi' (G) = 3$.
+Let $C$ be a hamiltonian cycle in $G$, that means $C$ is a path with the same vertex endpoints and $V(C) = V(G)$. Moreover, $C$ is even, since, by the handshaking lemma 
+$$ \sum_{v \in V(G)} \deg (v) = 3|V(G)| = 2 \cdot E(G) \implies |V(G)| \text{ is even } $$
+Then there exists a coloring with $E(C) \to \{1,2\}$, and since no edges of $G-C$ can be incident to the same vertex, by $3$-regularity of $G$, then we can color all edges in $G - C$ with color $3$, which yields a $3$-edge coloring of $G$.
+\subsection*{(b)} 
+From the lectures on Hamiltonian cycles, we have the canonical counter example of a graph with no Hamiltonian cycle from lecture 7.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=7cm]{ex1.jpeg}
+	\caption{Counter example}
+	\label{fig:ex1}
+\end{figure}
+By observation, the graph is $3$-regular.
+
+\section*{(b)}
+We show first that graphs with no $K_4$ minor are $k$-degenerate. Let $H$ be a subgraph of $G$, then if $H = G$, by lemma 13.2, we have that $\exists v \in V(G)$ such that $\deg(v) \leq 2$. If $H \neq G$, then select $X_1 \subseteq G-H$ to be a clique, where $|X_1| \leq 2$ in $G - H$, then there exists $v \in G-X$ such that $\deg (v) \leq 2$. If $v \in H$ then we are done, otherwise, consider $G - X_1$, which doesn't have a $K_4$ minor, since $G$ doesn't have a $K_4$ minor. Select $X_i$ such that $X_i \subseteq G - X_1 - X_2 \ldots -X_{i-1} - H$, where $G - X_1 - X_2 - \ldots -X_{i-1}$ doesn't have a $K_4$ minor, until we get a $v \in H$ such that $\deg (v) \leq 2$. 
+\end{document}

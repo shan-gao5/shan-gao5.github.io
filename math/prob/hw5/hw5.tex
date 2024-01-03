@@ -1,0 +1,177 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{fancyhdr,graphics,graphicx,xy}
+\usepackage{blkarray}
+\usepackage{ifthen}
+\usepackage{amssymb,amsmath,mathtools,color}
+\pagestyle{fancy}
+\usepackage{xparse}
+\usepackage{nicematrix}
+
+
+%\textwidth = 6.5 in
+%\textheight = 9 in
+%\oddsidemargin = 0.0 in
+%\evensidemargin = 0.0 in
+%\topmargin = 0.0 in
+%\headheight = 0.0 in
+%\headsep = 0.0 in
+%\parskip = 0.2in
+%\parindent = 0.0in
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% General math macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\tf}{\tfrac} 
+\renewcommand{\Re}{\mathrm{Re}}
+
+\newcommand{\Def}{\coloneqq}
+\newcommand{\lgg}{\operatorname{lg}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\D}{\mathbb{D}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\N}{\mathbb{N}} 
+\newcommand{\Quat}{\mathbb{J}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\T}{\mathbb{T}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\LP}{\operatorname{L}}
+\newcommand{\abs}[1]{\left| {#1} \right|}
+\newcommand{\sgn}{\operatorname{sgn}}
+
+\newcommand{\tendsto}{\to}
+\newcommand{\tendto}{\to}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Probability Macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\stdcg}{N_\bbc(0,1)}
+
+\newcommand{\expec}{\mathbb{E}}
+\newcommand{\expect}{\mathbb{E}}
+\newcommand{\Exp}{\mathbb{E}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\prob}{\mathbb{P}}
+\newcommand{\filt}{\mathscr{F}}
+\newcommand{\Prob}{\prob}
+\renewcommand{\Pr}{\prob}
+\newcommand{\Ent}{\operatorname{Ent}}
+\newcommand{\Var}{\operatorname{Var}}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\dtv}{d_{TV}}
+\newcommand{\weakto}{\Rightarrow}
+\newcommand{\lawof}{\mathscr{L}}
+\newcommand{\Bernoulli}{\operatorname{Bernoulli}}
+\newcommand{\Binomial}{\operatorname{Binom}}
+\newcommand{\Poisson}{\operatorname{Poisson}}
+\newcommand{\Normal}{\operatorname{Normal}}
+\newcommand{\Unif}{\operatorname{Unif}}
+\newcommand{\As}{\ensuremath{\text{a.s.}}}
+\newcommand{\distequals}{\overset{\mathrm{d}}{=}}
+
+
+\newcommand{\asstnumber}{5}
+\newcommand{\assigntop}{
+	\setlength{\headheight}{33.40004pt}
+  \fancyhead[L]{}
+  \fancyhead[C]{\Large Math 356 -- Fall 2023\\ Assignment \asstnumber}
+  \fancyhead[R]{ }
+}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}{Definition}
+\newcommand{\p}[1]{\mathbb{P}(#1)}
+\newcommand{\px}[1]{\mathbb{P}_x(#1)}
+\newcommand{\py}[1]{\mathbb{P}_y(#1)}
+\newcommand{\I}[1]{\mathbf{1}_{#1}}
+\newcommand{\e}{\mathbb{E}}
+
+\begin{document}
+\assigntop
+
+\section{ Question 1}
+Let $(X_1,X_2,X_3,X_4) \sim Mult(n,4,p_1,p_2,p_3,p_4)$. We are able to find the distribution of $X_1+X_2$, be realizing that $X_1$ counts the number of times that $1$ occured and $X_2$ counts the number of times that $2$ occured. The probability that $1$ occurs is $p_1$ and the probability that $2$ occurs is $p_2$, since these are independent trials (by def of the multinomial distribution), the probability that $1$ \textbf{or} $2$ occurs is $p_1 + p_2$ therefore $X_1 + X_2 \sim Bin(n,p_1+p_2)$.
+
+\clearpage
+
+\section{ Question 2}
+Suppose $X$ and $Y$ are jointly continuous with joint probability density function 
+$$f(x,y) = ce^{\frac{x^2}{2} - \frac{(x-y)^2}{2}}, x,y \in (-\infty, +\infty)$$
+	for some constant $c$
+	\subsection*{(a)}
+	For this to be a joint probability density function, it's integral over the reals must be $1$. Therefore, we can find the constant $c$ by computing the integral 
+	\begin{align*}
+		\int_{-\infty}^\infty e^{-x^2/2 - (x-y)^2/2} dy &= e^{-x^2/2} \int_{-\infty}^{\infty} e^{-\frac{(x-y)^2}{2}}dy \\
+								&= \sqrt{2\pi} e^{-x^2/2} \underbrace{\int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{\frac{(x-y)^2}{2}}}_{\text{$N(x,1)$ integrates to $1$}} dy &= \sqrt{2\pi}e^{\frac{-x^2}{2}}
+	\end{align*}
+	Completing the integral over $dx$, we get 
+	\begin{align*}
+		\underbrace{\int_{0}^{+\infty}}_{\text{ $e$ is non negative}} \sqrt{2\pi}e^{\frac{-x^2}{2}}dx  &= 2\pi \int_{0}^\infty \frac{1}{\sqrt{2\pi}} e^{-x^2}{2}dx = 2\pi
+	\end{align*}
+therefore, for the integral over the entire reals to be $1$, we need to choose $c = \frac{1}{2\pi}$
+	\subsection*{(b)}
+	Computing $f_X$ was already done in part (a), by integrating over $dy$ first, we get 
+	$$
+		f_X = \frac{1}{\sqrt{2\pi}} e^{\frac{-x^2}{2}}
+	$$
+	We want to compute $f_Y$ by integrating over $dx$ only, 
+	\begin{align*}
+		f_Y(y) = \frac{1}{\sqrt{2\pi}}\int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi}} e^{\frac{-x^2}{2} - \frac{-(x-y)^2}{2}}
+	\end{align*}
+	We want to get this integral in a form that we recognize, to do this observe the following trick
+	\begin{align*}
+		\frac{-x^2}{2} - \frac{(x-y)^2}{2} &= \frac{-x^2}{2} - \frac{x^2-2xy+y^2}{2}\\
+						   &= -(x^2 - xy + \frac{y^2}{2})\\
+						   &= -( x^2 - xy + \frac{y^2}{4} + \frac{y^2}{4} )\\
+						   &= -(x^2 - y/2)^2 - y^2/4
+	\end{align*}
+	then the integral becomes
+	\begin{align*}
+		\frac{1}{\sqrt{2\pi}} \int_{-\infty}^{\infty} \frac{1}{\sqrt{2\pi}} e^{-(x^2-y/2)^2 - y^2/4} dx &= \frac{1}{\sqrt{4\pi}}e^{-y^2/4} \int \frac{1}{\sqrt{2\pi \cdot \sqrt{1/2}^2}} e^{\frac{-(x^2-y/2)^2}{2 \cdot \sqrt{1/2}^2}}\\
+		&= \frac{1}{\sqrt{4\pi}} e^{-y^2/4}
+	\end{align*}
+	Where we can recognize that the before last line contains the integral of the PDF of a normal distribution with mean $y/2$ and standard deviation $\sqrt{1/2}$. And we can recognize that $f_Y$ is normal distributed with mean $0$ and variance $2$. 
+	\subsection*{(c)} It's clear that $X$ and $Y$ are not independent, since $f(x,y) \neq f_X \cdot f_Y$
+	
+
+	
+
+
+\clearpage
+\section*{Question 3}
+$X$ and $Y$ are independent, using the change of variables $u = g(x,y) = \frac{x}{x+y}$ and $v = h(x,y) = x+y$, then we can find the inverse change of variable functions to be $p(u,v) = uv$ and $q(u,v) = 	\frac{x+y-x}{x+y} \cdot x+y = (1-u)v$
+where 
+$$ \det \text{Jacobian}(u,v) = \det \begin{vmatrix}
+	v & u \\
+	-v & 1-u
+\end{vmatrix} = v$$ 
+Then we have the formula as presented in class, where $(U,V)$ has joint density as given by 
+\begin{align*}
+	f_{U,V} &= f(uv, v(1-u))v = f(uv)f(v(1-u)) v \\
+		&= \frac{\lambda^r (uv)^{r-1}}{\Gamma(r)} e^{-\lambda u v} \frac{\lambda^s(v(1-u))^{s-1}}{\Gamma(s)} e^{-\lambda(v(1-u))}v\\
+		&= \frac{\Gamma(r+s)}{\Gamma(r)\Gamma(s)} u^{r-1}(1-u)^{s-1} \cdot \frac{1}{\Gamma(r+s)} \lambda^{r+s}v^{(r+s)-1}e^{-\lambda v}
+\end{align*}
+This is exactly the product of the density function of $B \sim Beta(r,s)$ and $G \sim Gamma(r+s,\lambda)$ for subquestion $(b)$.
+\subsection*{(b)} 
+Since this is exactly the inverse transformation of part $(a)$, then $(X,Y)$'s joint distribution is exactly the product of the density function of $X$ and $Y$ in part (a). To be pedantic, denote $x = b \cdot g$ and $y = (1-b)g$, then the inverse functions are 
+$b = \frac{x}{x+y}$ and $g = x+y$, where the determinant of the Jacobian is 
+$$ \det \text{Jacobian}(x,y) = \det \begin{vmatrix}
+	\frac{y}{(x+y)^2} & - \frac{x}{(x+y)^2} \\ 
+	1 & 1
+\end{vmatrix} =  \frac{x+y}{(x+y)^2} = \frac{1}{x+y}$$
+\clearpage
+then we can compute the joint density as 
+\begin{align*}
+	f_{X,Y} (x,y) &= \frac{\Gamma(r+s)}{\Gamma(r)\Gamma(s)} (\frac{x}{x+y})^{r-1} (1 - \frac{x}{x+y})^{s-1} \cdot \frac{1}{\Gamma(r+s)}\lambda^{r+s} (x+y)^{(r+s)-1}e^{-\lambda(x+y)} \frac{1}{x+y} \\
+		      &= \frac{x^{r-1}\lambda^r}{\Gamma(r)} e^{-\lambda x} \frac{y^{s-1}\lambda^s}{\Gamma(s)} e^{-\lambda y}
+	\end{align*}
+	Where we recognize it to be the product of the density functions of the two independent random variables $X \sim Gamma(r , \lambda)$ and $Y \sim Gamma(s,\lambda)$
+\section*{Question 5}
+First of all, since $X_1,X_2,X_3$ are independently $Exp(\lambda)$ distributed random variables and they all have the same probability distribution, by theorem 7.20 and definition 7.19 in the textbook, then they are exchangeable. Since they are jointly continuous, then $\Prob(X_i = X_j) = 0$ for any $i \neq j$. This follows from the fact that the space $D = \{(x_1,x_2,x_3) \colon x_i = x_j \text{ such that $i \neq j$} \}$, when intergrated over, that means $\Prob((X_1,X_2,X_3) \in D)$ has value $0$.  Then taking the complement of that $1 - \Prob(X_i = X_j \colon i \neq j) = \Prob(X_1 \neq X_2 \neq X_3) = 1$. To solve this question, we are interested in the events where $X_1 < X_2 < X_3$, $X_1 < X_3 < X_2$, $X_2 < X_1 < X_3$, $X_2 < X_3 < X_1$, $X_3 < X_1 < X_2$ and $X_3 < X_2 < X_1$, where we list all $6$ permutation of $X_1, X_2$ and $X_3$ in these inequalities. The probability of each of those, by the exchangeability of $X_1, X_2$ and $X_3$ are equal. Moreover, they sum up to $\Prob(X_1 \neq X_2 \neq X_3) = 1$, therefore, $\Prob(X_1 < X_2 < X_3) = \frac{1}{6}$. 
+\end{document}
+
