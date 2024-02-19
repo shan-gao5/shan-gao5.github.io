@@ -10,6 +10,7 @@
 \usepackage{amsmath,amsthm}
 \usetikzlibrary{shapes}
 \usetikzlibrary{positioning}
+\usepackage{xcolor}
 % Set up the images/graphics package
 \usepackage{graphicx}
 \setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
@@ -201,5 +202,23 @@ We introduce some probability notions, a probability triple denoted $(\Omega, \m
 	$$ \mathbb{P}(\limsup_{n} E_n) = \mathbb{P}(E_n \text{ infinitely often }) = 0$$
 
 \end{lem}
+\section*{Random Plane Voronoi Tessellations}
+
+$S$ is a set of points in $\mathbb{R}^n$, and each point of the space is associated with the nearest point of $S$, then the space is divided into convex polyhedra. We can classify these points. For example, a point in the space can be either of type $A$, $B$ or $C$. It's of type $A$ if it has exactly one nearest neighbor in $S$, then it's in the interior of a cell. A point is of type $B$ if it has two nearest neighbors, then it's on the edge of a cell, and a point of type $C$ is located where three cells meet. We can immediately generalize this to seeds in $\mathbb{R}^n$ where there are $n+1$ types of points. 
+
+\begin{defn}[void of a point]
+	The open ball cenetered at a point that has it's nearest neighbor seed in $S$ on it's circumference is called the void of the point.
+\end{defn}
+
+
+\begin{defn}[configuration type]
+	The definition of a \textbf{configuration} type consists of 
+	\begin{enumerate}
+		\item the number $m$ of seeds involved
+		\item the number $k$ of points and their types, and 
+		\item a specification of which seeds $S_0, \ldots, S_{m-1}$ are nearest neighbors of which points $P_1, \ldots,P_k$ 
+	\end{enumerate}
+	\textcolor{red}{Why only finite points?}	
+\end{defn}
 
 \end{document}
