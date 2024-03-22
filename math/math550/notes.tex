@@ -1,0 +1,107 @@
+\documentclass{tufte-handout}
+
+%\geometry{showframe}% for debugging purposes -- displays the margins
+
+\usepackage{amsmath,amsthm}
+
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+\title{Math 550 Notes}
+\author{Shan Gao}
+\date{Winter 2024}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+% Provides paragraphs of dummy text
+\usepackage{lipsum}
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{quest}[thm]{Question}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{defns}[thm]{Definitions}
+\newtheorem{con}[thm]{Construction}
+\newtheorem{exmp}[thm]{Example}
+\newtheorem{exmps}[thm]{Examples}
+\newtheorem{notn}[thm]{Notation}
+\newtheorem{notns}[thm]{Notations}
+\newtheorem{addm}[thm]{Addendum}
+\newtheorem{exer}[thm]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{warn}[thm]{Warning}
+\newtheorem{sch}[thm]{Scholium}
+
+
+
+\begin{document}
+
+\maketitle% this prints the handout title, author, and date
+
+\begin{abstract}
+\noindent Some Math 550 notes written by me
+\end{abstract}
+
+
+\section{Convexity}
+
+In these types of problems, we primarily work with finite subsets of $\mathbb{R}^d$. 
+\begin{defn}[Linear subspace]
+	A linear subspace of $\mathbb{R}^d$ is a collection of vectors closed under sums and multiplication by scalars. 
+\end{defn}
+
+\begin{defn}[Linear hull]
+	For $S \subseteq \mathbb{R}^d$, the linear hull $\langle S \rangle$ is the smallest linear subspace containing $S$, i.e, it's the intersection of all linear subspaces containing $S$. Easy to check that it's equivalent to 
+	$$ \langle S \rangle = \{ \alpha_1v_1 + \alpha_2 v_2 + \ldots + \alpha_n v_n \colon v_1,\ldots,v_n \in S, \alpha_1,\ldots,\alpha_n \in \mathbb{R}\}$$
+	
+\end{defn}
+Noting that in finite dimensional case, $\mathbb{R}^d$, only need $d$ (at most) vectors to span the whole space. In the sense that if you have a collection of vectors whose size is greater than $d$, the vectors are automatically linearly dependent. 
+\begin{defn}[Linearly dependent]
+	A collection $\{v_1,v_2,\ldots,v_n\}$ of vectors are linearly dependent if some $v_i$ is a linear combination of vectors in $\{v_1,\ldots,v_n\} - \{v_i\}$ or $v_i \in \langle \{v_1,\ldots,v_n\} \rangle$. 
+\end{defn}
+\begin{defn}[Affine subspace]
+	In $\mathbb{R}^3$, planes are not necessarily passing through the origin, 
+\end{defn}
+
+\bibliography{notes}
+\bibliographystyle{plainnat}
+
+
+
+
+
+\end{document}

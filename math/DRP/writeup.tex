@@ -1,0 +1,150 @@
+\documentclass{tufte-handout}
+
+%\geometry{showframe}% for debugging purposes -- displays the margins
+
+
+
+\newcommand{\bra}[1]{\left(#1\right)}
+\usepackage{clrscode3e}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{amsmath,amsthm}
+\usetikzlibrary{shapes}
+\usetikzlibrary{positioning}
+% Set up the images/graphics package
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+\graphicspath{{graphics/}}
+
+\title{DRP write up}
+\author{Shan Gao}
+\date{Winter 2024}  % if the \date{} command is left out, the current date will be used
+
+% The following package makes prettier tables.  We're all about the bling!
+\usepackage{booktabs}
+
+% The units package provides nice, non-stacked fractions and better spacing
+% for units.
+\usepackage{units}
+
+% The fancyvrb package lets us customize the formatting of verbatim
+% environments.  We use a slightly smaller font.
+\usepackage{fancyvrb}
+\fvset{fontsize=\normalsize}
+
+% Small sections of multiple columns
+\usepackage{multicol}
+
+%--------Theorem Environments--------
+%theoremstyle{plain} --- default
+\newtheorem{thm}{Theorem}
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{quest}[thm]{Question}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem{defns}[thm]{Definitions}
+\newtheorem{con}[thm]{Construction}
+\newtheorem{exmp}[thm]{Example}
+\newtheorem{exmps}[thm]{Examples}
+\newtheorem{notn}[thm]{Notation}
+\newtheorem{notns}[thm]{Notations}
+\newtheorem{addm}[thm]{Addendum}
+\newtheorem{exer}[thm]{Exercise}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\newtheorem{rems}[thm]{Remarks}
+\newtheorem{warn}[thm]{Warning}
+\newtheorem{sch}[thm]{Scholium}
+
+
+% These commands are used to pretty-print LaTeX commands
+\newcommand{\doccmd}[1]{\texttt{\textbackslash#1}}% command name -- adds backslash automatically
+\newcommand{\docopt}[1]{\ensuremath{\langle}\textrm{\textit{#1}}\ensuremath{\rangle}}% optional command argument
+\newcommand{\docarg}[1]{\textrm{\textit{#1}}}% (required) command argument
+\newenvironment{docspec}{\begin{quote}\noindent}{\end{quote}}% command specification environment
+\newcommand{\docenv}[1]{\textsf{#1}}% environment name
+\newcommand{\docpkg}[1]{\texttt{#1}}% package name
+\newcommand{\doccls}[1]{\texttt{#1}}% document class name
+\newcommand{\docclsopt}[1]{\texttt{#1}}% document class option name
+
+\begin{document}
+
+\maketitle
+\begin{abstract}
+    Presents some results found in \citet{devroye2015measure}
+\end{abstract}
+
+\section{Introduction}
+\begin{thm}[Absolutely continuous w.r.t Lebesgue measure]
+    We say that a measure $\mu$ on $\mathcal{B}(\mathbb{R}^d)$ is absolutely continuous with respect to the Lebesgue measure $\lambda$ if for all $A \in \mathcal{B}(\mathbb{R}^d)$ and $m(A) = 0$ then $\mu(A) =0$. 
+\end{thm}
+\begin{cor}
+    Let $\mu$ be absolutely continuous with respect to the Lebesgue measure, then for any $A \in \mathcal{B}(\mathbb{R}^d)$, denoting the density function of $\mu$ by $f$ we have 
+    $$
+        \mu(A) = \int_A f dx
+    $$
+\end{cor}
+\begin{defn}[Random Voronoi Tesselation]
+        Let $X_1,\ldots,X_n$ be i.i.d random vectors taking values in $\mathbb{R}^d$. That means all of them share a common distribution , call it $\mu$. We assume that $\mu$ is absolutely continuous with respect to the Lebesgue measure $\lambda$, and denote the density function of $\mu$ by $f$. These $X_i$'s define a partition of $\mathbb{R}^d$ into $n$ sets $S_1,\ldots,S_n$ such that $S_i$ contain all points in $\mathbb{R}^d$ whose distances to $X_i$ is not greater than their distances to all other $X_j$'s ($ j \neq i $). Letting $\|.\|$ denote the standard Euclidean norm, we have that 
+        $$ S_i = \{x \in \mathbb{R}^d \colon \|x - X_i\| = \min_{j = [n]} \|x - X_j\| \}   \cap \{x \in \mathbb{R}^d \colon \|x - X_i\| < \min_{j = 1,\ldots,i-1} \|x - X_j\|\}$$
+\end{defn}
+
+\begin{prop}[Asymptotic second moment]
+	The asymptotic second moment is expressed in terms of a random variable $W$ defined as follows. Let $Y$ be a random vector uniformly distributed in $B(0,1)$. Define, $\vec{1} = (1,0,0,\ldots,0) \in \mathbb{R}^d$ and let $\overline{B} = B(\vec{1},1)\cup B(Y, \|Y\|)$.  \textcolor{red}{Is this assuming standard Euclidean norm?}	
+	
+\end{prop}
+We introduce the random variable
+$$
+		W = \frac{m(\overline{B})}{m(B(0,1))}
+$$
+and let
+$$
+	\alpha(d) \equiv \mathbb{E}\left[ \frac{2}{W^2} \right]
+$$
+
+
+\begin{thm}
+	Asumme in $\mu$ has density $f$. Then 
+	$$
+		n \mathbb{E}[\mu(S_1) | X_1 = x] \to 1
+	$$
+	for $\mu$ almost all $x$. 
+\end{thm}
+
+$Z(x) = \mu(B(X,\|X-x\|))$
+
+
+
+
+
+
+
+
+\bibliographystyle{plainnat}
+\bibliography{writeup}
+
+\end{document}
+
+
+Cartesian Trees
+	Paper: https://pdfs.semanticscholar.org/1742/195ba5043ec45345d6a9c9ee65145d345ecd.pdf
+	General Info (Wikipedia): https://en.wikipedia.org/wiki/Cartesian_tree
+
+Treaps
+	Paper:  http://faculty.washington.edu/aragon/pubs/rst89.pdf
+	General Info:  https://en.wikipedia.org/wiki/Treap
+	Creators: https://en.wikipedia.porg/wiki/Raimund_Seidel 	https://en.wikipedia.org/wiki/Cecilia_R._Aragon
+
+Probability:
+	Book: https://www.amazon.com/Statistical-Inference-George-Casella/dp/0534243126 ISBN: 0534243126 Pages: 5-6, 55
+    
+Quicksort
+	Paper: https://academic.oup.com/comjnl/article-abstract/5/1/10/395338/Quicksort?redirectedFrom=fulltext
+    General Info: https://en.wikipedia.org/wiki/Quicksort
+    Creator & Analyst: https://en.wikipedia.org/wiki/Tony_Hoare		https://en.wikipedia.org/wiki/Robert_Sedgewick_(computer_scientist)
+

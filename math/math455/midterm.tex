@@ -1,0 +1,303 @@
+%% Thanks to Bennet Goeckner for giving me his TeX template, which this is based on. 
+%% These percent symbols tell the compiler to ignore the remainder of a given line.
+%% We use them to write comments that will not appear in the finalized output.
+
+%% The following tells the compiler which type of document we're making.
+%% There are many options. ``Article'' is probably fine for our class.
+\documentclass[12pt]{article}
+
+%% After declaring the documentclass, we load some packages which give us 
+%% some built-in commands and more functionality. 
+%% The following is a list of packages that this file might use.
+%% If a command you're using isn't working, try Googling it -- you might need to add a specific package.
+%% I have included the standard ones that I like to load.
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage{mdframed}
+\usepackage{multicol}
+\usepackage{verbatim}
+\usepackage{tikz}
+\usepackage[margin = .8in]{geometry}
+\geometry{letterpaper}
+\linespread{1.2}
+
+%% One of the nicest things about LaTeX is you can create custom macros. If  there is a long-ish expression that you will write often, it is nice to give it a shorter command.
+%% For our common number systems.
+\newcommand{\RR}{\mathbb{R}} %% The blackboard-bold R that you have seen used for real numbers is typeset by $\mathbb{R}$. This macro means that $\RR$ will yield the same result, and is much shorter to type.
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}} 
+\newcommand{\QQ}{\mathbb{Q}}
+
+%% Your macros can even accept arguments. 
+\newcommand\set[1]{\left\lbrace #1 \right\rbrace} %% In mathmode, if you write \set{STUFF}, then this will output {STUFF}, i.e. STUFF inside of a set
+\newcommand\abs[1]{\left| #1 \right|} %% This will do the same but with vertical bars. I.e., \abs{STUFF} gives |STUFF|
+\newcommand\parens[1]{\left( #1 \right)} %% Similar. \parens{STUFF} gives (STUFF)
+\newcommand\brac[1]{\left[ #1 \right]} %% Similar. \brac{STUFF} gives [STUFF]
+
+%% A few more important commands:
+
+%% You should start every proof with \begin{proof} and end it with \end{proof}.  
+%%
+%% Code inside single dollar signs will give in-line mathmode. I.e., $f(x) = x^2$ 
+%% Code \[ \] will give mathmode centered on its own line.
+%%
+%% Other common commands:
+%%	\begin{align*} and \end{align*} -- Good for multiline equations
+%%	\begin{align} and \end{align} -- Same as above, but it will number the equations for easy reference
+%%	\emph{italicized text here} and \textbf{bold text here} are also useful.
+%%
+%% Some very specific mathmode commands and their meanings:
+%%	x \in A -- x is an element of A
+%%	x \notin A -- x is not an element of A
+%%	A \subseteq B -- A is a subset of B
+%%	A \subsetneq B -- A is a proper subset of B
+%%	x \equiv y \pmod{n} -- x is congruent to y mod n. 
+%%	x \geq y and x \leq y -- Greater than or equal to and less than or equal to 
+%%
+%% You'll probably find lots of relevant commands in the question prompts. Also Google is your friend!
+\title{Math 455 Midterm}
+\author{Shan Gao}
+\date{Winter 2024}
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Question 1}
+\begin{proof}[Solution]
+	Since $f$ is a bounded function on $\mathbb{R}$, there exists some $M > 0$ such that $f(x) \leq M$ $\forall x \in \mathbb{R}$. Let $q > p$ and observe that 
+	\begin{align*}
+		\int \abs{f}^q &= \int \abs{f}^{q-p} \abs{f}^p\\
+		&\leq \int M^{q-p} \abs{f}^p \\
+		&= M^{q-p} \int \abs{f}^p < +\infty \quad \text{since $f \in L^p(\mathbb{R})$}
+	\end{align*}
+	thus $f \in L^q(\mathbb{R})$
+\end{proof}
+\pagebreak
+\section*{Question 2}
+\subsection*{(a)}
+\begin{proof}[Solution]
+	First of all, every rational number in $[0,1]$ can be expressed as the quotient of two coprime positive integers, $a,b > 0$ where $a \leq b$. It's clear that a finite continued fraction is a rational number. It remains to show that any rational number in $[0,1]$ can be expressed as a finite continued fraction. Let $q \in [0,1] \cap \mathbb{Q}$, where $q = \frac{a}{b}$, $a,b > 0$, $a<b$ and $\gcd(a,b) = 1$. Observe that the Euclidean algorithm to compute $\gcd$ where we use repeated division to obtain a decreasing sequence of positive integers $r_1 > r_2 > \ldots > r_n = 1$ that is 
+	\begin{align*}
+		b &= a q_1 + r_1 \\
+		a &= r_1 q_2 + r_2 \\
+		r_1 &= r_2 q_3 + r_3 \\
+		&\vdots \\
+		r_{n-2} &= r_{n-1} q_n + r_n \\
+		r_{n-1} &= r_n q_{n+1}
+	\end{align*} 
+	We are then able to rearrange the output of the algorithm and use forward substitution to form a continued fraction. Indeed, observe that 
+	\begin{align*}
+		\frac{a}{b} &= \frac{r_1q_2 + r_2}{aq_1 + r_1}\\
+					&= \frac{1}{\frac{aq_1 + r_1}{r_1q_2 + r_2}}\\
+					&= \frac{1}{q_1 + \frac{r_1}{r_1q_2 + r_2}}\\
+					&= \frac{1}{q_1 + \frac{1}{q_2 + \frac{r_2}{r_1}}}
+	\end{align*}
+	Similarly we find that
+	\begin{align*}
+		\frac{r_2}{r_1} &= \frac{r_3q_4+ r_4}{r_2q_3 + r_3}\\
+					&= \frac{1}{\frac{r_2q_3 + r_3}{r_3q_4 + r_4}}\\
+					&= \frac{1}{q_3 + \frac{r_3}{r_3q_4 + r_4}}\\
+					&= \frac{1}{q_3 + \frac{1}{q_4 + \frac{r_4}{r_3}}}
+	\end{align*}
+	and by induction for any $2 \leq k \leq n-1$
+	$$ \frac{r_k}{r_{k-1}} = \frac{1}{q_{k+1} + \frac{1}{q_{k+2}+ \frac{r_{k+2}}{r_{k+1}}}}$$
+	with $$\frac{r_n}{r_{n-1}} = q_{n+1}$$
+	It's clear that 
+	$$q = [q_1,q_2,q_3,\ldots,q_{n+1}]$$
+	We've just shown that the simple continued fraction for a real number is finite if and only if it's a rational number. Therefore the simple continued for a real number is infinite if and only if it's an irrational number. 
+\end{proof}
+\subsection*{(b)}
+let $x = [n_1,n_2,\ldots]$ be a real number in $(0,1)$, and $f(x) = \frac{1}{x} + \lfloor \frac{1}{x} \rfloor$, then writing out the continued fraction representation for $x$, we have
+$$ 
+x = \frac{1}{n_1 + \frac{1}{n_2 + \frac{1}{n_3 + \ldots}}}
+$$
+then 
+\begin{align*}
+	f([n_1,n_2,n_3,\ldots]) &= \frac{1}{x} - \lfloor \frac{1}{x} \rfloor \\
+	&= n_1 + \frac{1}{n_2 + \frac{1}{n_3 + \ldots}} - \left \lfloor n_1 +\overbrace{\frac{1}{n_2 + \frac{1}{n_3 + \ldots}}}^{<1 \text{ since $n_2,n_3,\ldots$ positive integers}}\right \rfloor \\
+	&= n_1 + \frac{1}{n_2 + \frac{1}{n_3 + \ldots}} - n_1 \\
+	&= \frac{1}{n_2 + \frac{1}{n_3 + \ldots}}  \\
+	&= [n_2,n_3,n_4,\ldots]
+\end{align*}
+which shows that $f(x)$ is the shift map 
+
+\subsection*{(c)}
+This corresponds to the solution for roots of quadratic polynomials. Indeed, consider $x = [n_1,n_2,\ldots,n_k,n_1,n_2,\ldots,n_k,\ldots] = [\overline{n_1,n_2,\ldots,n_k}]$. This is a simple continued fraction in which the reciprocals of the numbers added to the integer part of the denominator repeats with a certain period. We can see that 
+$$
+x = \frac{1}{n_1 + \frac{1}{n_2 + \frac{1}{\ddots +\frac{1}{n_k + x}}}}
+$$
+The right hand side by repeatedly simplified starting from backwards where 
+$$ 
+n_{k-1} + \frac{1}{n_k+x} = \frac{(n_{k-1})(n_k + x) + 1}{n_k + x}
+$$ 
+then 
+$$ n_{k-2} + \frac{1}{n_{k-1} + \frac{1}{n_k+x} } =  n_{k-2} +  \frac{n_k + x}{(n_{k-1})(n_k + x) + 1} = \frac{(n_{k-2})(n_{k-1}(n_k + x) + 1) + n_k + x }{n_{k-1}(n_{k} + x) + 1}
+$$
+
+and so on, continuing with the simplification, eventually ending up with a form of 
+$$
+x = \frac{Ax + B}{Cx+D}
+$$
+where $x$ is the solution of a quadratic polynomial
+
+\pagebreak
+\section*{Problem 3}
+\begin{proof}[Solution]
+We have $\mu$ defined on $(0,\infty)$ by $\mu([a,b)) = \log_2 \frac{1+b}{1+a}$ (I'm assuming this completely defines a measure on the Borel sigma algebra since it's defined on a generating set). Let $f \colon (0,1) \to (0,1)$ be defined by 
+$$ f(x) = \set{\frac{1}{x}} = \frac{1}{x} - \left\lfloor \frac{1}{x} \right \rfloor $$
+This is the fractional part of the reciprocal of $x \in (0,1)$.
+Now we want to show that that $\mu(f^{-1}(a,b)) = \mu((a,b))$ for any interval $(a,b) \subseteq (0,1)$. Let $(a,b) \subseteq (0,1)$ be an interval, since each $y \in (a,b)$ is the fractional part of the number $n+a$ for any $n \geq 1$ (need $n \geq 1$ since the $\frac{1}{n+a} \in (0,1)$, then 
+$$f^{-1}((a,b)) = \bigcup_{n=1}^\infty \parens{\frac{1}{n+b}, \frac{1}{n+a}}$$
+These are disjoint intervals, thus by countable additivity,
+\begin{align*}
+\mu(f^{-1}((a,b))) &= \mu\left (\bigcup_{n=1}^\infty \parens{\frac{1}{n+b}, \frac{1}{n+a}}\right) \\
+&= \sum_{n=1}^\infty \mu \parens{\frac{1}{n+b}, \frac{1}{n+a}}\\
+&= \sum_{n=1}^\infty \log_2 (n+a+1) - \log_2(n+a) - (\log_2(n+b+1) - \log_2(n+b))\\
+&= -\log_2(1+a) + \log_2(1+b) \quad \text{by telescoping}\\
+&= \log_2 \frac{1+b}{1+a}
+\end{align*}
+\end{proof}
+\pagebreak
+\section*{Problem 8}
+A good counterexample is taking $\mathbb{R} \times \mathbb{R}$ with the standard Euclidean metric. Both non-compact metric spaces, then observing that 
+$$ f(x,y) = |xy|$$
+is a continuous function in two variables, then let 
+$$ V = f^{-1}((-\infty,1)) = \{(x,y) \in \mathbb{R}\times\mathbb{R} \colon |x,y|< 1\}$$
+is an open set in $\mathbb{R}\times \mathbb{R}$ that contains the slice $ \{0\} \times \mathbb{R}$. We claim that  $V$ contains no tube $W \times \mathbb{R}$ about $\{0\} \times \mathbb{R}$. Clear, that if there was such a tube $W \times \mathbb{R}$, then $W$ is an open neighborhood of $0$ in $\mathbb{R}$, that means there exists some $\varepsilon > 0 $, such that $B(0,\varepsilon) \times \mathbb{R} \subseteq V$, but this is not possible since, letting $\varepsilon > 0$ be arbitrary
+$$ \left( \frac{\varepsilon}{2}, \frac{4}{\varepsilon}\right) \in B(0,\varepsilon) \times \mathbb{R}$$
+but 
+$$ \left| \frac{\varepsilon}{2} \cdot \frac{4}{\varepsilon} \right| = 2 \nless 1 $$
+so $B(0,\varepsilon) \times \mathbb{R} \nsubseteq V$ for any $\varepsilon > 0$, which leads to a contradiction, so no such tube exists. 
+
+
+\section*{Question 9}
+\subsection*{(a)} 
+
+First identity comes from the binomial formula, which is 
+$$(x+y)^n = \sum_{k=0}^n \binom{n}{k} x^k y^{n-k}$$
+and then just substitute $y = 1-x$, to get 
+$$1 = (x+(1-x))^n  = \sum_{k=0}^n \binom{n}{k} x^k (1-x)^{n-k}$$
+
+
+
+We can do this without too much algebra by just noticing that the probability mass function of a $X \sim Bin(n,x)$ distributed random variable evalued at $k \leq n$, that is  
+$$
+	\mathbb{P}(X = k) = \binom{n}{k} x^k (1-x)^{n-k}
+$$
+
+Since this is a probability distribution, the probabilities associated with all values must be non negative and sum up to 1, thus
+$$
+1 = \sum_{k=0}^n \mathbb{P}(X=k) = \sum_{k=0}^n \binom{n}{k} x^k (1-x)^{n-k} 
+$$
+Second identity comes from differentiating both sides (shifts coefficients up and adds multiple of $n$) of the previous formula and multiplying by $x$ to shift down again,
+where
+$$  xn(x+y)^{n-1}= x D(x+y)^n  =  x\sum_{k=1}^n \binom{n}{k} k x^{k-1}y^{n-k} =\sum_{k=0}^n k \binom{n}{k}x^k y^{n-k}  $$
+And we can recover the second identity by letting $y =1-x$. 
+
+We can also derive the second identity using the expected value of $X$
+$$nx = \mathbb{E}(X) = \sum_{k=0}^n k \binom{n}{k}x^k (1-x)^{n-k} $$
+
+The third identity is found by differentiating twice and multiplying by $x^2$, where
+\begin{align*}	
+ x^2n(n-1) (x+y)^{n-1} &= x^2 D^2 (x+y)^n \\
+ &= x^2 \sum_{k=2}^n \binom{n}{k} k (k-1) x^{k-2}y^{n-k}\\
+ &= x^2 \sum_{k=2}^n \binom{n}{k} k (k-1) x^{k-2}y^{n-k} \\
+ &= \sum_{k=0}^n \binom{n}{k}k(k-1)x^k y^{n-k}
+ \end{align*}
+ And we can get the identity by letting $y = 1-x$. 
+ 
+Using the first identity, and that $f(x) = f(x) \cdot 1$ we can write
+$$f(x) = \sum_{k=1}^n f(x) \binom{n}{k} x^k (1-x)^{n-k}$$
+It follows that 
+\begin{align*}
+\left|f(x) - B_n(f)(x)\right | &= \left | \sum_{k=0}^n \left(f(x) - f\left(\frac{k}{n} \right) \right) \binom{n}{k}x^{k}(1-x)^{n-k}\right| \\
+	&\leq \sum_{k=0}^n \left|f(x) - f\left ( \frac{k}{n}\right)\right|\binom{n}{k} x^k (1-x)^{n-k} \quad \text{ $\triangle$-ineq}
+\end{align*}
+\subsection*{(b)}
+Knowing that $f$ is uniform continuous on $[0,1]$, $\forall \varepsilon >0$, there exists a $\delta > 0$, such that if $|x-y| < \delta$ then $|f(x) - f(y)| < \varepsilon$. Separating the sum from previous part into two parts $A$ and $B$, in order to show uniform convergence, it remains to show that the following expression gets arbitrarily small
+$$
+\sum_{k=0}^n |f(x) - f(\frac{k}{n})| \binom{n}{k} x^k (1-x)^{n-k} = \underbrace{\sum_{k \colon |x - \frac{k}{n} |< \delta} \binom{n}{k} x^k (1-x)^{n-k}}_{A} + \underbrace{\sum_{k \colon |x-\frac{k}{n}| \geq \delta} \binom{n}{k} x^k (1-x)^{n-k}}_{B}
+$$
+where 
+$$
+A = \sum_{k \colon |x - \frac{k}{n} |< \delta} \left| f(x) - f\left(\frac{k}{n}\right)\right|\binom{n}{k} x^k (1-x)^{n-k}
+$$
+and 
+$$
+B = \sum_{k \colon |x - \frac{k}{n} | \geq \delta} \left| f(x) - f\left(\frac{k}{n}\right)\right|\binom{n}{k} x^k (1-x)^{n-k}
+$$
+We examine these parts one by one. For the case of $A$, since we are summing over all $k$ such that $|x - \frac{k}{n}| < \delta$, then $|f(x) - f(\frac{k}{n})| < \varepsilon$, thus
+$$ A = \sum_{k \colon |x - \frac{k}{n} |< \delta} \binom{n}{k} x^k (1-x)^{n-k} < \varepsilon \underbrace{\sum_{k \colon |x - \frac{k}{n} |< \delta} \binom{n}{k} x^k (1-x)^{n-k}}_{\leq 1 \ \text{by first prop}} \leq \varepsilon
+$$
+So $A$ can be arbitrarily small, now we need to take care of $B$. \\
+Observe that since $f \in C([0,1])$ and continuous functions on compact intervals attain their extrema, then letting $M = \sup_{x,y \in [0,1]} |f(x) - f(y)| < \infty$, we get that $ |f(x) - f(\frac{k}{n})| < M$. 
+ One way to do it, avoiding some algebra is to notice that if $Y \sim Bin(n,x)$ is a binomial distributed random variable with parameter $x$, then 
+$$
+B \leq  \sum_{k \colon |x - \frac{k}{n} | \geq \delta} M\binom{n}{k} x^k (1-x)^{n-k} = M\mathbb{P}\left ( \left |x - \frac{Y}{n} \right | \geq \delta\right )
+$$
+We can directly say that $B \to 0$ as $n \to \infty$ by a straightforward application of the Law of large numbers for binomial random variables that states: \\
+\textbf{Law of large numbers} : For any fixed $\varepsilon > 0$ and parameter $p$, and $S_n \sim Bin(n,p)$, we have 
+$$
+\lim_{n \to \infty} \mathbb{P}\left(\left| \frac{S_n}{n} - p\right| < \varepsilon \right)  = 1$$
+What this says is that no the observed frequency of success of $n$ independent trials with success probability $p$ will get overwhelmingly close to $p$. 
+An immediate corollary of this is that, for some fixed $\delta > 0$, then 
+$$ B = \mathbb{P}\left(\left| \frac{Y}{n} - x\right| \geq \delta \right)   =1- \mathbb{P}\left(\left| \frac{Y}{n} - x\right| <  \delta \right)  \to 0 $$
+as $n \to \infty$, thus both $A$ and $B$ get arbitrarily small, and since $x$ was arbitrary in $[0,1]$ we've shown that $B_n(f)(x)$ converges uniformly to $f$.  
+
+
+\section*{Home midterm part 2 Q2}
+\subsection*{(a)}
+First of all we have the base cases where $U_1 (\cos \theta) = \frac{\sin(2 \theta)}{\sin \theta} = \frac{2 \sin \theta \cos \theta}{\sin \theta} = 2 \cos \theta$ which  is a polynomial in $\cos \theta$, and $T_1( \cos \theta) = \cos(\theta)$ which is also a polynomial in $\cos \theta$. The inductive step is as follows: using strong induction, assume that $U_1, U_2, \ldots U_n$ and $T_1, T_2, \ldots, T_n$ are polynomials, we try to show that $U_{n+1}$ and $T_{n+1}$ are polynomials as well. Observe that 
+$$
+T_{n+1}(\cos(\theta) = \cos ((n+1)\theta) = \cos(n\theta)\cos\theta - \sin(n\theta)\sin\theta
+$$
+and 
+$$T_{n-1}(\cos\theta) = \cos(n\theta - \theta) = \cos(n\theta)\cos\theta + \sin(n\theta)\sin\theta$$
+adding these two together we get taht 
+$$ T_{n+1}(\cos \theta) + T_{n-1} (\cos \theta) = 2 \cos( n \theta)\cos\theta = 2 T_{n}(\cos \theta)\cos\theta$$
+to get
+$$T_{n+1} (x) = 2T_n (x) x - T_{n-1}(x)$$
+which by the induction hypothesis is a polynomial
+
+We can use the same trick for $U_{n+1}$, observing that 
+$$U_{n}(\cos\theta) = \frac{\sin((n+1)\theta)}{\sin\theta} = \frac{\sin(n\theta) \cos \theta + \cos(n\theta)\sin\theta}{\sin\theta}$$
+and 
+$$U_{n-2}(\cos\theta) = \frac{\sin(n\theta - \theta)}{\sin\theta} = \frac{\sin(n \theta)\cos\theta - \cos(n\theta)\sin\theta}{\sin\theta}
+$$
+Adding these two together, we get that 
+$$U_n(\cos\theta) + U_{n-2}(\cos\theta) = \frac{\sin(n\theta)\cos\theta}{\sin\theta} = U_{n-1}(\cos\theta)\cos\theta$$
+Since this is a recurrence relation we can just shift up to get
+$$U_{n+1}(x)  = U_n(x)x - U_{n-1}(x)$$
+and with the induction hypothesis we can conclude that $U_{n+1}$ is a polynomial.
+
+
+Listing out the first couple of polynomials
+\begin{enumerate}
+	\item $T_1(x) = x$
+	\item $T_2(x) = 2x^2-1 $ , since $T_0(\cos\theta) = \cos(0) = 1$
+	\item $T_3(x) = 4x^3 - 3x$
+	\item $U_1(x) = 2x$
+	\item $U_2(x) = 4x^2 -1$
+	\item $U_3(x) = 8x^3 - 4x$
+\end{enumerate}
+\subsection*{(b)}
+We wish to show, that for $m \neq n$, the following integral is 0
+$$\int_{-1}^1 T_n(x)T_m(x) \frac{dx}{\sqrt{1-x^2}}$$
+Recalling that the derivative of $\cos^{-1}(x)$ is $ \frac{-1}{\sqrt{1-x^2}}$, we apply the substitution $\theta = \cos^{-1}(x)$ or $x = \cos(\theta)$. Noticing that $x = -1$, when $\theta = \pi$ and $x = 1$ when $\theta = 0$, and $d\theta = -\sin\theta  dx$, the integral becomes, knowing that the sign flips when we integrate from $0$ to $\pi$
+\begin{align*}
+-\int_{0}^\pi T_n(\cos\theta) T_m(\cos\theta) \frac{-\sin\theta d\theta}{\underbrace{\sqrt{1-\cos^2\theta}}_{\sin\theta}} &= \int_{0}^\pi \cos(n\theta)\cos(m\theta) d\theta = 0
+\end{align*} 
+Since if $m \neq n$, 
+then, from the product of cosine identity
+$$\cos(nx) \cos(mx) = \frac{1}{2} \cos((n-m)x) + \cos((n+m)x)$$ 
+then the integral evaluates to 
+$$ \frac{1}{2} \int_0^\pi \cos((n-m)x) + \frac{1}{2} \int_0^\pi \cos((n+m)x) = 0$$
+since letting $k$ be any non zero integer,
+$\int_{0}^\pi \cos(kx)dx = \frac{1}{k} [ \sin(k\pi) - \sin(0)] = 0$
+\end{document}

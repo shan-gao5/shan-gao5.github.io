@@ -1,0 +1,498 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{units}
+\title{Math 455 notes}
+\author{Shan Gao}
+\date{Winter 2024}
+\theoremstyle{definition}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{definition}{Definition}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{remark}{Remark}[section]
+\newcommand{\inprod}[1]{\left\langle #1 \right\rangle}
+
+\begin{document}
+\maketitle
+
+\section{Jan 19}
+\begin{theorem}
+	Let $(X,d)$ be a metric space, then TFAE : 
+	\begin{enumerate}
+		\item $X$ is compact
+		\item $X$ is sequentially compact, any sequence has a convergent subsequence
+		\item $X$ is complete and totally bounded, $\forall \varepsilon >0$, $X$ can be covered by finitely many balls of radius $\varepsilon$
+	\end{enumerate}	
+\end{theorem}
+\begin{proof}
+	See Royden and Fitzpatrick
+\end{proof}
+
+\begin{proposition}
+	If $X$ is compact then $(C(X), ||.||_{\text{max}})$ is complete
+\end{proposition}
+
+\begin{definition}[equicontinuous]
+	$\mathcal{F}$ is a collection of functions from $X$ to $\mathbb{R}$. $\mathcal{F}$ is called equicontinuous at $x \in X$, if $\forall \varepsilon > 0$, $\exists \delta > 0$ such that if $d(x,y) < \delta$, then $|f(x) - f(y)| < \varepsilon$, for all $f \in \mathcal{F}$. 
+\end{definition}
+
+\begin{remark}
+	If $\mathcal{F} = \{f_1,f_2,\ldots,f_n\}$ finite set, then it's equicontinuous. 
+\end{remark}
+\begin{definition}[pointwise bounded]
+	The set $\{f_n \colon X \to \mathbb{R}\}_{n \in \mathbb{N}}$ is pointwise bounded iff $\forall x \in X$, $\{f_n(x) \colon n \in \mathbb{N}\}$ is a bounded subset in $\mathbb{R}$ 
+\end{definition}
+
+
+\begin{definition}[Uniformly bounded]
+	$\{f_n\}_{n \in \mathbb{N}}$ is uniformly bounded iff $\exists M > 0$ such that $|f_n(x)| \leq M$ $\forall x \in X$, $\forall n \in \mathbb{N}$ 
+\end{definition}
+
+\begin{lemma}[Arzale-Ascoli]
+	Let $X$ be a separable metric space, $\{f_n\}_n$ an \textbf{equicontinuous sequence} in $C(X)$ that is \textbf{pointwise bounded}. Then a subsequence of $\{f_n\}$ converges pointwise on all $X$ to a function on $X$ (not necessarily continuous). 
+\end{lemma}
+\begin{proof}
+	Let $\{x_j\}_{j=1}^\infty$ be a countable dense subset of $X$. Look first at the set $\{f_n(x_1)\}_{n \in \mathbb{N}}$, from pointwise boundedness, this is a bounded subset of the reals. From from that, there exists a subsequence, denoting the indices to be $S(1,n) \subseteq \mathbb{N}$, so $\exists \{f_{S(1,n)}(x_1)\}_{n \geq 1}$ where $f_{S(1,n)}(x_1) \to y_1$ (why? Recall the Bolzano-Weierstrass theorem from analysis 1: every bounded sequence in the reals has a convergent subsequence), let $g$ be such that $g(x_1) = y_1$. Furthermore, there exists a bounded sub-subsequence where $\{S(2,n)\}_n \subseteq \{S(1,n)\}_n$, then let $f_{S(2,n)}(x_2) \to y_2$ and let $g(x_2) = y_2$. The induction step is that given a $k \in \mathbb{N}$, choose
+	$S(k-1,n) \subseteq S(k-2,n) \subseteq \ldots \subseteq S(1,n)$ such that for all $j < k$, $f_{S(j,n)} (x_j) \to y_j = g(x_j)$. Then let $n_k = S(k,k)$, this is the diagonal subsequence. Letting $j \in \mathbb{N}$, then $\{n_k\}_{j = k}^\infty$ is a subset of $S(k,n)$ such that $f_{n_k} (x_j) \to y_j = g(x_j)$ (sequence converges then subsequence converges). Let $D = \{x_j\}_{j=1}^\infty$ be a dense subset of $X$. Then $\{f_{n_k}\}_{k=1}^\infty$ converges pointwise to $g$ on $D$. Let $x_0 \in X$.  Then we have a claim: $\{f_{n_k}(x_0)\}_{n \in \mathbb{N}}$ is cauchy in $\mathbb{R}$ . The proof is as follows:
+	Let $\varepsilon > 0 $. We know that $\{f_{n}\}$ is equicontinuous at $x$, so $\exists \delta > 0$ such that if $d(x,x_0) < \delta$, $|f_{n}(x) - f_n(x_0)| < \frac{\varepsilon}{3} \quad \forall n \in \mathbb{N}$. Since $D$ is dense in $X$, $\exists x \in D$ such that $d(x_0, x) < \delta$. Since $x \in D$, then $f_{n_k}(x) \to g(x)$ as $k \to \infty$. $\exists N$ such that $\forall n_{k_1}, n_{k_2} > N$, $|f_{n_{k_1}}(x) - f_{n_{k_2}}(x)| < \frac{\varepsilon}{3}$. Then, by the triangle inequality, letting $\delta$ be as before, 
+
+
+	\begin{align*}
+		|f_{n_{k_1}}(x_0) - f_{n_{k_2}} (x_0)| &\leq |f_{n_{k_1}}(x_0) - f_{n_{k_1}}(x)| + |f_{n_{k_2}}(x) - f_{n_{k_2}}(x)| + |f_{n_{k_2}}(x) - f_{n_{k_2}}(x_0)| \\
+						       &\leq 3 \cdot \frac{\varepsilon}{3} 
+	\end{align*}
+	so $f_{n_k}(x_0) \to g(x)$ as $k \to \infty$, for all $x_0 \in X$, thus verifying the claim and showing that $\{f_{n_k}\}_{n \in \mathbb{N}}$ converges pointwise to $g$, so there always exists a subsequence to converges pointwise to some function that's not necessarily continuous. 
+\end{proof}
+
+
+\begin{definition}[uniformly equicontinuous]
+	$\forall x,y \in X, \varepsilon > 0, \exists \delta$ not depending on $x$ nor $y$ such that if $d(x,y) < \delta$, then $|f(x) - f(y)| < \varepsilon$. This is what you expected knowing the definition of equicontinuous (nonuniform).
+\end{definition}
+
+\begin{theorem}[Arzale-Ascoli]
+	Let $X$ be a compact metric space, let $\{f_n\}_{n \in \mathbb{N}}$ be a uniformly bounded and equicontinuous sequence of functions $f_n \colon X \to \mathbb{R}$, then $\exists f_{n_k}$ (subsequence) such that $f_{n_k}$ converges uniformly on $X$ to $f(x) \in C(X)$. 
+
+\end{theorem}
+
+\textit{\textbf{Remark}}:
+This is different from the Arzale-Ascoli lemma where $X$ is not required to be compact, $\{f_n\}_{n \in \mathbb{N}}$ needed only to be pointwise bounded and equicontinuous, such that the function representing the convergent limit needn't be continuous. 
+
+\begin{proof}
+	$X$ compact implies $X$ is separable. By A-A lemma, $\exists f_{n_k}$ such that $f_{n_k}(x) \to f(x) \quad \forall x \in X$. To simplify notation let $f_{n_k} = f_n$ for all $k \in \mathbb{N}$. \textbf{Remark} : if $X$ compact, $\{f_n\}$ equicontinuous implies $\{f_n\}$ is uniformly equicontinuous $\forall n \in \mathbb{N}$. \\
+	Then, knowing that $\{f_n(x)\}$ is a Cauchy sequence in $\mathbb{R}$ for all $x \in X$, let $\varepsilon > 0 $, we know that there exists a $\delta > 0$ such that $\forall x,y \in X$ if $d(x,y) < \delta$ then $|f_n(x) - f_n(y)| < \frac{\varepsilon}{3} \quad \forall n \in \mathbb{N}$. Since $X$ is compact, then $X$ is totally bounded, that means that there exists some finite collection of points $\{x_1,\ldots,x_m\}$ such that 
+	$$\bigcup_{i=1}^m B(x_i,\delta) \supseteq X$$
+	where $f_n(x_i)$ is a Cauchy sequence for all $1 \leq i \leq m$. Then $\exists N \in \mathbb{N}$ such that $\forall n_1, n_2 >N$, $\forall 1 \leq i \leq m$, $|f_{n_1}(x_i) - f_{n_2}(x_i)| < \frac{\varepsilon}{3}$. Let $x \in X$, then for some $1 \leq j \leq n$, $d(x,x_j) < \delta$. Then 
+	\begin{align*}
+	|f_{n_1}(x) - f_{n_2}(x)|  &\leq |f_{n_1}(x) - f_{n_1}(x_j)| \\
+	&+ |f_{n_1}(x_j) - f_{n_2}(x_j)| \\
+	&+ |f_{n_2}(x_j) - f_{n_2}(x_j)| \\
+	&\leq 3 \cdot \frac{\varepsilon}{3}
+	\end{align*}	
+	Thus $\{f_n\}$ is uniformly Cauchy, thus Cauchy with respect to the max norm, thus uniform convergent, since the limit of continuous functions on $C(X)$ where $X$ is compact is continuous (PS3).
+	\end{proof}
+	\begin{theorem}
+		Let $X$ compact metric space, $\mathcal{F} = \{f_\alpha\}_{\alpha \in I} \subseteq C(X)$. 
+		$[f_{\alpha} \colon X \to \mathbb{R}]$. Then $\mathcal{F}$ is compact as a subspace of $C(X)$. 
+	\end{theorem}
+
+	\begin{remark}
+		Let $1 \leq p \leq \infty$, let $S \subseteq l_p = \{x = (x_1,x_2,\ldots,x_n,\ldots) \colon \sum_{i=1}^\infty |x_i|^p < +\infty\}$ such that $S$ is closed and bounded, then $S$ is compact if and only if $S$ is uniformly equisummable, that is $\forall \varepsilon >0$, $\exists N \in \mathbb{N}$ such that $\sum_{k=N}^\infty < \varepsilon \quad \forall x \in (x_1,\ldots,x_n,\ldots) \in S$.
+	\end{remark}
+
+	\begin{definition}[interior and exterior]
+		Let $A \subseteq (X,d)$. We define $Int(A) = \{x \in A\colon \exists r > 0 \text{ s.t } B(x,r) \subseteq A\}$ and $Ext(A) = Int(A^c)$. We have that $X = Int(A) \sqcup Ext(A) \sqcup Bd(A)$.
+
+
+	\end{definition}
+	\begin{definition}[dense]
+		$A \subseteq X$ is dense if every open subset of $X$ contains a point in $A$	
+	\end{definition}
+
+	\begin{definition}[hollow]
+		$B \subseteq X$ is hollow if $Int(B) = \emptyset$	
+	\end{definition}
+	\textbf{claim}: $B$ is hollow iff $B^c$ is dense in $X$
+	\begin{theorem}[Baire Category Theorem]
+		The theorem states many things
+		\begin{itemize}
+			\item Let $\{U_n\}_{n =1}^\infty $ be a countable collection of open and dense subsets of $X$, then $\bigcap_{n=1}^\infty U_n$ is dense in $X$
+			\item If $\{V_n\}_{n \in \mathbb{N}}$ is a countable collection of closed and hollow  subsets of $X$, then $\bigcup_{n=1}^\infty V_n$ is hollow in $X$.
+		\end{itemize}	
+	\end{theorem}
+
+	\begin{lemma}
+		Let $X$ be a complete m.s. Let $\overline{B(x_1,r_1)} \supseteq \overline{B(x_2,r_2)} \supseteq \ldots$ such that $r_j \to 0$ as $j \to \infty$. Then $\bigcap_{n=1}^\infty B(x_n, r_n) \neq \emptyset$
+	\end{lemma}
+	\begin{proof}
+		Center of balls form a Cauchy sequence
+	\end{proof}
+	\begin{definition}[nowhere dense]
+		$E \subseteq X$ is nowheredense if $\bar{E}$ is hollow (has $\emptyset$ interior).
+	\end{definition}
+
+	\begin{corollary}[BCT C1]
+		Let $X$ be a complete m.s, $\{F_n\}_{n \in \mathbb{N}}$ be a collection of closed sets. Suppose $\bigcup_{n=1}^\infty F_n$ has non empty interior. Then at least one of $F_n$ has a non empty interior.		
+	\end{corollary}
+	\begin{corollary}[BCT C2]
+		Let $X$ be a complete m.s, $\{F_n\}_{n \in \mathbb{N}}$ collection of closed sets, then $\bigcup_{n=1}^\infty Bd(F_n)$ is hollow.
+
+	\end{corollary}
+	\begin{lemma}
+		$A$ closed implies $Bd(A)$ hollow in $X$ (exercise)	
+	\end{lemma}
+	\begin{theorem}[Uniformly bounded restricted to open set]
+		Let $\mathcal{F}$ be a family of continuous functions $f \colon X \to \mathbb{R}$. Suppose $\mathcal{F}$ pointwise bounded, that is $\forall x \in X$, $\exists M_x > 0$ such that $\forall f \in F$ $|f(x)| \leq M_x$. Then there exists a non empty open $U \subseteq X$ such that $\exists M > 0$ where $\forall x \in U, \forall f \in \mathcal{F}$, $|f(x)| \leq M$ 
+	\end{theorem}
+
+	\begin{theorem}
+		Let $X$ be a complete metric space, $f_n \colon X\to \mathbb{R}$ continuous $\forall n$, $f_n(x) \to f(x)$, $\forall x \in X$ as $n \to \infty$ (i.e) $\{f_n\}$ converges pointwise. Then $\exists D$ dense subsets such that $\{f_n\}$ is equicontinuous on $D$ and $f(x)$ is continuous $\forall x \in D$. 	
+	\end{theorem}
+	We introduce an extra set of notation, $A \subseteq X$ is of the 1rst Baire category if $A$ is a union of a countable collectino of nowhere dense subsets of $X$. If $A$ is not of the first Baire category, then $A$ is of the second Baire cateory. A complement of $A$ of the first BC, is called residual. BC thm says nonempty open subsets of a complete m,s is of the 2nd BC. 
+
+
+	\section*{Jan 31}
+	A measurable function $f \colon E \to \mathbb{R}$ is essentially bounded by $M > 0$ if $|f(x)| \leq M$ for a.e $x \in E$, $M$ is called an \textbf{essential upper bound}. 
+	We can define a norm on $L_p$ like such
+	$$||f||_{\infty} = \textbf{ess sup}_{x \in E} |f(x)| = \inf_{M > 0} \{|f(x)| < M \textbf{ a.e $x \in X$}\}$$
+
+	\begin{proposition}
+		for $1 \leq p \leq +\infty$, $||f||_p$ is a norm on $\{f \colon E \to \mathbb{R} \colon \int_{E} |f(x)|^p < \infty\} = L^p (E)$, and when  $p = \infty$ $\{f \colon E \to \mathbb{R}  \colon ||f||_\infty < \infty\} = L^\infty (E)$, $f$ here is always measurable.
+
+	\end{proposition}
+	\begin{proposition}[Minkowski's Inequality]
+		If $f,g \in L^p(E)$ then $\|f+g\|_p \leq \|f\|_p + \|g\|_p$
+	\end{proposition}
+	\begin{proposition}[Holder's inequality]
+		$\int_E |f(x)g(x)|dx \leq \|f\|_p \|g\|_q $ provided $\frac{1}{p} + \frac{1}{q} = 1$
+	\end{proposition}
+	\begin{proposition}[Young's inequality]
+		Suppose $\frac{1}{p} + \frac{1}{q} = 1$, then we have that for any $a,b \geq 0$, $ab \leq \frac{a^p}{p} + \frac{b^q}{q}$ 
+	\end{proposition}
+	\begin{proposition}[Holder's inequality part 2]
+		suppose $f \neq 0$, then define 
+		$$f^*(x) = \|f\|_p^{1-p} \cdot \text{sgn}f(x) - \|f(x)\|^{p-1} \in L^p(E)$$ 
+		where 
+		$$\text{sgn}(a) = 
+		\begin{cases} 
+		1 & \text{ if $a > 0$} \\
+		0 & \text{ if $a < 0$}
+		\end{cases}
+		$$
+		and 
+		$$
+			\int_E f(x)f^*(x)dx = \|f\|_p \text{ note that  $\|f^*\|_q = 1$ } 
+		$$
+		
+																
+	\end{proposition}
+	\begin{theorem}[Riez-Fischer]
+		\label{thm:12}
+		$L^p(E)$ is complete 
+	\end{theorem} 
+	\begin{corollary}
+		$C([a,b])$ is complete with respect to $||f||_\infty$ but is not complete with respect to $||f||_p$
+	\end{corollary}
+	\begin{corollary}
+		$L^p(E)$ is a Banach space, so it's a complete normal vector space. 
+	\end{corollary}
+
+	\begin{definition}[Rapidly Cauchy]
+		Let $(X,||.||)$ be a normed vector space, $\{f_n\}_{n \in \mathbb{N}}$ a sequence in $X$, $\{f_n\}_n$ is rapidly Cauchy if $\exists \{\varepsilon_{n}\}_n$ where $\varepsilon_n \geq 0$ $\forall n$ such that 
+		$$ \sum_{k=1}^\infty \varepsilon_k < +\infty$$
+		and
+		$$ \| f_{k+1} - f_k \| \leq \varepsilon_k^2 $$
+		An immediate observation is that if $\{f_n\}_n$ is rapidly Cauchy, then, using the triangle inequality for norms
+		$$
+		\|f_{n+k} - f_n \| \leq \varepsilon^2_n + \varepsilon^2_{n+1} + \ldots + \varepsilon^2_{n+k-1}
+		$$
+
+	\end{definition}
+	\begin{theorem}
+		\label{thm:lpeconv}
+		let $E \subseteq \mathbb{R}^n$ be a measurable subset of $\mathbb{R}^n$, $1 \leq p \leq +\infty$, suppose $\{f_n\}_n$ is rapidly Cauchy in $L^p(E)$, then $f_n \to g \in L^p(E)$ in $L^p(E)$ norm, that is $\| f_n - g \| \to 0$ as $n \to \infty$, and pointwise ($f_n(x) \to g(x)$) for a.e $x \in E$. 
+	\end{theorem}
+	\begin{proof}[Proof of theorem \ref{thm:lpeconv}]
+		Want to show pointwise first. This is a bit complicated, first of all by assumption, there exists $\{\varepsilon_k \}_k \geq 0 $ such that $\sum_{k \geq 1} \varepsilon_k < +\infty$ and that $\|f_{k+1} - f_k\| < \varepsilon_k^2$, which means 
+		$$ 
+		\int_{E} |f_{k+1} - f_k|^p < \varepsilon^{2p}
+		$$
+		Now observe that
+		$$ m ( \{ x\in  E \colon |f_{k+1}(x)-f_k(x)| \geq \varepsilon_k \}) = m ( \{x \in E \colon |f_{k+1}(x)-f_k(x)|^p \geq \varepsilon_k^p\})
+		$$ Since, for $p \geq 1$ 
+		$$
+		\{ x\in  E \colon |f_{k+1}(x)-f_k(x)| \geq \varepsilon_k \} =  \{x \in E \colon |f_{k+1}(x)-f_k(x)|^p \geq \varepsilon_k^p\}
+		$$
+		Call $E_k = \{ x\in  E \colon |f_{k+1}-f_k| \geq \varepsilon_k \}$, then 
+		$$ m(E_k ) \leq \frac{\int_{E} |f_{k+1} - f_k|^p}{\varepsilon_k^p} < \frac{\varepsilon_k^{2p}}{\varepsilon_k^p} = \varepsilon_k^p$$
+		We immediately get that, since $\sum_{k=1}^\infty \varepsilon_k < \infty$, it's necessary that for $k$ large enough all $\varepsilon_k < 1$, that means, since $p \geq 1$, then 
+		$$
+		\sum_{k=1}^\infty \varepsilon_k^p < +\infty \implies \sum_{k=1}^\infty m(E_k) < +\infty
+		$$
+		Then by Borel-Cantelli, we have that $m(\limsup_{k} E_k) = 0$ that means, 
+		$$m(\{x \in E \colon \text{ $x \in E_k$ infinitely many times }\}) =0$$
+		which says for almost every $x \in E$, $\exists K(x) \in \mathbb{N}$ such that $\forall k \geq K(x)$, $x \notin E_k \iff |f_{k+1}(x) - f_k(x)| < \varepsilon_k$, and since $\varepsilon_k \to 0$, then this difference gets arbitrarily small, and if $n,k \geq K(x)$, then 
+		$$|f_{n+k} - f_n| < \varepsilon_n + \varepsilon_{n+1} + \ldots + \varepsilon_{n +k -1}$$
+		and this sum get's arbitrarily small as well, for $n,k$ large enough (can group up subsequence $\varepsilon_k$'s and these will get arbitrarily small) so $\{f_n(x)\}$ is Cauchy for a.e $x \in E$, thus pointwise convergent to some $f$ for a.e $x \in E$. This takes care of pointwise convergent, now we need to take care of convergence in $L^p(E)$.
+		Notice that for any $n,k$, we have that 
+		$$\|f_{n+k} - f_n\|_p \leq \varepsilon_n^2 + \varepsilon_{n+1}^2 + \ldots + \varepsilon_{n+k-1}^2 \leq \sum_{j=n}^\infty \varepsilon_j^2 $$
+		as $n$ gets large and $k\geq n$. That means
+		$$ \int_{E} |f_{n+k} - f_n|^p \leq \left(\sum_{j=n}^\infty \varepsilon_j^2\right)^p $$
+		Now let $k \to \infty$, then observe that, By Fatou's lemma
+		$$ \int_{E} |f - f_n|^p  \leq \liminf_{k \to \infty} \int_{E} |f_{n+k} - f_n|^p \leq \left(\sum_{j=n}^\infty \varepsilon_j^2\right)^p \to 0
+		$$
+		Since the last inequality is preserved under limits and it's the tail of a convergent series, then 
+		$$
+		\|f - f_n\|_p \leq \sum_{j=n}^\infty \varepsilon_j^2 \to 0
+		$$
+		so it's convergent in $L^p(E)$, now just need to verify if $f$ is in $L^p(E)$, observe that 
+		$$\|f\|_p \leq \|f_n - f\| + \|f_n -0\| < +\infty$$
+		so $f \in L^p(E)$.
+
+	\end{proof}
+
+	Knowing this the proof of Riez-Fischer is easy, 
+	\begin{proof}[Proof of theorem \ref{thm:12}]
+		Every Cauchy sequence has a rapidly cauchy subsequence and use previous theorem to conclude .
+
+	\end{proof}
+
+
+	\begin{theorem}
+		Let $E \subseteq \mathbb{R}^n$ be measurable, $1 \leq p \leq + \infty$, suppose $f_n(x) \in L^p(E) \to f(x)$ pointwise a.e on $E$ and $f \in L^p(E)$, then 
+		$$ \|f_n - f\|_p \to 0 \iff \lim_{n \to \infty} \int_{E} |f_n|^p = \int_{E} |f|^p$$
+		where the left hand side means convergence in $L^p (E)$.
+
+	\end{theorem}
+	\begin{proof}
+		Royden and Fitzpatrick ch7, thm 7
+	\end{proof}
+
+	A subset $A$ of a metric space $X$ is dense in $X$ if and only if $\forall x \in X, \forall \varepsilon > 0, \exists y \in A$ such that $d(x,y) < \varepsilon$. If $X$ is a normed space, $d(x,y) = \|x-y\|$, same definition just $d(x,y) = \|x-y\| < \varepsilon$/
+
+	A metric space $X$ is separable if $X$ has a countable dense subset.
+
+	\begin{proposition}
+		Let $E \subseteq \mathbb{R}^n $ measurable, $1 \leq p \leq + \infty$. Then $\{\text{simple functions in $L^p(E)$}\}$ is dense in $L^p(E)$. Simple functions are of the form $\phi = \sum_{k=1}^n c_k \cdot \chi_{E_k}$, where all the $E_k$'s are measurable and disjoint.
+	\end{proposition}
+
+	\begin{proof}
+		Follows directly from simple approximation lemma, if $f \colon E \to \mathbb{R}$ measurable, and $|f(x)| \leq M \geq 0$, then $\forall \varepsilon >0$, $\exists \phi_E, \psi_E$, simple functions such that $\phi_E \leq f \leq \psi_E$, and $\psi_E - \phi_E < \varepsilon$ on $E$. It immediately follows that simple functions are dense in $L^\infty$, since the norm is just the supremum value of a function, and all functions in $L^\infty$ have finite supremum, thus uniformly bounded by some $M \geq 0$. So for any function in $L^\infty$ we are able to find simple functions that approximate that function in $L^\infty$ an epsilon away. As for general $L^p$ space, we need to make use of simple approximation theorem, where for all measurable functions $g \colon E \to \mathbb{R}^d$, there exists a sequence of simple functions $\{\varphi_n\}_n$ such that $\varphi_n(x) \to g(x)$ pointwise in $E$, and $|\varphi(x)| \leq |g(x)|$ on $E$ $\forall n$, thus 
+		$$ \int_{E} |\varphi_n|^p \leq \int_{E} |g|^p < +\infty$$
+		So $\varphi_n \in L^p $ for all $n$. \textbf{Claim: } $\varphi_n \to g$ in $L^p (E)$
+		Proof of claim : 
+		\begin{align*}
+			|\varphi_n - g|^p &\leq |\varphi_n + g|^p \\
+					  &= 2^p |\frac{\varphi_n}{2} + \frac{g}{2}|^p \\
+					  &\leq 2^{p-1} (|\varphi_n|^p + |g|^p )\quad \text{ convexity of $|.|^p$}\\
+					  &\leq 2^p (|\varphi_n|^p  + |g|^p )\leq 2^{p+1}|g|^p \text{ on $E$}
+		\end{align*}
+		We have that $\int_{E} 2^{p+1}|g|^p  = 2^{p+1} \int_{E}|g|^p < \infty$ since $g \in L^p(E)$, and that is $\geq |\varphi_n -  g|^p $ for all $n$, and therefore by dominated convergence theorem, since $|\varphi_n - g|^p \to 0$ as $n \to \infty$ for a.e $x \in E$, then
+		$$\int_{E} |\varphi_n - g|^p \to 0$$ as $n \to \infty$
+		which shows that every $g \in L^p$ is either a simple function or the convergent limit of a sequence of simple functions in $L^p(E)$, which shows that simple functions are dense in $L^p(E)$. 
+
+	\end{proof}
+	\begin{proposition}
+		Let $[a,b] \subseteq \mathbb{R}$ closed and obunded interval, $1\leq p < +\infty $, then step functions on $[a,b]$ are dense in $L^p([a,b])$
+	\end{proposition}
+	The proof can be found in Royden and Fitzpatrick ch7.4 prop 10
+
+	\begin{proposition}
+		$C_c(E)$ which is the set of continuous function with compact support on $E$ are also dense in $L^p(E)$ with $1 \leq p < +\infty$
+	\end{proposition}
+	\begin{theorem}
+		Let $E$ be a measurable subset of $\mathbb{R}^n$, and $1 \leq p < +\infty$, then $L^p(E)$ is separable (contains a countable dense subset)
+
+	\end{theorem}
+	\begin{proof}
+		Take step functions 
+		\[
+			\sum_{i=1}^n c_i \chi_{[-a_i,b_i]}
+		\]
+		where $a_i,b_i,c_i \in \mathbb{R}$
+	\end{proof}
+	Note that $L^\infty(E)$ is not separable
+
+	\begin{definition}[Linear functional]
+		Let $X$ be a vector space over $\mathbb{R}$, then $f \colon X \to \mathbb{R}$ is a linear function if $f(ax+by) = af(x) + bf(y)$ $\forall a,b \in \mathbb{R}$, $\forall x,y \in X$. Note $f(0) = 0$
+	\end{definition}
+	These are linear transformations, and in a finite dimensional vector space, these have a matrix form (recall from linear algebra)
+
+	\begin{definition}[bounded linear map]
+		suppose $X$ and $Y$ are normed vector spaces, then a linear map $F \colon X \to Y$ is bounded, if and only if $\exists M >0$ such that 
+		$$\|F(x)\|_Y\leq M\cdot \|x\|_X$$ 
+
+
+
+	\end{definition}
+	An important reminder is that if $x \neq \vec{0}$, then 
+	$$
+	\frac{\|F(x)\|_Y}{\|x\|_X}
+	$$
+	is invariant if we replace $x$ by $t x$, $t \in \mathbb{R}$, where $t \neq 0$
+	If $F$ is bounded, we can define an operator norm of $F$ by 
+	$$\|F\|_{op} = \sup_{x \neq 0 \colon x \in X} \frac{\|F(x\|_Y}{\|x\|_X}$$
+
+	\begin{proposition}
+		Let $F \colon X \to Y$ linear map/operator from $X$ to $Y$, then $F$ bounded $\iff$ $F$ continuous $\iff$ $F$ continuous at $x = \vec{0} \in X$
+
+	\end{proposition}
+	\begin{proposition}
+		Bounded linear operators from $X$ to $Y$ form a vector space with $\|F_1 + F_2\|_{op} \leq \|F\|_{op} + \|F_2\|_{op}$
+	\end{proposition}
+	\begin{proof}
+		Indeed, consider
+		\begin{align*}
+			\sup_{x \neq 0} \frac{\|F_1(x) + F_2(x)\|_Y}{\|x\|_X} \leq \sup_{x \neq 0} \frac{\|F_1(x)\|_Y + \|F_2(x)\|_Y}{\|x\|_X} \leq \|F_1\|_{op} + \|F_2\|_{op}
+		\end{align*}
+	\end{proof}
+	To compute $\|F\|_op$ simply need to compute the supremum for $\{x \in X \colon \|x\|_X = 1\}$ since invariant under resclaling. Indeed if you consider the supremum norm, which is 
+	$$
+	\|F\|_{op} = \sup_{x \in X \colon x \neq 0} \frac{\|F(x)\|_Y}{\|x\|_X} = \sup_{x \in X \colon x \neq 0} \frac{\|F\left(\frac{ x }{ \|x\|_X}\right)\|_Y}{ \|\frac{ x }{ \|x\|_X} \|_X} = \sup_{x \in X, \|x\| = 1} \frac{\|F(x)\|_Y}{\|x\|_X} 
+	$$
+	Additionally note that if $F \colon X \to Y$ and $G \colon Y \to Z$ are bounded linear operators, then $G \circ F \colon X \to Z$ are also bounded linear operators. 
+
+	this also defines the triangle inequality with the operator norm, we can verify that
+	$$ \| G \circ F\|_{op} \leq \|G\|_{op} \cdot \|F\|_{op}$$
+
+	Bounded linear operator is also a bounded linear map $F \colon X \to Y$
+	An example would be that for $1 \leq p < \infty$ and $\frac{1}{p} + \frac{1}{q} = 1$ and $f \in L^p(E)$, $g \in L^q(E)$, then 
+	$$\Phi_g(f) = \int_E f(x)g(x)dx$$ is also a linear map
+	Indeed, we have holders inequality that gives us 
+	$$ |\int_E fg | \leq \int_E |fg| \leq \|f\|_p \|g\|_q$$
+	so we have that 
+	$$ \|\Phi\|_{op} = \sup_{f \neq 0} \frac{| \int_E fg|}{\|f\|_p} \leq \|g\|_q$$
+	And using part 2 of Holder's inequality 
+	$$ \exists f^* \in L^q(E) \colon \|f^*\|_q = 1, \|f\|_p = \int_E f \cdot f^*, \|g\|_q = \int_E g^*\cdot g \colon \|g^*\|_p = 1$$
+	Claim: $\|\Phi_g\| = \|g\|_q$, take $f = g^*$, then $\frac{\Phi_g(g^*)|}{\|g^*\|_p} = \int_E gg^* = \|g\|_q = \|g\|_q$
+	\begin{theorem}[Riesz representation theorem]
+		For $1 \leq p < + \infty$, any bounded linear functional on $L^p(E)$ has the form $\Phi_g$ for some $g \in L^p(E)$. 
+		
+	\end{theorem}
+	\begin{lemma}
+		Let $E$ be a measurable subset of $\mathbb{R}$, $1 \leq p < +\infty$, $g$ integrable function on $E$ such that $\exists M>0$ such that for any simple function $f \in L^p(E)$ we have $\left | \int_E gf \right| \leq M \|f\|_p$. Then $g \in L^q(E)$ and $\|g\|_q \leq M$. 
+	\end{lemma}
+	\begin{proof}
+		This is hella simple. First step, simple approximation theorem, we know that there exists a sequence of non-negative simple functions $\{\varphi_n\}_{n}$ monotonically increasing and pointwise converging to $g$ such that $\varphi_n \leq |g|$ for all $n$. We want to show that $\int_E \varphi^q \leq M^q$ since we can directly conclude by Fatou's that
+		$$ \int_E |g|^q \leq \liminf_{n \to \infty} \int_E \varphi^q \leq M^q $$
+	where the conclusion follows immediately. To show that claim, observe that 
+	$$ \varphi_n^q = \varphi \cdot \varphi^{q-1} \leq |g| \cdot \varphi^{q-1} = g \cdot sgn(g) \cdot \varphi^{q-1}$$
+	Letting $f_n = sgn(g)\cdot \varphi^{q-1}$, then observing that $f_n$ is simple with finite support, we have that, by assumption,
+	$$
+	 	\int_E \varphi_n^q\leq \left | \int_E gf_n  \right| \leq M \|f_n\|_p
+	$$
+	but we have that $\int_E |f_n|^p = \int_E |f_n|^p = \int_E (\varphi_n^{q-1})^{p} = \int_E \varphi^q$
+, thus 
+$$ \int_E \varphi_n^q \leq M \left(\int_E \varphi_n^q\right)^{\frac{1}{p}}$$
+which gives us
+$$ M \geq \left(\int_E \varphi_n^q\right)^{1-\frac{1}{p}} = \left(\int_E \varphi^q_n \right)^{\frac{1}{q}} = \|\varphi_n||_q $$
+and the result follows. 
+	\end{proof}
+	\begin{theorem}[Riesz representation for closed intervals in $\mathbb{R}$]
+		Let $[a,b] \subseteq \mathbb{R}$ closed and bounded, $T$ a bounded linear functional on $L^p([a,b])$, $1 \leq p < +\infty$. Then $\exists g \in L^q([a,b])$ such that $T(f) = \int_{a}^b g \cdot f $ $\forall f \in L^p([a,b])$.
+		
+	\end{theorem}
+	\begin{proof}
+		This isn't all that more complicated, let $T$ be a bounded linear functional on $L^p([a,b]$). Then we define $\Phi(x) = T(\chi_{[a,b)})$. We claim that this is absolutely continuous. That means, $\forall \varepsilon > 0$, $\exists \delta > 0$ such that for any finite sequence of disjoint intervals, $\{[a_k,b_k]\}_{k=1}^n$ where $\sum_{k=1}^n |b_k-a_k| < \delta$ then $\sum_{k=1}^n |\Phi(b_k) - \Phi(a_k)| < \varepsilon$. We need to check this, first of all, let $[c,d] \subseteq [a,b]$, notice that, by linearity
+		$$ \Phi(d) - \Phi(c)  = T(\chi_{[a,d)}) - T(\chi_{[a,c)}) = T(\chi_{[c,d)})$$
+			that means letting $\{[a_k,b_k]\}_{k=1}^n$ be a finite sequence of disjoint intervals all subsets of $[a,b]$, with $\sum_{k=1}^n |b_k-a_k| < \delta$, then we have that 
+			\begin{align*}\sum_{k=1}^n |\Phi(b_k) - \Phi(a_k)| &= \sum_{k=1}^n \varepsilon_k (\Phi(b_k) - \Phi(a_k))	\ \text{ where $\varepsilon_k = sgn(\Phi(b_k) - \Phi(a_k))$}\\
+			&= \sum_{k=1}^n \varepsilon_k T(\chi_{[a_k,b_k)})\\
+			&= T\left( \sum_{k=1}^n \chi_{[a_k,b_k)}\varepsilon_k\right) \ \text{linearity}\\
+			&= \|T\|_{op} \left(\sum_{k=1}^n (b_k-a_k)\right)^\frac{1}{p} < \varepsilon
+			\end{align*}
+			where, in the last line, we choose $\displaystyle \delta  < \left(\frac{\varepsilon}{\|T\|_{op}}\right)^{p}$. 
+			A claim that we just throw out there is that an absolutely continuous function on $[a,b]$ is differentiable on $[a,b]$  and $\Phi^\prime$ exists in $[a,b]$, thus letting $g = \Phi^\prime$, knowing that $\Phi(x) = \int_a^x \Phi^\prime(x)dx$, we now want to show that correct form for $T$. Knowing that $T(\chi_{[c,d)}) = \Phi(d) - \Phi(c) = \int_a^b g \chi_{[c,d]}$, since all step functions on $[a,b]$ are a linear combination of coefficients times indicator functions for pairwise disjoint intervals of the form $[c,d)$, then by linearity, we  have $T(\phi) = \int_a^b g \phi$ for any step function $\phi$. Since step functions are dense in simple functions in $L^p([a,b])$, then we have that for any simple function $f$ there exists a sequence of step functions $\{\varphi_n\}_n$ such that $\varphi_n \leq f$ for all $n$ such that $\varphi_n \to f$ pointwise and in $L^p(E)$. By continuity of bounded linear operators, we have that $T(\varphi_n) \to T(f)$. By lebesgue dominated convergence theorem, we have that $\int_a^b g \varphi_n \to \int_a^b g f$ and by the previous lemma, we have  that$g \in L^q([a,b])$ and that $\|g\|_q \leq \|T\|_{op}$. 
+
+	\end{proof}
+	Now we go on to prove Riezs representation theorem for general measurable sets. We have that 
+	\begin{theorem}[Riesz representation theorem for general measurable sets]
+		Let $E \subseteq \mathbb{R}$ measurable, $1 \leq p < +\infty$ and $T$ is a bounded linear functional on $L^p(E)$ then $\exists! g \in L^q(E)$ such that $T(f) = \int_{E} f\cdot g$ and $\|T\|_* = \|g\|_q$
+	\end{theorem}
+	First of all we prove uniqueness, if $g_1$ and $g_2$ both in $L^q(E)$ satisfy the above conditions, then $\int_E g_1 f = \int_E g_2 f$ for all $f \in L^p(E)$, thus $\int_E f (g_1-g_2) = 0$ for all $f$ in $L^p(E)$. This means that $\|g_1 - g_2\|_q = \|T - T\|_* = 0$ x
+	\begin{proof}
+		Let $T \colon L^p(\mathbb{R}) \to \mathbb{R}$ be a bounded linear functional on $\mathbb{R}$, then that means we can define a bounded linear function on $L^p([-n,n])$ as such. 
+		$$ T_n(f) = T(f \chi_{[-n,n]}) $$
+		Which is not exactly a restriction of $L^p(\mathbb{R})$ to $L^p([-n,n])$, it's more like a quotient. This makes sense, since every function in $L^p([-n,n])$ can be extended to have domain $\mathbb{R}$ by patting some $0$s, every $f \in L^p([-n,n])$ has it's extension in $L^p(\mathbb{R})$. Just like everything function in $f \in L^p(\mathbb{R})$ has it's restriction $f \chi_{[-n,n]} \in L^p([-n,n])$,  therefore, we can think of $T_n$ as a functional $L^p([-n,n]) \to \mathbb{R}$, so by the previous result $\exists g_n \in L^q([-n,n])$ such that 
+		$$T(f \chi_{[-n,n]}) = T_n(f) = \int_{-n}^n g_n f  $$
+		if $g_n \to g$ $\forall x \in \mathbb{R}$ for some $g \in L^p(\mathbb{R})$, more specifically $g_n$ can be extended to some $g\colon \mathbb{R} \to \mathbb{R}$, then taking limits on the equation above gets us what we want. We claim, without proof, that $g_{n+k} \chi_{[-n,n]} \equiv g_n$, so we are actually able to extend $g_n$ to some $g \colon \mathbb{R} \to \mathbb{R}$, where $g_n = g \chi_{[-n,n]}$, thus $g_n \to g$,
+		complete proof later, this shit don't make too much sense
+		
+		
+	\end{proof}
+
+We move on to Hilbert spaces, and inner product spaces. But first some reminders about inner product spaces. 
+\begin{definition}[Inner product]
+	Let $V$ be a vector space over $F$. An inner product on $V$ is a function that assigns to every ordered pair of vectors $x$ and $y$ in $V$, a scalar in $F$, denoted $\inprod{x,y}$, such that for all $x,y$, and $z$ in $V$, and all $c \in F$, the following hold
+	\begin{enumerate}
+		\item $\inprod{x+z,y} = \inprod{x,y} + \inprod{z,y}$
+		\item $\inprod{cx,y} = c\inprod{x,y}$
+		\item $\overline{\inprod{x,y}} = \inprod{y,x}$ where the bar denotes complex conjugation
+		\item $\inprod{x,x} > 0$ if $x \neq 0 $
+	\end{enumerate} 
+	
+\end{definition}
+	\begin{theorem}[Inner product space]
+Let \( V \) be an inner product space. Then for \( x, y, z \in V \) and \( c \in F \), the following statements are true.
+\begin{enumerate}
+\item[(a)] \( \langle x, y + z \rangle = \langle x, y \rangle + \langle x, z \rangle \).
+\item[(b)] \( \langle x, cy \rangle = \overline{c} \langle x, y \rangle \).
+\item[(c)] \( \langle x, 0 \rangle = \langle 0, x \rangle = 0 \).
+\item[(d)] \( \langle x, x \rangle = 0 \) if and only if \( x = 0 \).
+\item[(e)] If \( \langle x, y \rangle = \langle x, z \rangle \) for all \( x \in V \), then \( y = z \).
+\end{enumerate}
+\end{theorem}
+\textbf{Definition.} Let \( V \) be an inner product space. For \( x \in V \), we define the norm or length of \( x \) by \( \lVert x \rVert = \sqrt{\langle x, x \rangle} \).
+
+
+\begin{theorem} Let \( V \) be an inner product space over \( F \). Then for all \( x, y \in V \) and \( c \in F \), the following statements are true.
+\begin{enumerate}
+\item \( \|cx\| = |c| \cdot \|x\| \).
+\item \( \|x\| = 0 \) if and only if \( x = 0 \). In any case, \( \|x\| \geq 0 \).
+\item (Cauchy-Schwarz Inequality) \( |\langle x, y \rangle| \leq \|x\| \cdot \|y\| \).
+\item (Triangle Inequality) \( \|x + y\| \leq \|x\| + \|y\| \).
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+Let \( V \) be an inner product space. Vectors \( x \) and \( y \) in \( V \) are orthogonal (perpendicular) if \( \langle x, y \rangle = 0 \). A subset \( S \) of \( V \) is orthogonal if any two distinct vectors in \( S \) are orthogonal. A vector \( x \) in \( V \) is a unit vector if \( \|x\| = 1 \). Finally, a subset \( S \) of \( V \) is orthonormal if \( S \) is orthogonal and consists entirely of unit vectors.
+\end{definition}
+\begin{definition}[ON basis]
+	let $V$ be an inner product space. A subset of $V$ is an orthonormal basis for $V$ if it is an ordered basis that is orthonormal.
+\end{definition}
+Note that through the Graham-Schmidt process, we are always able to construct an orthogonal set from a linearly independent set of vectors in such a way that both sets generate the same subspace. For finite dimensional vector spaces, there always exists an orthonormal basis. For general Hilbert spaces that are not finite dimensional, things gets more complicated , but we'll prove some surprising theorems. 
+
+\begin{definition}[Hilbert space]
+	A Hilbert space is a complete inner product space. 
+\end{definition}
+Some examples include, $\ell^2$ or $L^2(E)$. For both, we have the Cauchy-Schwartz inequality (Special case of Holder's inequality for $p=2$). We can define the inner product on $\ell^2$ as 
+$$
+	\inprod{x,y} = \sum_{i=1}^\infty x_i y_i 
+$$
+and the inner product on $L^2(E)$ as
+$$
+	\inprod{f,g} = \int_E f(x)g(x)dx 
+$$
+where the norm is just define to be $\|x\| = \sqrt{\inprod{x,x}}$. Can easily check that the triangle inequality is also satisfied.
+\begin{theorem}[Parallelogram law]
+	This completely defines an inner product space, where $\inprod{f+g,f+g} + \inprod{f-g,f-g} = 2(\|f\|^2 + \|g\|^2) - (L^2)^* \approx L^2$ ? 	
+\end{theorem}
+\begin{definition}[Orthonormal sets]
+	if $\inprod{f,g} = 0$, where we write $f \perp g$ then $\|f+g\|^2 = \|f\|^2 + \|g\|^2$ (Pythagoras theorem)	
+\end{definition}
+\begin{definition}[Orthonormal set]
+	A set is orthonormal if $\inprod{e_i,e_j} = \delta_{ij}$	
+\end{definition}
+Here some some facts that you can check easily, if $\{e_i\}_{i=1}^n$ is orthonormal, then $\|x_1e_1 + \ldots + x_n e_n\|^2 = \|x_1\|^2 + \ldots + \|x_n\|^2$
+Also, if 
+
+
+
+\end{document}
+	
+	
+
