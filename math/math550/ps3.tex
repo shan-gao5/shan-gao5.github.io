@@ -128,9 +128,27 @@ Thus $\Delta \subseteq \overline{B(m,\frac{1}{\sqrt{3}})}$ the closed disc cente
 \subsection*{(b)}
 Let $C_x$ be the disc centered at $x$ of radius $\frac{1}{\sqrt{3}}$. We know that for any $\{x,y,z\} \subseteq X$, $C_x \cap C_y \cap C_z \neq \emptyset$. Indeed, by (a), for any three pts $\{x,y,z\} \subseteq X$, there exists some point $m$  such that $\|m-x\|, \|m-y\|, \|m-z\| \leq \frac{1}{\sqrt{3}}$, thus $m \in C_x \cap C_y \cap C_z$. By Helly's, since $\{x,y,z\}$ is arbitrary, then $\displaystyle \bigcap_{x \in X} C_x \neq \emptyset$, thus there exists some $m \in \mathbb{R}^2$ such that $\|m - x\| \leq \frac{1}{\sqrt{3}}$ for any $x \in X$, and the result follows. 
 \subsection*{(c)}
-We first do the case with $4$ points, where any $4$ points in $\mathbb{R}^3$ form a hyperplane in $\mathbb{R}^2$. Consider the extremal case first, which is the regular tetrahedron with edge length 1. It has a circumcircle of radius $\sqrt{\frac{8}{3}}$, thus using the the sam argument as (b), every finite set with diameter at most $1$ can be contained in a closed ball of radius $\sqrt{\frac{8}{3}}$. Then the goal is to show that $\forall \varepsilon > 0$, then finding a counter example for $c = \sqrt{\frac{8}{3}}-\varepsilon $ which I don't know how to do, I've never taken a course in discrete geometry before.
+We first do the case with $4$ points, where any $4$ points in $\mathbb{R}^3$ form a hyperplane in $\mathbb{R}^2$. Consider the extremal case first, which is the regular tetrahedron with edge length 1. It has a circumcircle of radius $\sqrt{\frac{8}{3}}$, thus using the the sam argument as (b), every finite set with diameter at most $1$ can be contained in a closed ball of radius $\sqrt{\frac{8}{3}}$. Then the goal is to show that $\forall \varepsilon > 0$, then finding a counter example for $c = \sqrt{\frac{8}{3}}-\varepsilon $ which I don't know how to do, I've never taken a course in discrete geometry before. 
 
 \section*{3}
+
+\subsection*{(a)}
+To do 
+\subsection*{(b)}
+To do
+
+
+\section*{4}
+
+\subsection*{(a)}
+We want to use fractional helly's theorem with $\alpha = \frac{1}{4}$, want to show that there exists at least $\alpha \binom{n}{3} = \frac{\binom{n}{3}}{4}$ sets $I$ where $|I| = 3$ where $\bigcap_{i \in I} C_i \neq \emptyset$ to be able to conclude that there exists some $X$ such that $|X| \geq n \beta = \frac{n}{12}$ where $\beta = \frac{\alpha}{3}$ such that $\bigcap_{i \in X} C_i \neq \emptyset$. We know that there are $\binom{n}{4}$ ways of forming a bundle of 4 sets, each of which contains a triplet that share a common element, by assumption. But each triplet is contained in $n-3$ bundles of 4 sets. That means, there are $\displaystyle \frac{\binom{n}{4}}{n-3}$ sets $I$ where $|I| = 3$ such that $\bigcap_{i \in I} C_i \neq \emptyset$. But observe that 
+
+\begin{align*}`	
+	\frac{\binom{n}{4}}{n-3} &= \frac{n!}{(n-4)!4!(n-3)}\\
+				 &= \frac{n!}{(n-3)!3!} \cdot \frac{1}{4}\\
+				 &= \frac{\binom{n}{3}}{4}
+\end{align*}
+
 
 
 
