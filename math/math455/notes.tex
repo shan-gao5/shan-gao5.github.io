@@ -95,9 +95,9 @@ This is different from the Arzale-Ascoli lemma where $X$ is not required to be c
 	\end{align*}	
 	Thus $\{f_n\}$ is uniformly Cauchy, thus Cauchy with respect to the max norm, thus uniform convergent, since the limit of continuous functions on $C(X)$ where $X$ is compact is continuous (PS3).
 	\end{proof}
-	\begin{theorem}
+	\begin{theorem}[Compactness in $C(X)$]
 		Let $X$ compact metric space, $\mathcal{F} = \{f_\alpha\}_{\alpha \in I} \subseteq C(X)$. 
-		$[f_{\alpha} \colon X \to \mathbb{R}]$. Then $\mathcal{F}$ is compact as a subspace of $C(X)$. 
+		$[f_{\alpha} \colon X \to \mathbb{R}]$. Then $\mathcal{F}$ is compact as a subspace of $C(X)$. If $d_\infty(f,g) = sup_{x \in X} |f(x) - g(x)| = \max_{x \in X} |f(x) - g(x)|$ since $X$ compact is maximum is attained $\iff$ $\mathbb{F}$ is closed, uniformly bounded and equicontinuous.
 	\end{theorem}
 
 	\begin{remark}
@@ -487,9 +487,10 @@ where the norm is just define to be $\|x\| = \sqrt{\inprod{x,x}}$. Can easily ch
 \begin{definition}[Orthonormal set]
 	A set is orthonormal if $\inprod{e_i,e_j} = \delta_{ij}$	
 \end{definition}
-Here some some facts that you can check easily, if $\{e_i\}_{i=1}^n$ is orthonormal, then $\|x_1e_1 + \ldots + x_n e_n\|^2 = \|x_1\|^2 + \ldots + \|x_n\|^2$
-Also, if 
+Also, if $\{e_i\}_{i=1}^n$ is orthonormal, then $\|x_1e_1 + \ldots + x_n e_n\|^2 = \|x_1\|^2 + \ldots + \|x_n\|^2$, this is just by expanding the inner product and cancelling out some terms. 
 
+General remarks about Hilbert Spaces,
+if $\{e_i\}_{i=1}^\infty$ is orthonormal, then $\|f\|_2^2 = \sum_{i=1}^\infty \inprod{f,e_i}^2$. 
 
 
 \end{document}
