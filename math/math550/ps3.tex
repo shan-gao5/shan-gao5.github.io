@@ -115,6 +115,7 @@ The proof follows immediate from the claim since any $x \in \text{conv}(X)$ is a
 	 
 	
 \end{proof}
+\clearpage
 \section*{Question 2}
 \subsection*{(a)}
 $x,y,z \in \mathbb{R}^2$ form a triangle, where the vertices have pairwise distance at most 1. Any triangle such triangle can be embedded inside a equilateral triangle, call it $\Delta$ with all vertices having pairwise distance 1 (shrink the edges of $\Delta$ accordingly). Therefore, it's enough to show  it for $\Delta$. Taking the circumcenter of $\Delta$, call it $m$, the unique point equidistant to all three vertices. Since it's found by taking the point at which all perpendicular bisectors of $\Delta$ (60 degree angles) intersect, then the distance from $m$ to any other vertex is calculated as such 
@@ -129,7 +130,7 @@ Thus $\Delta \subseteq \overline{B(m,\frac{1}{\sqrt{3}})}$ the closed disc cente
 Let $C_x$ be the disc centered at $x$ of radius $\frac{1}{\sqrt{3}}$. We know that for any $\{x,y,z\} \subseteq X$, $C_x \cap C_y \cap C_z \neq \emptyset$. Indeed, by (a), for any three pts $\{x,y,z\} \subseteq X$, there exists some point $m$  such that $\|m-x\|, \|m-y\|, \|m-z\| \leq \frac{1}{\sqrt{3}}$, thus $m \in C_x \cap C_y \cap C_z$. By Helly's, since $\{x,y,z\}$ is arbitrary, then $\displaystyle \bigcap_{x \in X} C_x \neq \emptyset$, thus there exists some $m \in \mathbb{R}^2$ such that $\|m - x\| \leq \frac{1}{\sqrt{3}}$ for any $x \in X$, and the result follows. 
 \subsection*{(c)}
 We first do the case with $4$ points, where any $4$ points in $\mathbb{R}^3$ form a hyperplane in $\mathbb{R}^2$. Consider the extremal case first, which is the regular tetrahedron with edge length 1. It has a circumcircle of radius $\sqrt{\frac{8}{3}}$, thus using the the sam argument as (b), every finite set with diameter at most $1$ can be contained in a closed ball of radius $\sqrt{\frac{8}{3}}$. Then the goal is to show that $\forall \varepsilon > 0$, then finding a counter example for $c = \sqrt{\frac{8}{3}}-\varepsilon $ which I don't know how to do, I've never taken a course in discrete geometry before. 
-
+\clearpage
 \section*{3}
 
 \subsection*{(a)}
@@ -137,7 +138,7 @@ To do
 \subsection*{(b)}
 To do
 
-
+\clearpage
 \section*{4}
 
 \subsection*{(a)}
@@ -148,6 +149,23 @@ We want to use fractional helly's theorem with $\alpha = \frac{1}{4}$, want to s
 				 &= \frac{n!}{(n-3)!3!} \cdot \frac{1}{4}\\
 				 &= \frac{\binom{n}{3}}{4}
 \end{align*}
+
+\subsection*{(b)}
+We want to use fractional Helly's theorem again. We want to get a lower bound on the number of $I$'s such that $|I| = d+1$ such that $\displaystyle \bigcap_{i \in I} C_i \neq \emptyset$. We know that every bundle of p sets that we choose contains a sub-bundle of $d+1$ sets with a common element, there are $\displaystyle \binom{n}{p}$ ways of choosing such a bundle, but every sub-bundle of $d+1$ sets is contained in $\displaystyle \binom{n-(d+1)}{p-(d+1)}$ bundles of $p$ sets, therefore there exists at least the following amount of $I$'s with the proprety: 
+\begin{align*}
+	\binom{n}{p} \cdot \frac{1}{\binom{n-(d+1)}{p-(d+1)}} &= \frac{n!}{p! (n-p)!} \cdot \frac{(p-(d+1))! (n-p)!}{(n- (d+1))!}\\
+							      &= \frac{n!}{(d+1)! (n-(d+1))!} \cdot \frac{(p-(d+1))!(d+1)!}{p!}\\
+							      &= \binom{n}{d+1} \cdot \frac{1}{\binom{p}{d+1}}
+\end{align*}
+Could've gotten the same result knowing that
+$$
+	\binom{n}{p}\binom{p}{d+1} = \binom{n}{d+1}\binom{n-(d+1)}{p-(d+1)}
+$$
+By double counting pairs of (bundle, sub-bundle)
+The result follows immediate by fractional Helly's letting $\alpha = \frac{1}{\binom{p}{d+1}}$ and $c = \beta = \frac{\alpha}{d+1}$
+
+\subsection*{(c)}
+This is probably done by following the proof for fractional Helly's, let's try it out. 
 
 
 

@@ -136,7 +136,15 @@ $$
 	\begin{align*}
 		\mathbb{P}\left( \bigcap_{i=2}^n \left\{ X_i \notin B\left(X_{n+1}, \|X_{n+1}- x\|\right)\right\}\right) &= \mathbb{E}[(1-Z(x))^{n-1}]
 	\end{align*}
-	
+
+
+	Now we build some intuition on the distribution of $\mu(B(x, \|X-x\|)$, Letting $Y = \mu(B(x,\|X-x\|))$ and $F_Y$ denote the cumulative density function we know that latter is continuous and strictly increasing  \textcolor{red}{Why? Because of Lebesgue differentiability?} which means it has a continuous injective inverse, and since $F_{Y}^{-1}$ is surjective, it's bijective thus $F_{Y}$ is invertible. Observing that
+	\begin{align*}
+		\mathbb{P}( Y \leq z) = \mathbb{P} ( x \leq F_Y^{-1}(z)) = F_Y(F^{-1}_Y (z)) = z
+	\end{align*}
+	So $Y$ is uniformly distributed on $[0,1]$
+
+
 \end{proof}
 
 
