@@ -21,6 +21,9 @@
         .logo-icon svg{width:18px;height:18px;color:#fff}
         .logo-text{font-size:1rem;font-weight:600}
         .badge{display:flex;align-items:center;gap:6px;padding:10px 14px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;font-family:'Space Mono',monospace;font-size:.7rem;box-shadow:0 4px 20px rgba(0,0,0,0.3)}
+        .refresh-btn{padding:10px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(0,0,0,0.3);transition:all .2s}
+        .refresh-btn:hover{background:var(--bg3);transform:rotate(90deg)}
+        .refresh-btn svg{width:16px;height:16px;color:var(--text2)}
         .dot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
         .dot.error{background:var(--red);animation:none}
         @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
@@ -46,12 +49,15 @@
         .loading-text{color:var(--text2);font-size:.875rem;text-align:center}
         .panel{background:var(--bg2);border-top:1px solid var(--border);padding:16px;padding-bottom:max(16px,env(safe-area-inset-bottom))}
         .input-row{display:flex;gap:10px;margin-bottom:12px}
-        .speech-input{flex:1;display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:12px;cursor:pointer}
+        .speech-input{flex:1;display:flex;align-items:center;gap:10px;padding:12px 16px;background:var(--bg);border:1px solid var(--border);border-radius:12px;font-size:.875rem;resize:none;color:var(--text);font-family:'DM Sans',sans-serif;min-height:48px}
+        .speech-input::placeholder{color:var(--muted)}
+        .speech-input:focus{outline:none;border-color:var(--cyan)}
         .speech-input.recording{border-color:var(--red);background:rgba(239,68,68,0.1)}
-        .speech-input svg{width:20px;height:20px;color:var(--cyan);flex-shrink:0}
-        .speech-input.recording svg{color:var(--red)}
-        .speech-text{flex:1;font-size:.875rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-        .speech-text.placeholder{color:var(--muted)}
+        .mic-btn{padding:12px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;color:var(--text2);cursor:pointer;display:flex;align-items:center;justify-content:center}
+        .mic-btn:hover{background:var(--bg)}
+        .mic-btn.recording{background:var(--red);border-color:var(--red)}
+        .mic-btn.recording svg{color:#fff}
+        .mic-btn svg{width:20px;height:20px;color:var(--cyan)}
         .clear-btn{padding:12px;background:var(--bg3);border:1px solid var(--border);border-radius:12px;color:var(--text2);cursor:pointer}
         .clear-btn svg{width:20px;height:20px}
         .submit-btn{width:100%;padding:16px;background:linear-gradient(135deg,var(--green),#34d399);border:none;border-radius:14px;color:#fff;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 20px rgba(16,185,129,0.3)}
@@ -86,6 +92,36 @@
         .wave span:nth-child(3){animation-delay:.2s}
         .wave span:nth-child(4){animation-delay:.3s}
         @keyframes wave{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+        .preview-panel{position:fixed;bottom:0;left:0;right:0;background:var(--bg2);border-top-left-radius:24px;border-top-right-radius:24px;transform:translateY(100%);transition:transform .3s;z-index:2000;max-height:80vh;display:flex;flex-direction:column}
+        .preview-panel.visible{transform:translateY(0)}
+        .preview-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+        .preview-title{font-size:1.125rem;font-weight:700}
+        .preview-stats{display:flex;gap:16px;margin-top:8px;font-size:.8125rem;color:var(--text2)}
+        .preview-content{flex:1;overflow-y:auto;padding:20px;-webkit-overflow-scrolling:touch}
+        .segment{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:14px;margin-bottom:12px}
+        .segment.active{border-color:var(--cyan);background:rgba(34,211,238,0.1)}
+        .segment-num{display:inline-block;width:24px;height:24px;background:var(--cyan);border-radius:50%;text-align:center;line-height:24px;font-size:.75rem;font-weight:700;margin-right:10px}
+        .segment-instruction{font-size:.9375rem;line-height:1.6;margin-bottom:10px}
+        .landmarks{display:flex;gap:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:8px 0}
+        .landmark{min-width:140px;background:var(--bg);border:1px solid var(--border);border-radius:8px;overflow:hidden}
+        .landmark-img{width:100%;height:80px;object-fit:cover;background:var(--bg3)}
+        .landmark-name{padding:8px;font-size:.75rem;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .landmark-addr{padding:0 8px 8px;font-size:.6875rem;color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .begin-btn{width:100%;padding:18px;background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;border-radius:14px;color:#fff;font-family:'DM Sans',sans-serif;font-size:1.0625rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 20px rgba(59,130,246,0.4);margin-top:16px}
+        .begin-btn:disabled{opacity:.5;cursor:not-allowed}
+        .nav-card{position:absolute;bottom:16px;left:16px;right:16px;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:16px;z-index:1000;display:none;box-shadow:0 -4px 30px rgba(0,0,0,0.4)}
+        .nav-card.visible{display:block;animation:slideUp .3s ease}
+        .nav-progress{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+        .nav-step{font-size:.75rem;color:var(--text2)}
+        .nav-instruction{font-size:1.0625rem;font-weight:600;line-height:1.5;margin-bottom:12px}
+        .nav-landmarks{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+        .nav-landmark{min-width:100px;background:var(--bg3);border-radius:8px;overflow:hidden}
+        .nav-landmark-img{width:100%;height:60px;object-fit:cover;background:var(--bg)}
+        .nav-landmark-name{padding:6px;font-size:.6875rem;font-weight:600;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+        .nav-controls{display:flex;gap:10px;margin-top:12px}
+        .nav-btn{flex:1;padding:12px;background:var(--bg3);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.875rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+        .nav-btn.primary{background:linear-gradient(135deg,var(--blue),var(--cyan));border:none;color:#fff}
+        .nav-btn:disabled{opacity:.5;cursor:not-allowed}
     </style>
 </head>
 <body>
@@ -97,7 +133,12 @@
                 <div class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z"/></svg></div>
                 <span class="logo-text">Navigator</span>
             </div>
-            <div class="badge"><span class="dot" id="gpsStatus"></span><span id="gpsText">GPS</span></div>
+            <div style="display:flex;gap:8px;align-items:center">
+                <div class="badge"><span class="dot" id="gpsStatus"></span><span id="gpsText">GPS</span></div>
+                <button class="refresh-btn" onclick="refreshLocation()" title="Refresh GPS location">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99"/></svg>
+                </button>
+            </div>
         </div>
         <div class="route-card" id="routeCard">
             <div class="stats">
@@ -120,10 +161,10 @@
     </div>
     <div class="panel">
         <div class="input-row">
-            <div class="speech-input" id="speechInput" onclick="toggleRec()">
+            <textarea class="speech-input" id="speechInput" placeholder="Type or speak your destination..." rows="1"></textarea>
+            <button class="mic-btn" id="micBtn" onclick="toggleRec()">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" id="micIcon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"/></svg>
-                <span class="speech-text placeholder" id="speechText">Tap to speak destination...</span>
-            </div>
+            </button>
             <button class="clear-btn" onclick="clearSpeech()"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg></button>
         </div>
         <button class="submit-btn" id="submitBtn" onclick="getDirections()">
@@ -133,6 +174,54 @@
     </div>
 </div>
 <div class="backdrop" id="backdrop" onclick="closeDir()"></div>
+
+<!-- Preview Panel -->
+<div class="preview-panel" id="previewPanel">
+    <div class="preview-header">
+        <div>
+            <div class="preview-title">Route Preview</div>
+            <div class="preview-stats">
+                <span id="previewDuration">--</span> • <span id="previewDistance">--</span>
+            </div>
+        </div>
+        <button class="dir-close" onclick="closePreview()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+        </button>
+    </div>
+    <div class="preview-content" id="previewContent"></div>
+    <div style="padding:0 20px 20px">
+        <button class="begin-btn" id="beginBtn" onclick="beginNavigation()">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:24px;height:24px"><path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.347a1.125 1.125 0 0 1 0 1.972l-11.54 6.347a1.125 1.125 0 0 1-1.667-.986V5.653Z"/></svg>
+            <span>Begin Navigation</span>
+        </button>
+    </div>
+</div>
+
+<!-- Navigation Card -->
+<div class="nav-card" id="navCard">
+    <button class="dir-close" onclick="closeNav()" style="position:absolute;top:12px;right:12px">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"/></svg>
+    </button>
+    <div class="nav-progress">
+        <span class="nav-step">Step <span id="navStepNum">1</span> of <span id="navTotalSteps">5</span></span>
+        <div style="flex:1;height:4px;background:var(--bg3);border-radius:2px;overflow:hidden">
+            <div id="navProgressBar" style="height:100%;background:var(--cyan);width:20%;transition:width .3s"></div>
+        </div>
+    </div>
+    <div class="nav-instruction" id="navInstruction">Starting navigation...</div>
+    <div class="nav-landmarks" id="navLandmarks"></div>
+    <div class="nav-controls">
+        <button class="nav-btn" id="prevBtn" onclick="prevStep()" disabled>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:16px;height:16px"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"/></svg>
+            Previous
+        </button>
+        <button class="nav-btn primary" id="nextBtn" onclick="nextStep()">
+            Next
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" style="width:16px;height:16px"><path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"/></svg>
+        </button>
+    </div>
+</div>
+
 <div class="dir-panel" id="dirPanel">
     <div class="dir-handle" onclick="closeDir()"><div class="dir-bar"></div></div>
     <div class="dir-header">
@@ -145,8 +234,9 @@
 <div class="toast" id="toast"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z"/></svg><span id="toastText">Error</span></div>
 
 <script>
-const CFG={gumloop:{user_id:"MKcuTxrgvnajIQ1nUqVwpdSDAgt2",saved_item_id:"fNFvVMiurbn54qQWLBf6Fb",api_key:"0349ffe0ec7a4a1d9bd80351e47e9097"},gmaps:"AIzaSyCgYR39OZHspxTnxv2CGWP4IV0CW4VqVmU"};
+const CFG={gumloop:{user_id:"ulkU3i6LWtRdu5om7qKmRBRWlLd2",saved_item_id:"sVtxSZDZzFwVfbrZ2CLyD7",api_key:"66dae652e3c44f67a9bc6ca621b19270"},gmaps:"AIzaSyCgYR39OZHspxTnxv2CGWP4IV0CW4VqVmU"};
 let map,dirService,dirRenderer,locMarker,destMarker,loc={lat:null,lng:null,addr:null},speech='',isRec=false,recog=null,dirs='',isSpeaking=false;
+let navigationData={segments:[],currentStep:0,totalDuration:'',totalDistance:'',isNavigating:false};
 
 function initMap(){
     map=new google.maps.Map(document.getElementById('map'),{center:{lat:45.5017,lng:-73.5673},zoom:15,disableDefaultUI:true,zoomControl:true,
@@ -157,20 +247,21 @@ function initMap(){
 }
 
 function initGeo(){if(!navigator.geolocation){setGps('error','N/A');return}navigator.geolocation.watchPosition(onPos,()=>setGps('error','Error'),{enableHighAccuracy:true,timeout:15000,maximumAge:0})}
+function refreshLocation(){setGps('ok','Refreshing...');navigator.geolocation.getCurrentPosition(onPos,()=>setGps('error','Error'),{enableHighAccuracy:true,timeout:15000,maximumAge:0})}
 function onPos(p){loc.lat=p.coords.latitude;loc.lng=p.coords.longitude;const pos={lat:loc.lat,lng:loc.lng};if(locMarker)locMarker.setPosition(pos);else{locMarker=new google.maps.Marker({position:pos,map,icon:{path:google.maps.SymbolPath.CIRCLE,scale:10,fillColor:'#3b82f6',fillOpacity:1,strokeColor:'#fff',strokeWeight:3}});map.setCenter(pos)}setGps('ok','Active');geocode(loc.lat,loc.lng)}
 function setGps(s,t){const d=document.getElementById('gpsStatus');d.className='dot'+(s==='error'?' error':'');document.getElementById('gpsText').textContent=t}
 async function geocode(lat,lng){try{const g=new google.maps.Geocoder(),r=await g.geocode({location:{lat,lng}});if(r.results[0]){loc.addr=r.results[0].formatted_address;document.getElementById('startPt').textContent=loc.addr}}catch(e){loc.addr=`${lat.toFixed(6)}, ${lng.toFixed(6)}`}}
 
 function initSpeech(){const SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR)return;recog=new SR();recog.continuous=true;recog.interimResults=true;recog.lang='en-US';
     recog.onstart=()=>{isRec=true;updateMic()};
-    recog.onresult=e=>{let i='',f='';for(let x=e.resultIndex;x<e.results.length;x++)e.results[x].isFinal?f+=e.results[x][0].transcript:i+=e.results[x][0].transcript;if(f)speech=(speech+' '+f).trim();document.getElementById('speechText').textContent=speech+(i?' '+i:'')||'Listening...';document.getElementById('speechText').classList.remove('placeholder')};
+    recog.onresult=e=>{let i='',f='';for(let x=e.resultIndex;x<e.results.length;x++)e.results[x].isFinal?f+=e.results[x][0].transcript:i+=e.results[x][0].transcript;if(f)speech=(speech+' '+f).trim();const ta=document.getElementById('speechInput');ta.value=speech+(i?' '+i:'');ta.placeholder=speech||i?'':'Type or speak your destination...'};
     recog.onerror=e=>{if(e.error!=='no-speech')showToast('Speech: '+e.error);stopRec()};
     recog.onend=()=>{if(isRec)try{recog.start()}catch(e){stopRec()}}}
 function toggleRec(){isRec?stopRec():startRec()}
 function startRec(){if(recog)try{recog.start()}catch(e){}}
 function stopRec(){isRec=false;if(recog)recog.stop();updateMic()}
-function updateMic(){const inp=document.getElementById('speechInput');inp.classList.toggle('recording',isRec);document.getElementById('micIcon').outerHTML=isRec?'<div class="wave" id="micIcon"><span></span><span></span><span></span><span></span></div>':'<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" id="micIcon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"/></svg>'}
-function clearSpeech(){speech='';document.getElementById('speechText').textContent='Tap to speak destination...';document.getElementById('speechText').classList.add('placeholder')}
+function updateMic(){const btn=document.getElementById('micBtn');btn.classList.toggle('recording',isRec);document.getElementById('micIcon').outerHTML=isRec?'<div class="wave" id="micIcon"><span></span><span></span><span></span><span></span></div>':'<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" id="micIcon"><path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"/></svg>'}
+function clearSpeech(){speech='';const ta=document.getElementById('speechInput');ta.value='';ta.placeholder='Type or speak your destination...'}
 
 async function triggerGL(payload){const r=await fetch(`https://api.gumloop.com/api/v1/start_pipeline?user_id=${CFG.gumloop.user_id}&saved_item_id=${CFG.gumloop.saved_item_id}`,{method:'POST',headers:{'Content-Type':'application/json','Authorization':`Bearer ${CFG.gumloop.api_key}`},body:JSON.stringify(payload)});return r.json()}
 async function getGLStatus(id){const r=await fetch(`https://api.gumloop.com/api/v1/get_pl_run?run_id=${id}&user_id=${CFG.gumloop.user_id}`,{headers:{'Authorization':`Bearer ${CFG.gumloop.api_key}`}});return r.json()}
@@ -178,19 +269,107 @@ async function getGLStatus(id){const r=await fetch(`https://api.gumloop.com/api/
 function showRoute(origin,dest){return new Promise((res,rej)=>{dirService.route({origin,destination:dest,travelMode:google.maps.TravelMode.WALKING},(r,s)=>{if(s==='OK'){dirRenderer.setDirections(r);const l=r.routes[0].legs[0];document.getElementById('duration').textContent=l.duration.text;document.getElementById('distance').textContent=l.distance.text;document.getElementById('startPt').textContent=l.start_address;document.getElementById('endPt').textContent=l.end_address;if(destMarker)destMarker.setMap(null);destMarker=new google.maps.Marker({position:l.end_location,map,icon:{path:google.maps.SymbolPath.CIRCLE,scale:10,fillColor:'#ef4444',fillOpacity:1,strokeColor:'#fff',strokeWeight:3}});const b=new google.maps.LatLngBounds();b.extend(l.start_location);b.extend(l.end_location);map.fitBounds(b,{padding:80});document.getElementById('routeCard').classList.add('visible');res(r)}else rej(new Error('Route: '+s))})})}
 
 async function getDirections(){if(!loc.lat){showToast('Waiting for location...');return}
-    const locStr=loc.addr||`${loc.lat}, ${loc.lng}`,userSpeech=speech||'I want to walk to Eaton Centre in Montreal';
+    const inputText=document.getElementById('speechInput').value.trim();
+    const locStr=loc.addr||`${loc.lat}, ${loc.lng}`,userSpeech=inputText||speech||'I want to walk to Eaton Centre in Montreal';
     const btn=document.getElementById('submitBtn');btn.disabled=true;btn.innerHTML='<div class="btn-spinner"></div><span>Starting...</span>';showLoad(true);
     try{const t=await triggerGL({speech_input:userSpeech,location_input:locStr});if(!t.run_id)throw new Error('Failed to start');
         const start=Date.now();while(Date.now()-start<120000){updateLoad(`Getting directions... (${Math.round((Date.now()-start)/1000)}s)`);const st=await getGLStatus(t.run_id);
             if(st.state==='DONE'||st.state==='COMPLETED'){const out=st.outputs?.output||st.outputs?.Response||(st.outputs&&Object.values(st.outputs)[0])||'';
                 let dest='';if(st.log){const dl=st.log.find(l=>l.includes("'Destination' extracted"));if(dl){const m=dl.match(/extracted successfully: (.+)/);if(m)dest=m[1]}}
                 if(!dest){const m=userSpeech.match(/to\s+(.+?)(?:\s+in|\s+from|$)/i);dest=m?m[1]:'Eaton Centre'}
-                try{await showRoute({lat:loc.lat,lng:loc.lng},dest+', Montreal, Canada')}catch(e){console.error(e)}
-                dirs=out;document.getElementById('dirText').innerHTML=out.replace(/\n/g,'<br>').replace(/(\d+\.)/g,'<strong>$1</strong>').replace(/(Turn left|Turn right|Go straight|Continue|Walk|Head|Cross)/gi,'<strong>$1</strong>');showLoad(false);break}
+                
+                // Parse JSON output for segments
+                try{
+                    console.log('Raw output:', out);
+                    // Try to extract JSON array from output
+                    let segments=null;
+                    // Try parsing the whole output as JSON first
+                    try{
+                        segments=JSON.parse(out);
+                        if(!Array.isArray(segments))segments=null;
+                    }catch(e){
+                        // If that fails, try to find JSON array in the text
+                        const jsonMatch=out.match(/\[\s*\{[\s\S]*\}\s*\]/);
+                        if(jsonMatch){
+                            console.log('JSON match found');
+                            segments=JSON.parse(jsonMatch[0]);
+                        }
+                    }
+                    
+                    if(segments && Array.isArray(segments) && segments.length>0){
+                        console.log('Parsed segments:', segments);
+                        navigationData.segments=segments;
+                        // Show route on map first
+                        await showRoute({lat:loc.lat,lng:loc.lng},dest+', Montreal, Canada');
+                        navigationData.totalDuration=document.getElementById('duration').textContent;
+                        navigationData.totalDistance=document.getElementById('distance').textContent;
+                        console.log('Navigation data:', navigationData);
+                        // Show preview panel
+                        showPreview();
+                    }else{
+                        console.log('No valid JSON array found, using fallback');
+                        // Fallback to old text format
+                        dirs=out;document.getElementById('dirText').innerHTML=out.replace(/\n/g,'<br>').replace(/(\d+\.)/g,'<strong>$1</strong>').replace(/(Turn left|Turn right|Go straight|Continue|Walk|Head|Cross)/gi,'<strong>$1</strong>');
+                        toggleDir();
+                    }
+                }catch(e){
+                    console.error('Parse error:',e);
+                    dirs=out;document.getElementById('dirText').innerHTML=out.replace(/\n/g,'<br>').replace(/(\d+\.)/g,'<strong>$1</strong>').replace(/(Turn left|Turn right|Go straight|Continue|Walk|Head|Cross)/gi,'<strong>$1</strong>');
+                    toggleDir();
+                }
+                showLoad(false);break}
             if(st.state==='FAILED'||st.state==='ERROR'){let err='Workflow failed';if(st.log){const el=st.log.find(l=>l.includes('Failed'));if(el)err=el.replace(/\u001b\[\d+m/g,'')}throw new Error(err)}
             await new Promise(r=>setTimeout(r,2000))}}
     catch(e){showToast(e.message);showLoad(false)}
     btn.disabled=false;btn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"/></svg><span>Get Directions</span>'}
+
+function showPreview(){
+    const panel=document.getElementById('previewPanel');
+    const content=document.getElementById('previewContent');
+    document.getElementById('previewDuration').textContent=navigationData.totalDuration;
+    document.getElementById('previewDistance').textContent=navigationData.totalDistance;
+    content.innerHTML='';
+    navigationData.segments.forEach((seg,i)=>{
+        const div=document.createElement('div');div.className='segment';
+        div.innerHTML=`<div class="segment-num">${i+1}</div><div class="segment-text">${seg.instruction}</div>`;
+        if(seg.landmarks && seg.landmarks.length>0){
+            const lm=document.createElement('div');lm.className='landmarks';
+            seg.landmarks.forEach(l=>{lm.innerHTML+=`<div class="landmark"><div class="landmark-name">${l.name||l.address||'Landmark'}</div><div class="landmark-addr">${l.address||''}</div></div>`});
+            div.appendChild(lm);
+        }
+        content.appendChild(div);
+    });
+    panel.classList.add('visible');
+}
+function closePreview(){document.getElementById('previewPanel').classList.remove('visible')}
+function beginNavigation(){
+    closePreview();
+    navigationData.currentStep=0;
+    navigationData.isNavigating=true;
+    document.getElementById('navCard').classList.add('visible');
+    updateNavigationStep(0);
+}
+function updateNavigationStep(index){
+    const seg=navigationData.segments[index];
+    document.getElementById('navStepNum').textContent=index+1;
+    document.getElementById('navTotalSteps').textContent=navigationData.segments.length;
+    document.getElementById('navProgressBar').style.width=`${((index+1)/navigationData.segments.length)*100}%`;
+    document.getElementById('navInstruction').textContent=seg.instruction;
+    const lmDiv=document.getElementById('navLandmarks');
+    lmDiv.innerHTML='';
+    if(seg.landmarks && seg.landmarks.length>0){
+        seg.landmarks.forEach(l=>{
+            const thumb=document.createElement('div');thumb.className='landmark';
+            thumb.innerHTML=`<div class="landmark-img" style="background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--text2)">📍</div><div class="landmark-name">${l.name||l.address||'Landmark'}</div>`;
+            lmDiv.appendChild(thumb);
+        });
+    }
+    document.getElementById('prevBtn').disabled=index===0;
+    document.getElementById('nextBtn').disabled=index===navigationData.segments.length-1;
+}
+function prevStep(){if(navigationData.currentStep>0){navigationData.currentStep--;updateNavigationStep(navigationData.currentStep)}}
+function nextStep(){if(navigationData.currentStep<navigationData.segments.length-1){navigationData.currentStep++;updateNavigationStep(navigationData.currentStep)}}
+function closeNav(){document.getElementById('navCard').classList.remove('visible');navigationData.isNavigating=false}
 
 function showLoad(v){document.getElementById('loading').classList.toggle('visible',v)}
 function updateLoad(t){document.getElementById('loadingText').textContent=t}
