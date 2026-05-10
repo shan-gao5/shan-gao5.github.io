@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shan Gao</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #faf8f3;
+      --text: #1d1b18;
+      --muted: #5f5a52;
+      --accent: #6b4f2a;
+      --line: #ded8cc;
+      --panel: #fffdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 1rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
+
+    nav a {
+      color: var(--accent);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem 4rem;
+    }
+
+    h1,
+    h2 {
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 8vw, 4.5rem);
+      letter-spacing: -0.04em;
+    }
+
+    h2 {
+      margin-top: 3rem;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 0.45rem;
+      font-size: 1.6rem;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin-top: 2.25rem;
+      font-size: 1.1rem;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .publications {
+      display: grid;
+      gap: 1.25rem;
+      margin: 1.5rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .publication {
+      padding: 1.25rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .publication-title {
+      display: block;
+      margin: 0.15rem 0;
+      font-style: italic;
+    }
+
+    .publication-venue {
+      color: var(--muted);
+    }
+
+    footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem 2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Shan Gao</h1>
+    <nav aria-label="Main navigation">
+      <a href="mailto:shan.gao5@mail.mcgill.ca">shan.gao5@mail.mcgill.ca</a>
+      <span>Office: Mcconell 311</span>
+    </nav>
+  </header>
+
+  <main>
+    <section class="intro" aria-label="About">
+      <p>
+        I'm a masters student in computer science at McGill University under the supervision of
+        Professor <a href="https://luc.devroye.org/">Luc Devroye</a>, currently working on the
+        properties of degree-restricted uniform attachment trees. Previously, I was an
+        undergraduate student at McGill University where I worked on statistical learning theory
+        with Professor <a href="https://www.cs.mcgill.ca/~hatami/">Hamed Hatami</a> and
+        <a href="https://pooyahatami.org/">Pooya Hatami</a>, specifically on questions involving
+        differential privacy, stable learning, communication complexity and combinatorics. A long
+        time ago, I started my undergraduate degree in Physics where I did research on high-energy
+        astrophysics. Thanks to my wonderful family, friends and colleagues, I'm still hanging in
+        there.
+      </p>
+    </section>
+
+    <section aria-labelledby="publications-heading">
+      <h2 id="publications-heading">Publications</h2>
+
+      <ul class="publications">
+        <li class="publication">
+          James M. Cline, Shan Gao, Fangyi Guo, Zhongan Lin, Shiyan Liu, Matteo Puel,
+          Phillip Todd, Tianzhuo Xiao,
+          <span class="publication-title">Blazar Constraints on Neutrino-Dark Matter Scattering</span>
+          <span class="publication-venue">Phys. Rev. Lett. 130, 091402, 2023</span>
+          [<a href="https://link.aps.org/doi/10.1103/PhysRevLett.130.091402">DOI</a>]
+        </li>
+
+        <li class="publication">
+          Ari Blonda, Shan Gao, Hamed Hatami, Pooya Hatami,
+          <span class="publication-title">Stability and List-Replicability for Agnostic Learners</span>
+          <span class="publication-venue">Conference on Learning Theory, 2025</span>
+          [<a href="https://arxiv.org/abs/2501.05333">arXiv</a>]
+        </li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    Last updated 2026.
+  </footer>
+</body>
+</html>
