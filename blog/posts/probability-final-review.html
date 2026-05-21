@@ -1,0 +1,680 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Probability final review | Shan Gao</title>
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [["$", "$"], ["\\(", "\\)"]],
+        displayMath: [["$$", "$$"], ["\\[", "\\]"]]
+      },
+      svg: {
+        fontCache: "global"
+      }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #faf8f3;
+      --text: #1d1b18;
+      --muted: #5f5a52;
+      --accent: #6b4f2a;
+      --line: #ded8cc;
+      --panel: #fffdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    header,
+    main,
+    footer {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    header {
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+    }
+
+    h1,
+    h2,
+    h3 {
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    h1 {
+      margin-bottom: 0.5rem;
+      font-size: clamp(2.1rem, 7vw, 3.8rem);
+      letter-spacing: -0.04em;
+    }
+
+    main {
+      padding-top: 1rem;
+      padding-bottom: 3rem;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 1rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+    }
+
+    code {
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .meta,
+    footer {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer {
+      padding-bottom: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/blog.html">Blog</a>
+    <h1>Probability final review</h1>
+    <div class="meta">2026-05-21 · Math</div>
+  </header>
+
+  <main>
+<p>Interesting stuff to know about Martingales</p>
+<ul>
+<li>If $X = (X_n)_{n \geq 0}$ is a sub martingale that is ${\mathcal{F}<em>n}</em>{n\geq 0}$-adapted, then for all $m &gt; n &gt; 0$
+$\mathbb{E}[X_m | \mathcal{F}_n] \geq X_n$</li>
+<li>The partial sum $S_n$ of a sequence of centered random variables $Y_n$ where $\mathbb{E}[Y_n] =0$ is a martingale</li>
+<li>If the random variable is centered like the above $\mathbb{E}[Y_n] = 0$ with the additional assumptions that ${Y_n}_{n \geq 0} \subseteq L^2(d\mathbb{P})$, and $\mathbb{E}[Y_n^2] = 1$, then ${S_n^2 - n}$ is a Martingale with respect to it&#39;s natural filtration. </li>
+<li>Remember that the conditional expectation of a random variable $Y$, if $Y$ is $\mathcal{G}$-measurable, then $\mathbb{E}[Y| \mathcal{G}] = Y$ (you have to keep seeing it as a random variable)</li>
+<li>You need to remember the martingale property, where $\mathbb{E}[X_m | \mathcal{F}_n] = X_n$ almost surely, if $m \geq n$</li>
+</ul>
+<p><strong>Properties of sum of independent normal random variables</strong>
+If $Y_n \sim \mathcal{N}(\mu_i, \sigma_i^2)$
+then $S_n \sim \mathcal{N}(\sum_{i=1}^n \mu_i, \sum_{i=1}^n \sigma_i^2)$
+This follows directly from linearity of independence (doesn&#39;t require independence assumption) and linearity of variance under independence (does require independence). 
+Constant scaling of a normal random variable is reflected in the variance by the constant, squared, where $\gamma Y \sim \mathcal{N}(a\mu, \gamma^2 \sigma^2)$</p>
+<p><strong>Stopping times</strong></p>
+<ul>
+<li>Pretty important to nail this one
+First of the definition: We call a random variable $\tau \colon \Omega \to \mathbb{N} \cup {+\infty}$ a ${\mathcal{F}_n}$-stopping time, if for any $n$
+${ \tau = n} \in \mathcal{F}_n$ 
+or
+${\tau \leq n } \in \mathcal{F}_n$</li>
+</ul>
+<p><strong>Common stopping times</strong>
+Let $X_n$ be adapted on a filtered space $(\Omega, {\mathcal{F}<em>n}, \mathcal{F}, \mathbb{P})$, then let $a&lt;b$ where $a,b \in \mathbb{R}$ 
+$$
+	\tau_1 = \inf { n \colon X_n \leq a}
+$$
+is a stopping time as well as 
+$$
+	\tau_2 = \inf{n \geq \tau_1 \colon X_n \geq b}
+$$
+Since 
+$$
+{\tau_2 = n} = \bigcup</em>{j=0}^{n-1} {\tau_1 =j, \bigcap_{k=j+1}^{n-1} {X_k &lt; b}, {x_n \geq b} }
+$$
+Generally, we have that for $k \geq 1$ 
+$$
+	\tau_{2k+1} = \inf{n \geq \tau_{2k} \colon X_n \leq a}
+$$
+(downwards to $a$)
+$$
+	\tau_{2k+2} = \inf{n \geq \tau_{2k+1} \colon X_n \geq b}
+$$
+upcrossing from $a$ to $b$ </p>
+<p>so $\tau_m \colon m \geq 1$ are stopping times</p>
+<p>Upcrossing&#39;s from $a$ to be $b$ get completed from every $\tau_{2k+1}$ to $\tau_{2k+2}$ with the first one being from $\tau_1$ to $\tau_2$ 
+<strong>Weird example number 2</strong>
+Let us be in a filtered space again then let $k \geq 1$ and $A \in \mathcal{F}_{k=1}$, then let
+$$
+	\sigma = (k-1)\mathbf{1}<em>A + k \mathbf{1}</em>{A^c}
+$$
+Then $\sigma$ is a ${\mathcal{F}_n}$-stopping time, you have to convince yourself on what is ${\sigma = n}$ for $k \leq n+1$, $k = n+1$ and $k &gt; n+1$</p>
+<p>Stopped-$\sigma$-algebra
+A stopped $\sigma$-algebra is defined by a stopping time $\tau$ where
+$$
+	\mathcal{F}<em>{\tau} = { A \in \mathcal{F}</em>\infty \colon  \forall n \geq 0 \quad A \cap {\tau = n} \in \mathcal{F}<em>n}
+$$
+Can be written equivalently with $A \cap {\tau \leq n}$ . Can check that this is actually a $\sigma$-algebra. In fact, since $\tau \colon \Omega \to \mathbb{N} \cup {+ \infty}$, since $\mathcal{F}</em>\tau$ contains all sets ${\tau = 1}, {\tau = 2},\ldots$, then $\tau$ is clearly $\mathcal{F}_\tau$ -measurable </p>
+<p><strong>Definition</strong> (Random variable at a stopping time)</p>
+<p>Def ($X_\tau$ )
+Let $X_n$ be an adapted process on a filtered space $(\Omega, {\mathcal{F}<em>n}, \mathcal{F}, \mathbb{P})$ and $\tau$ a stopping time $\forall \omega \in \Omega$
+$$
+	X</em>\tau(\omega) = \begin{cases}
+	X_{\tau(\omega)}(\omega) &amp; \tau(\omega) &lt; \infty\
+	\lim_{n \to \infty} X_n(\omega) &amp; \tau(\omega) = +\infty\
+	\text{undefined} &amp; \text{otherwise} 
+\end{cases}
+$$
+Now we can introduce some properties of stopping times</p>
+<ul>
+<li><p>A random variable that is measurable with respect with ${\emptyset, \Omega}$ is constant almost surely. </p>
+</li>
+<li><p>Properties of stopping times
+basic operations are preserved</p>
+</li>
+<li><p>every $\mathcal{F}<em>k \subseteq \mathcal{F}</em>\infty$ 
+**Stopped $\sigma$-algebras</p>
+</li>
+<li><p>$\tau_1 \land \tau_2$ is also a stopping time</p>
+</li>
+<li><p>$\mathcal{F}<em>{\tau_1 \land \tau_2} = \mathcal{F}</em>{\tau_1} \cap \mathcal{F}_{\tau_1}$ </p>
+</li>
+<li><p>$\tau_1 \leq \tau_2$ almost surely, then $\mathcal{F}<em>{\tau_1} = \mathcal{F}</em>{\tau_2 \land \tau_1}$. This is straightforward because $\mathcal{F}<em>{\tau_2 \land \tau_1} = \mathcal{F}</em>{\tau_1} \cap \mathcal{F}<em>{\tau_2}$ and $\mathcal{F}</em>{\tau_1} \subseteq \mathcal{F}_{\tau_2}$ since ${\tau_1 \leq n } \subseteq {\tau_2 \leq n }$ for all $n$</p>
+</li>
+<li><p>$\tau_1 \leq \tau_2$ almost surely implies $\mathcal{F}<em>{\tau_1} \subseteq \mathcal{F}</em>{\tau_2}$ </p>
+</li>
+<li><p>REMEMBER, ANY CONSTANT IS A STOPPING TIME BECUASE A CONSTANT IS MEASURABLE W.R.T TO ANY $\sigma$-algebra. </p>
+</li>
+<li><p>If $X_n \in L^1(d\mathbb{P})$ for all $n$, then $X_{\tau \land n} \in L^1(d\mathbb{P})$ for all $n$</p>
+</li>
+</ul>
+<p><strong>Theorem (optional stopping theorem)</strong> 
+Let ${X_n}$ be ${\mathcal{F}<em>n}$-adapted and a supermartingale, then for all bounded ${\mathcal{F}<em>n}$ stopping times, $0 \leq \sigma \leq \tau$, 
+$$
+	\mathbb{E}[X</em>{\tau}] \leq \mathbb{E}[X</em>{\sigma}]
+$$
+Largest one is has smaller mean</p>
+<p><strong>immediate corollary</strong>
+If $X_n$ is a martingale, that means $\mathbb{E}[X_{n+1} | \mathcal{F}<em>n] = X_n$, but that almost means $\mathbb{E}[-X</em>{n+1} | \mathcal{F}<em>n] = -X_n$ so $-X_n$ is also a martingale, but the optional stopping theorem
+$$
+	\mathbb{E}[X</em>{\tau}] \leq \mathbb{E}[X_{\sigma}]
+$$
+and
+$$
+	\mathbb{E}[- X_{\tau}] \leq \mathbb{E}[-X_{\sigma}]
+$$
+which implies $\mathbb{E}[X_\sigma] \leq \mathbb{E}[X_{\tau}]$ and thus
+$$
+	\mathbb{E}[X_{\tau}] = \mathbb{E}[X_{\sigma}]
+$$
+<strong>Tricks used in these proofs</strong>
+Have to use law of total expectation, it&#39;s overpowered,
+when you have some stopping time $\sigma$, and $A \in \mathcal{F}<em>\sigma$ , then
+$$
+	A \cap {\sigma \leq k} \in \mathcal{F}</em>{k} \quad \text{ def  of } \mathcal{F}<em>{\sigma}
+$$
+$\mathcal{F}</em>{\tau \land \sigma} \subseteq \mathcal{F}<em>{\sigma}$ or $\subseteq \mathcal{F}</em>{\tau}$ </p>
+<p>Optional stopping theorem follows directly from this theorem:
+<strong>Theorem</strong>
+Let ${X_n}$ be a ${\mathcal{F}_n}_n$-supermartingale</p>
+<ul>
+<li>$\forall$ bounded stopping time $\tau$ and a SuperMartingale
+$$
+  \mathbb{E}[X_\tau | \mathcal{F}<em>\sigma] \leq X</em>{\tau \land \sigma}
+$$</li>
+<li>$\forall$ bounded stopping times $\tau, \sigma$ if $\sigma \leq \tau$ almost surely, 
+$$
+  \mathbb{E}[X_{\tau}] \leq \mathbb{E}[X_{\sigma}]
+$$
+This one follows from the previous one directly since 
+$$
+  \mathbb{E}[\mathbb{E}[X_{\tau} | \mathcal{F}<em>\sigma]] \leq \mathbb{E}[X</em>{\tau \land \sigma}] = \mathbb{E}[X_{\sigma}]
+$$
+This is clear since if $\sigma \leq \tau$ almost surely, then $X_{\tau \land \sigma} = X_{\sigma}$ almost surely. </li>
+<li>If $\tau$ is a ${\mathcal{F}<em>n}$-stopping time, then ${X</em>{\tau \land n} \colon n \geq 0}$  is a ${\mathcal{F}<em>n}$-supermartingale. 
+EAsiest proof of all time 
+$$
+  \mathbb{E}[X</em>{\tau \land n} | \mathcal{F}<em>{n-1}] \leq X</em>{\tau \land n \land n-1} = X_{\tau \land n-1}
+$$
+(any constant is a stopping time)</li>
+</ul>
+<p><strong>Martingale Convergence theorems</strong>
+If ${X_n \colon n \geq 0 }$ are martingales, useful to identify conditions where $X_n$ converges a.s and in $L^1$ (requires UI)</p>
+<p>Recall upcrossings 
+We have  for all $k \geq 1$ 
+$\tau_{2k-1} = \inf { n \geq \tau_{2k-2}\colon X_n \leq a}$
+and 
+$\tau_{2k} = \inf{n \geq \tau_{2k-1} \colon X_n \geq b}$</p>
+<p><strong>Motivation</strong>
+If $U[a,b] &lt; \infty$ almost surely, then $\lim_{n \to \infty} X_n$ exists almost surely</p>
+<p>So if $U[a,b]$ on $\Omega_0$ with measure $1$, then the limit exists. This is unintuitive but can be seen with the contrapositive, because if for all $\omega \in \Omega_0$, $X_n(\omega)$ is a real valued sequence, if the limit doesn&#39;t exist that means $\liminf_{n} X_n &lt; \limsup_n X_n$ which means there exists two numbers for which the number of upcrossing is not finite. hhk</p>
+<p>There is no such thing as free, Will. 
+<strong>Doob&#39;s upcrossing inequality</strong>
+$k$ is the number of upcrossings
+Let $X = {X_n \colon n \geq 0}$ be a ${\mathcal{F}<em>n}$-supermartingale 
+Fix $a &lt; b \in \mathbb{R}$ then 
+$$
+	\mathbb{E}[U[a,b]] \leq \frac{1}{b-a} \sup</em>{k &gt; 0} \mathbb{E}[(X_k - a)^-]
+$$
+Easy corollary:
+Let ${X_n \colon n \geq 0}$ be a supermartingale, if $X_n$ is uniformly bounded in $L^1$, as in $\sup_{n \geq 0} \mathbb{E}[|X_n|] \leq \infty$, then $\mathbb{E}[U[a,b]] &lt; \infty$. 
+<em>proof</em> </p>
+<p>$$
+\mathbb{E}[U[a,b]] \leq \frac{1}{b-a} \sup_{n \geq 0} \mathbb{E}[(X_n-a)^-]\leq \frac{1}{b-a}\sup_{n \geq 0}\mathbb{E}[|X| ]+a &lt; \infty
+$$</p>
+<p>uniformly bounded in $L^1$ and martingale $=&gt;$ converges a.s
+Uniformly integrable =&gt; bounded in $L^1$
+UI + Martingale =&gt; converges a.s and in $L^1$ </p>
+<p>Let $X \in L^1(d\mathbb{P})$ , then $X_n = \mathbb{E}[X | \mathcal{F}_n]$ is a Martingale, and is uniformly integrable</p>
+<p>Why?
+Lemma: For every $\varepsilon &gt;0$, there exists $\delta &gt; 0$ such that if $A \in \mathcal{F}$, and $\mathbb{P}[A] &lt; \delta$, then $\mathbb{E}[|X| \mathbf{1}<em>A] &lt; \varepsilon$
+<em>proof</em>
+$X$ uniformly integrable, then 
+$$
+\begin{align*}
+\mathbb{E}[|X|\mathbf{1}<em>A] &amp;=  \mathbb{E}[|X| \mathbf{1}</em>{|X| \leq M, A}] + \mathbb{E}[|X| \mathbf{1}</em>{|X| &gt; M, A}] \
+&amp;\leq M \mathbb{P}[A] + \mathbb{E}[|X| \mathbf{1}_{|X| &gt; M}] \
+&amp;= M \mathbb{P}[A] + \varepsilon/2 \quad \text{ $M$ large enough}
+\end{align*}
+$$
+Take $\delta &lt; \frac{\varepsilon}{2M}$ and we are done</p>
+<p>Second lemma: Let $\varepsilon &gt;0$ there exists $M$ such that $\forall n$ 
+$$
+	\mathbb{P}[|X_n| &gt; M ] &lt; \delta \quad
+$$
+This is just using 
+$$
+		\mathbb{P}[|X_n| &gt; M] \leq \frac{\mathbb{E}[|X_n|]}{M} \leq \frac{\mathbb{E}[\mathbb{E}[|X| | \mathcal{F}<em>n]]}{M} = \frac{\mathbb{E}[|X|]}{M}
+$$
+Then just let $M &gt; \frac{\delta}{\mathbb{E}[|X|]}$ 
+Thus for all $n$
+$$
+	\begin{align*}
+	\mathbb{E}[|X_n| \mathbf{1}</em>{|X_n| &gt; M}] &amp;\leq \mathbb{E}[\mathbb{E}[|X| | \mathcal{F}<em>n] \mathbf{1}</em>{|X_n| &gt; M}] \
+	&amp;= \mathbb{E}[\mathbb{E}[|X| \mathbf{1}_{|X_n| &gt; M} | \mathcal{F}<em>n]]\
+	&amp;= \mathbb{E}[|X| \mathbf{1}</em>{|X_n| &gt; M}] &lt; \varepsilon
+	\end{align*}
+$$
+Where we used the second claim in the second line and the first lemma in the last line
+Thus corollary:
+<strong>corollary</strong>
+Let $X \in L^1(d\mathbb{P})$, then let $X_n = \mathbb{E}[X | \mathcal{F}<em>n]$, then there exists $X</em>\infty \in L^1(d\mathbb{P})$ such that $X_n \to X$ a.s and in $L^1$ </p>
+<p>This is really cool corollary that you should be able to check out:</p>
+<ul>
+<li>In the case where ${X_n}$ is a UI martingale, then we know that there exists some $X_\infty \in L^1(d\mathbb{P})$ such that $X_n \to X_\infty$ almost surely and in $L^1$, but we now also know that
+$$
+  X_n = \mathbb{E}[X_\infty | \mathcal{F}_n]
+$$</li>
+<li>The next corollary is that if a UI martingale is given by the conditional expectation of it&#39;s limiting random variable, then any 
+<strong>corollary 2</strong>
+$Y \in L^1(d\mathbb{P})$ , if $Y_n = \mathbb{E}[Y | \mathcal{F}_n]$, then $Y_n \to Y$ a.s and in $L^1$, so in the case of the martingale given by conditional expectation, the limit is the function itself.</li>
+</ul>
+<p>If you want to verify a property for all $A \in \mathcal{F}<em>\infty$, verify it for all $A \in \bigcup</em>{n=1}^\infty \mathcal{F}_n$, this is a $\pi$-system that generates the whole stopped sigma algebra </p>
+<h1>Chapter 5 topics</h1>
+<p>Revisited, since it&#39;s good to know all the possible proofs:</p>
+<p>Let $(S_1,\Sigma_1)$ and $(S_2,\Sigma_2)$ be two measurable spaces. Then let $S = S_1 \times S_2$ (cartesian product), and define
+<strong>Projection map</strong>
+Let $\pi_i \colon S \to S_i$ be such that 
+$$
+	\pi_i(x_1,x_2) \to x_i \quad i \in {1,2}
+$$</p>
+<ul>
+<li><h2>Definition of product $\sigma$-algebra</h2>
+</li>
+</ul>
+<p>We call 
+$$
+	\Sigma = \sigma({B_1 \times B_2 \colon B_i \in \Sigma_i})
+$$
+To be the product $\sigma$-algebra </p>
+<ul>
+<li><h2>Measurability of projection Note that $\Sigma = \sigma(\pi_1,\pi_2)$ since $\pi_i$ is $\Sigma/\Sigma_i$ measurable</h2>
+</li>
+<li><p>Sentence to remember: the product sigma algebra is the smallest sigma algebra that makes the individual projection maps measurable. Which is exactly the sigma algebra generated by all rectangles.</p>
+</li>
+</ul>
+<p>A measurable function 
+$$
+	f \colon S = S_1 \times S_2 \to \mathbb{R}
+$$</p>
+<ul>
+<li><h2>preservation of measurability upon freezing variables</h2>
+</li>
+</ul>
+<p>is coordinate-wise measurable
+$$
+	\forall y \quad x \to f(x,y) \quad \text{measurable}
+$$
+Define the two functions for any $f$ $\Sigma/\mathbb{R}$-measurable
+$$
+	\forall x_1 \in S_1 \quad I_1^f(x_1) = \int_{S_1} f(x_1,x_2) \mu_2(dx_2)
+$$
+and
+$$
+	\forall x_2 \in S_2 \quad I_2^f(x_2) = \int_{S_1} f(x_1,x_2) \mu_1(dx_1)
+$$
+And the iterated integrals are equal
+$$
+	\int_{S_2} I_2^f(x_2)\mu_2(dx_2) = \int_{S_1} I_1^f(x_1) \mu_1(dx_1)
+$$
+<strong>What you need to remember from this chapter</strong>
+If a measure on a product space 
+$$\mu \colon \underbrace{\Sigma}_{\Sigma_1 \otimes \Sigma_2} \to [0,\infty)$$
+Then if it can be factorized as a product measure, as in $\mu = \mu_1 \times \mu_2$ where $\mu_1$ is a measure on $\Sigma_1$ and $\mu_2$ is a measure on $\Sigma_2$ </p>
+<p>This also depends on if the sigma algebra can be generated by rectangle sets. </p>
+<p>So basically the measure can be factored, and the integral can be split</p>
+<p><strong>Product Measure</strong>
+What you need for Fubini&#39;s/Tonelli&#39;s</p>
+<ul>
+<li><p>Need two $\sigma$-finite measurable spaces already, then we get the following for free:</p>
+</li>
+<li><p>Need to have a product measure defined, that is the unique measure induced by two $\sigma$-finite measure spaces, $(S_1,\Sigma_1)$ and $(S_2,\Sigma_2)$, such that $\exists! \mu$ where 
+$$
+  \mu(B_1\times B_2) = \mu_1(B_1)\times \mu_2(B_2)
+$$
+For $B_i \in \Sigma_i$ for $i \in {1,2}$ </p>
+</li>
+<li><p>Have to remember this, change of variables (integral of $f(X)$ under the pushforward of $X$) 
+<strong>Change of variables</strong> Suppose $f \colon \mathbb{R} \to \mathbb{R}$ measurable, then 
+$$
+  f(X(\cdot)) \in L^1(\Omega, d\mathbb{P}) \iff f(\cdot) \in L^1(\mathbb{R}, \mathcal{L}_\mathcal{X}(dx)) \iff f \cdot f_X \in L^1(\mathbb{R}, dx)
+$$
+Because $\mathcal{L}_X$ is basically the pushforward of $\mathbb{P}$ by $X$ (attributing a measure to all Borel sets). So function of a random variable integrable w.r.t $\mathbb{P}$, means $f$ is integrable w.r.t the Distributional measure.</p>
+</li>
+</ul>
+<p><strong>Joint distribution</strong>
+$X$ and $Y$ are both random variables on a probability space $(\Omega, \mathcal{F}, \mathbb{P})$. Call the joint distribution, which is a measure on $(\mathbb{R}^2, \mathcal{B}(\mathbb{R}^2))$, for all $A \in \mathcal{B}(\mathbb{R}^2)$ 
+$$
+	\mathcal{L}<em>{(X,Y)} (A) = \mathbb{P}[X \in A, Y \in A]
+$$
+<strong>joint density function</strong> 
+If this joint distribution $\mathcal{L} &gt;&gt; \lambda \otimes \lambda$ Then
+$$
+	\frac{d\mathcal{L}</em>{X,Y}}{dx \otimes dy} = f_{X,Y}
+$$
+where $\lambda \otimes \lambda$ is the unique product measure induced by the product measure generated by open rectangles (Borel on $\mathbb{R}^2)$ </p>
+<p>When we talk about density, Fubini&#39;s theorem is applied on the product sigma algebra 
+$$
+	\mathcal{B}(\mathbb{R}) \otimes \mathcal{B}(\mathbb{R}) = \mathcal{B}(\mathbb{R}^2)
+$$
+with the Lebesgue measure defined on each of the individual measure spaces. The lebesgue product measure is obviously </p>
+<p><strong>Notes on conditional expectation</strong></p>
+<p>Let $X$ be a random variable in $(\Omega, \mathcal{F}, \mathbb{P})$ where $X \in L^1(d\mathbb{P})$  then let $\mathcal{G}$ be a sub-$\sigma$-algebra then we call 
+$Y = \mathbb{E}[X | \mathcal{G}]$ to be the unique random variable such that </p>
+<ul>
+<li>$Y \in L^1(\Omega,\mathcal{G}, \mathbb{P})$ </li>
+<li>for all $E \in \mathcal{G}$, $\mathbb{E}[X \mathbf{1}<em>E] = \mathbb{E}[ Y \mathbf{1}</em>{E}]$ 
+IMPORTANT REMARK:
+Can replace the second condition with with just needs to agree on a $\pi$-system that generates the sub sigma algebra $\mathcal{G}$</li>
+</ul>
+<p><strong>Common conditional expectation</strong>
+If $\mathcal{G} = {A , A^c , \Omega, \emptyset}$, and $X$ r.v then 
+$$
+	\mathbb{E}[X | \mathcal{G}] = \mathbf{1}_A \frac{\mathbb{E}[X \mathbf{1}<em>A]}{\mathbb{P}[A]} + \mathbf{1}</em>{A^c} \frac{\mathbb{E}[X\mathbf{1}_A^c]}{\mathbb{P}[A^c]}
+$$
+Notice that these explicit forms are necessary because $X(\mathbf{1}<em>A + \mathbf{1}</em>{A^c})$ might not work, since $X$ isn&#39;t necessarily measurable w.r.t $\mathcal{G}$. </p>
+<p><strong>Conditioning on a random variable</strong>
+It&#39;s just conditioning on $\sigma(Y)$</p>
+<p><strong>When a joint distribution exists</strong>
+If we want to condition on $\sigma(Y)$, and a joint distribution exists, then if a <strong>joint density</strong> exists, then
+$$
+	\mathbb{E}[h(X) | Y] = \int_{\mathbb{R}} h(x) f_{X|Y}(x|Y)dx
+$$
+where 
+$$
+	f_{X|Y}(x|y) = \begin{cases}
+		f_{X,Y}(x,y)/f_Y(y) &amp; f_Y(y) \neq 0\
+		0 &amp; \text{otherwise}
+	\end{cases}
+$$
+where $h$ is Borel such that $h(X) \in L^1(d\mathbb{P})$ </p>
+<ul>
+<li>If a variable is measurable w.r.t a product space, then it&#39;s coordinate-wise measurable for all values of the other coordinate. This mean if $f \colon S \to \mathbb{R}$ is $\Sigma/\mathcal{B}(\mathbb{R})$-measurable, then
+$$
+  f(x_1,\cdot)
+$$
+is $\Sigma_2$-measurable for all $x_1 \in S_1$
+Same way 
+$f(\cdot, x_2)$ is $\Sigma_1$-measurable for all $x_2 \in S_2$
+Then
+$$
+  I_1^f(x_1) = \int_{S_2} f(x_1,x_2)\mu_2(dx_2)
+$$
+IS measurable
+<strong>You have to know this transform</strong>
+$$
+  \mathbf{1}<em>{Y^{-1}(B)}(\omega) = \mathbf{1}</em>{Y(\omega) \in B}(\omega) = \mathbf{1}_{B}(Y(\omega))
+$$
+When trying to prove random variable is the conditional expectaiton, maybe start from the back, so claiming $Y$ is $\mathbb{E}[X | \mathcal{G}]$ start from
+$$
+  \mathbb{E}[X \mathbf{1}_A]
+$$
+where $A \in \mathcal{G}$.</li>
+</ul>
+<h2>Uniqueness and existence of Conditional expectation</h2>
+<p>This is simple, let $\mathcal{G}$ be a sub-$\sigma$-algebra, then define the measures on $(\Omega, \mathcal{G})$ 
+$$
+	\mu_{\mathcal{G}}^X(A) = \int_{A} X d\mathbb{P}\quad \forall A \in \mathcal{G}
+$$
+and the measure 
+$$\forall A \in \mathcal{G} \quad \mathbb{P}<em>{\mathcal{G}} = \mathbb{P}[A]$$
+which is $\mathbb{P}$ restricted to $\mathcal{G}$ and undefined for all other sets. 
+Obviously $\mu</em>{\mathcal{G}}^X &lt;&lt; \mathbb{P}<em>{\mathcal{G}}$, then there exists a unique measurable function called $Y \colon \mathcal{G} \to \mathcal{B}(\mathbb{R})$ such that for all $A \in \mathcal{G}$ 
+$$
+	\int</em>{A} X d\mathbb{P} = \mu_{\mathcal{G}}^X(A) = \int_{A} Y d\mathbb{P}_{\mathcal{G}}
+$$</p>
+<p><strong>Basic Properties of conditional expectation</strong></p>
+<ul>
+<li><p><strong>Pulling out independent factors</strong> If $\sigma(X)$ is independent of $\mathcal{G}$, then 
+$$
+  \mathbb{E}[X | \mathcal{G}] = \mathbb{E}[X] \text{ a.s}
+$$</p>
+</li>
+<li><p><strong>Double independence</strong> $X$ is independent of $(\mathcal{H}, \sigma(Y))$, then
+$$
+  \mathbb{E}[XY | \mathcal{H}] = \mathbb{E}[X]\mathbb{E}[Y | \mathcal{H}]
+$$
+Note that this is very different from $X$ being independent of $\mathcal{H}$ and independent of $X$. </p>
+</li>
+<li><p><strong>Bigger sigma alg doesn&#39;t matter</strong>
+$$
+  \mathbb{E}[\mathbb{E}[X | \mathcal{H}] | \mathcal{G}[ = \mathbb{E}[X| \mathcal{H}]
+$$</p>
+</li>
+<li><p><strong>(Tower property)</strong>
+$$
+  \mathbb{E}[\mathbb{E}[X | \mathcal{G}] | \mathcal{H}] = \mathbb{E}[X | \mathcal{H}]
+$$
+basically select the smallest $\sigma$-algebra</p>
+</li>
+<li><p><strong>Pulling out known factors</strong>
+If $X$ is $\mathcal{G}/\mathcal{B}(\mathbb{R})$-measurable then 
+$$
+  \mathbb{E}[X | \mathcal{G}] = X
+$$
+Several results coming from this one, first one is 
+$$
+  \mathbb{E}[\mathbb{E}[X | \mathcal{G}] | {\emptyset,\Omega}] = \mathbb{E}[X] \ \text{a.s}
+$$
+This is because every $\sigma$-algebra is independent to the trivial $\sigma$-algebra (can check this): thus
+$$
+  \mathbb{E}[X | {\Omega,\emptyset}] = \mathbb{E}[X]
+$$
+Also any random variable measurable to ${\Omega, \emptyset}$ is constant almost surely</p>
+</li>
+</ul>
+<p>Another one is that if some $Z$ is $\mathcal{H}$ measurable, then
+$$
+	\mathbb{E}[[\mathbb{E}[X | \mathcal{H}] | Z]] = \mathbb{E}[X|Z]
+$$
+We have some other funny properties combining the above</p>
+<p>$$
+	\mathbb{E}[X | \mathbb{E}[X | \mathcal{H}]] = \mathbb{E}[\mathbb{E}[X | \mathcal{H}] | \mathbb{E}[X | \mathcal{H}]] = \mathbb{E}[X | \mathcal{H}]
+$$</p>
+<ul>
+<li><p>Linearity, positivity and monotonicity all hold for conditional expectation</p>
+</li>
+<li><p><strong>cMCT</strong> Assume ${X_n}, X \in L^1(d\mathbb{P})$  $X_n \uparrow X$ then $\mathbb{E}[X_n | \mathcal{H}] \uparrow \mathbb{E}[X | \mathcal{H}]$ </p>
+</li>
+<li><p><strong>cMCT$^\prime$</strong> $X_n \downarrow X$ then $\mathbb{E}[X_n |\mathcal{H}]\downarrow \mathbb{E}[X|\mathcal{H}]$ </p>
+</li>
+<li><p><strong>cDominated Convergence Theorem</strong> If $X_n \to X$ a.s or in prob, and $|X_n| \leq Y$ with $Y \in L^1(d\mathbb{P})$, then $\mathbb{E}[X_n | \mathcal{H}] \to \mathbb{E}[X | \mathcal{H}]$ almost surely and in $L^1 d(\mathbb{P})$ </p>
+</li>
+<li><p><strong>Fatou&#39;s Lemma</strong>
+  If $\exists Y \in L^1(d\mathbb{P})$, where $X_n \geq Y$ for all $n \geq 1$, then
+  $$
+  \mathbb{E}[\liminf_{n \to \infty} X_n | \mathcal{H}] \leq \liminf_{n \to \infty}\mathbb{E}[X_n | \mathcal{H}]
+
+  $$</p>
+</li>
+<li><p>Reverse Fatou&#39;s
+If $\exists Y \in L^1(d\mathbb{P})$ where $X_n \leq Y$ for all $n \geq 1$, then 
+$$
+  \limsup_{n \to \infty} \mathbb{E}[X_n | \mathcal{H}] \leq \mathbb{E}[\limsup_{n \to \infty} X_n | \mathcal{H}]
+$$</p>
+</li>
+<li><p>Holder&#39;s for conditional expecation
+$$
+  \mathbb{E}[XY | \mathcal{G}] \leq \mathbb{E}[|XY|  | \mathcal{G}] \leq (\mathbb{E}[|X|^{p} | \mathcal{G}])^{1/p} (\mathbb{E}[|Y|^q|\mathcal{G}])^{1/q}
+$$</p>
+</li>
+<li><p>If the law of a random variable puts positive mass on any singleton, or an atom, that means it&#39;s CDF is discontinuous</p>
+</li>
+</ul>
+<h1>Chapter 1</h1>
+<p>Weierstrass product inequality</p>
+<ul>
+<li><p>For $0 \leq x_1 \leq x_2\leq \ldots x_n \leq 1$
+$$
+  (1-x_1)(1-x_2)\ldots(1-x_n) \geq 1 - \sum_{i=1}^n x_i
+  $$
+So in general $\prod_{i=1}^n (1-x_i) \geq 1 - S_n$ </p>
+</li>
+<li><p>A finitely additive measure defined on an algebra is countable additive if it&#39;s continuous at $\emptyset$ </p>
+</li>
+<li><p>Remember that to apply Dynkin&#39;s theorem, you need the two measures to agree on $S$, $\mu_1(S) = \mu_2(S) &lt; \infty$, and be finite. That&#39;s all</p>
+</li>
+<li><p>There&#39;s 2 ways of checking independence for ${\mathcal{G}_n}_n$ </p>
+<ul>
+<li>If you have a collection of sets of events, find a generating $\pi$-system for each set and check if that collection of $\pi$-systems are independent
+  that is $E_n \in \mathcal{G}_n$ for all $n$, check if ${E_n}$ independent</li>
+<li>Otherwise check if the whole collection of sets can be generated from the sigma algebras generated by picking elements from disjoint index sets
+  that is if ${\mathcal{G}_n}$ can be generated by some set ${E_m}<em>m$ independent
+  $$
+  {\sigma(D_1), \sigma(D_2),\ldots}
+  $$
+  where $D_k = {E_m \colon m \in I_k}$ where $I_k$ are disjoint index sets, 
+What&#39;s an infinite collection of events that we know is independent? 
+$\Omega = {0,1}^\mathbb{N}$ with
+$$
+  \mathcal{F} = \sigma({A</em>{n^{(k)},\xi^{(k)}\colon n^{(k)} \in \mathbb{N}^k , \xi^{(k)} \in {0,1}^k }})
+$$</li>
+</ul>
+</li>
+<li><p>The tail sigma algebra is associated with any set of events ${E_n}<em>n$ 
+$$
+  \tau = \bigcap</em>{n=1}^\infty \sigma(E_n,E_{n+1},\ldots)
+$$</p>
+</li>
+<li><p>Kolmogorov 0-1 law only work for independent events, and it says that if an event is in the tail $\sigma$-algebra associated with that set of events, then it either happens almost surely or almost never.</p>
+</li>
+<li><p>Independent, anything that happens almost surely is independent of anything else, so anything in the tail sigma algebra is independent of $\mathcal{F}$ </p>
+</li>
+<li><p>Always good to rememebr this rule
+$$
+  f^{-1}(\sigma(\mathcal{A})) = \sigma(f^{-1}(\mathcal{A}))
+$$</p>
+</li>
+<li><p>If you want to check measurability, just check if the $f^{-1}(\mathcal{A})$ for $\sigma(\mathcal{A})  = \Sigma_2$ </p>
+</li>
+<li><p>limsup and liminf of $g_n$ measurable is measurable, thus the set of all points for which the limit exists is a measurable set</p>
+</li>
+</ul>
+<p>sigma algebra generated by a random variable
+$$
+	\sigma({X_{\alpha}}<em>{\alpha}) = \sigma( \bigcup</em>{\alpha} {X_\alpha \leq b \colon b \in \mathbb{R}})
+$$
+Equivalently for a arbitrary collection ${X_{\alpha}}_{\alpha \in I}$ 
+$$
+	\sigma\left({X_j \leq b_j \colon J \text{ finite}, J \subseteq I }\right)
+$$
+where $\mathbf{b} \in \mathbb{R}^{|J|}$ </p>
+<ul>
+<li><p>A collection ${X_{\alpha}}<em>{\alpha \in I}$ of random variables are independent if for any finite index set $J \subseteq I$ and any choice of $|J|$ Borel sets, 
+$$
+  \mathbb{P}[X_j \in B_j \quad \forall j \in J] = \prod</em>{j \in J} \mathbb{P}[X_j \in B_j]
+$$
+Equivalently just need to check for level sets (or any $\pi$-system that generates the borel sigma algebra)
+so for all $\mathbf{b} \in \mathbb{R}^{|J|}$
+$$
+  \mathbb{P}[X_j \leq b_j \quad \forall j \in J] = \prod_{j \in J} \mathbb{P}[X_j \leq b_j]
+$$
+Common example of an infinite independent collection is $B_k$, with $[0,1]$ and the lebesgue measure, $B_k$ is all numbers in $[0,1]$ where the diadic expansion has a $0$ in the $k$-th term, which corresponds exactly to $B_k = \bigcup_{i=0}^{k-1} [\frac{i}{2^k}, \frac{i+1}{2^k})$ ($i$ even)
+where $\mathbb{P}[B_k] = \frac{1}{2}$ but $\mathbb{P}[\bigcup_{i=1}^N B_{k_i}] = \frac{1}{2^N}$ Since the latter corresopnds to 
+$$\mathbb{P}[A_{(k_1,k_2,\ldots,k_N), (0,0,\ldots,0)}] = \frac{1}{2^N}$$
+-tail  $\sigma$-algebra associated with a random variable
+$$
+  \tau = \bigcap_{n=1}^\infty \sigma(X_n,X_{n+1},\ldots)
+$$
+Moreover if $X \colon \Omega \to \bar{\mathbb{R}}$ and $X$ is $\tau$-measurable, then there exists $c \in \bar{\mathbb{R}}$ such that $\mathbb{P}[X = c] = 1$, so it&#39;s constant almost surely, </p>
+</li>
+<li><p>$\liminf$ and $\limsup$ of random variables are constant almost surely. 
+moreover if $b_n \uparrow \infty$, then $\limsup_{n \to \infty} \frac{X_n}{b_n}$ constant almost surely. </p>
+</li>
+<li><p>If ${X_n}_n$ and $X$ are r.v if for all subsequences, there is a further subsequence that converges in probability to $X$, then $X_n \to X$ in probability </p>
+</li>
+<li><p>This should be clear but ur stupid, if a sequence converges, all subsequences converge</p>
+</li>
+</ul>
+<h1>Midterm 2 review</h1>
+<p><strong>limsup and liminf properties</strong></p>
+<p>Have to remember that for real valued sequences, ${a_n}<em>n$ and ${b_n}<em>n$ , limsup is superadditive and super-multiplicative that is 
+$$
+	\liminf</em>{n \to \infty} (a_n + b_n) \geq \liminf</em>{n \to \infty} a_n + \liminf_{n \to \infty} b_n
+$$
+and
+$$
+	\liminf_{n \to \infty} (a_n b_n) \geq \left(\liminf_{n \to \infty} a_n\right)\left(\liminf_{n \to \infty} b_n\right)
+$$
+And the limsup is sub-additive and sub-multiplicative</p>
+<p>$$
+	\limsup_{n\to \infty} (a_n + b_n) \leq \limsup_{n\to \infty} a_n + \limsup_{n \to \infty} b_n
+$$
+$$
+	\limsup_{n \to \infty}(a_n b_n) \leq \left(\limsup_{n \to \infty } a_n\right)\left(\limsup_{n \to \infty} b_n\right)
+$$</p>
+<p>Average is upper bounded by the maximum</p>
+<p>Ch3 important info</p>
+<ul>
+<li>If i.i.d rv and $\mathbb{E}[X_1^+] = \infty$, then $\limsup_{n \to \infty} S_n/n = \infty$ almost surely</li>
+<li>if i.i.d rv and $\mathbb{E}[X_1^-] = \infty$, then $\liminf_{n \to \infty} S_n/n = -\infty$ almost surely</li>
+<li>If both are true, then both of the above occur almost surely</li>
+</ul>
+<p>$$
+	\limsup_{n \to \infty} \mathbb{P}[A_n] \leq \mathbb{P}[\limsup_{n \to \infty} A_n]
+$$</p>
+<p>Remember for any of the integral convergence theorems, we are asking to check conditions under which the limit of the integral of a sequence of functions converges to the integral of the limit of the sequence of functions. </p>
+<ul>
+<li>Uniform integrability means $\sup_{n \geq 1} \mathbb{E}[|X_n|] &lt; \infty$</li>
+</ul>
+
+  </main>
+
+  <footer>
+    <a href="/index.html">Back to Shan Gao</a>
+  </footer>
+</body>
+</html>
