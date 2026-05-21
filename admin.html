@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin | Shan Gao</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #faf8f3;
+      --text: #1d1b18;
+      --muted: #5f5a52;
+      --accent: #6b4f2a;
+      --line: #ded8cc;
+      --panel: #fffdf8;
+      --error: #8b1e1e;
+      --success: #2d6432;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    header,
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+    }
+
+    h1,
+    h2 {
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 7vw, 4rem);
+      letter-spacing: -0.04em;
+    }
+
+    main {
+      padding-top: 1rem;
+      padding-bottom: 4rem;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .panel {
+      margin-top: 1.5rem;
+      padding: 1.25rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    form {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    label {
+      display: grid;
+      gap: 0.35rem;
+      color: var(--muted);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+    }
+
+    input,
+    textarea,
+    button {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.65rem 0.75rem;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 360px;
+      resize: vertical;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      line-height: 1.5;
+    }
+
+    button {
+      width: fit-content;
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-weight: 700;
+    }
+
+    button:disabled {
+      cursor: wait;
+      opacity: 0.7;
+    }
+
+    .status {
+      min-height: 1.5rem;
+      margin: 0;
+      color: var(--muted);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .status.error {
+      color: var(--error);
+    }
+
+    .status.success {
+      color: var(--success);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 760px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Blog Admin</h1>
+    <a href="index.html">Home</a>
+  </header>
+
+  <main>
+    <section id="login-panel" class="panel" aria-labelledby="login-heading">
+      <h2 id="login-heading">Sign in</h2>
+      <form id="login-form">
+        <label>
+          Password
+          <input id="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button type="submit">Unlock admin</button>
+        <p id="login-status" class="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="editor-panel" class="panel hidden" aria-labelledby="editor-heading">
+      <h2 id="editor-heading">New blog post</h2>
+      <form id="post-form">
+        <div class="grid">
+          <label>
+            Title
+            <input id="title" name="title" required>
+          </label>
+
+          <label>
+            Date
+            <input id="date" name="date" type="date" required>
+          </label>
+
+          <label>
+            Section
+            <input id="section" name="section" list="sections" required>
+            <datalist id="sections"></datalist>
+          </label>
+        </div>
+
+        <label>
+          Slug
+          <input id="slug" name="slug" pattern="[a-z0-9-]+" required>
+        </label>
+
+        <label>
+          Markdown
+          <textarea id="markdown" name="markdown" required placeholder="Write Markdown here. MathJax delimiters such as $x^2$ and $$\\int_0^1 x dx$$ are supported."></textarea>
+        </label>
+
+        <button id="publish-button" type="submit">Publish post</button>
+        <p id="publish-status" class="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+    const loginPanel = document.querySelector("#login-panel");
+    const editorPanel = document.querySelector("#editor-panel");
+    const loginForm = document.querySelector("#login-form");
+    const postForm = document.querySelector("#post-form");
+    const loginStatus = document.querySelector("#login-status");
+    const publishStatus = document.querySelector("#publish-status");
+    const publishButton = document.querySelector("#publish-button");
+    const titleInput = document.querySelector("#title");
+    const dateInput = document.querySelector("#date");
+    const slugInput = document.querySelector("#slug");
+    const sectionInput = document.querySelector("#section");
+    const markdownInput = document.querySelector("#markdown");
+    const sectionsList = document.querySelector("#sections");
+
+    dateInput.value = new Date().toISOString().slice(0, 10);
+
+    function slugify(value) {
+      return value
+        .toLowerCase()
+        .normalize("NFKD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "")
+        .slice(0, 80);
+    }
+
+    function setStatus(element, message, type = "") {
+      element.textContent = message;
+      element.className = `status ${type}`.trim();
+    }
+
+    async function loadSections() {
+      try {
+        const response = await fetch("blog/index.json", { cache: "no-store" });
+        if (!response.ok) {
+          return;
+        }
+
+        const posts = await response.json();
+        const sections = [...new Set(posts.map((post) => post.section).filter(Boolean))].sort();
+        sectionsList.replaceChildren();
+
+        for (const section of sections) {
+          const option = document.createElement("option");
+          option.value = section;
+          sectionsList.append(option);
+        }
+      } catch (error) {
+        // The first post can be created before the blog index exists remotely.
+      }
+    }
+
+    titleInput.addEventListener("input", () => {
+      if (!slugInput.dataset.edited) {
+        slugInput.value = slugify(titleInput.value);
+      }
+    });
+
+    slugInput.addEventListener("input", () => {
+      slugInput.dataset.edited = "true";
+      slugInput.value = slugify(slugInput.value);
+    });
+
+    loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      setStatus(loginStatus, "Checking password...");
+
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({ password: document.querySelector("#password").value })
+      });
+
+      if (!response.ok) {
+        setStatus(loginStatus, "Incorrect password.", "error");
+        return;
+      }
+
+      loginPanel.classList.add("hidden");
+      editorPanel.classList.remove("hidden");
+      setStatus(loginStatus, "");
+      await loadSections();
+    });
+
+    postForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      publishButton.disabled = true;
+      setStatus(publishStatus, "Publishing post...");
+
+      const response = await fetch("/api/publish", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          title: titleInput.value,
+          date: dateInput.value,
+          section: sectionInput.value,
+          slug: slugInput.value,
+          markdown: markdownInput.value
+        })
+      });
+
+      const result = await response.json().catch(() => ({}));
+      publishButton.disabled = false;
+
+      if (!response.ok) {
+        setStatus(publishStatus, result.error || "Could not publish this post.", "error");
+        return;
+      }
+
+      setStatus(publishStatus, `Published: ${result.url}`, "success");
+      postForm.reset();
+      dateInput.value = new Date().toISOString().slice(0, 10);
+      delete slugInput.dataset.edited;
+      await loadSections();
+    });
+  </script>
+</body>
+</html>

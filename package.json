@@ -1,0 +1,11 @@
+{
+  "name": "shan-gao5-github-io",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check": "node --check api/_auth.js && node --check api/login.js && node --check api/publish.js"
+  },
+  "dependencies": {
+    "marked": "^18.0.4"
+  }
+}

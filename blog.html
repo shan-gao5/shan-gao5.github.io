@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blog | Shan Gao</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #faf8f3;
+      --text: #1d1b18;
+      --muted: #5f5a52;
+      --accent: #6b4f2a;
+      --line: #ded8cc;
+      --panel: #fffdf8;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.65;
+    }
+
+    header,
+    main,
+    footer {
+      max-width: 900px;
+      margin: 0 auto;
+      padding-right: 1.5rem;
+      padding-left: 1.5rem;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding-top: 2rem;
+      padding-bottom: 1rem;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 1rem;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    nav a {
+      text-decoration: none;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h1,
+    h2 {
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 8vw, 4.5rem);
+      letter-spacing: -0.04em;
+    }
+
+    main {
+      padding-top: 1rem;
+      padding-bottom: 4rem;
+    }
+
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+      margin: 2rem 0;
+      padding: 1.25rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    label {
+      display: grid;
+      gap: 0.35rem;
+      color: var(--muted);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    select,
+    input {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 0.55rem 0.65rem;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+    }
+
+    .posts {
+      display: grid;
+      gap: 1rem;
+      padding: 0;
+      list-style: none;
+    }
+
+    .post {
+      padding: 1.25rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .post h2 {
+      margin: 0 0 0.35rem;
+      font-size: 1.35rem;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .empty {
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    footer {
+      padding-top: 0;
+      padding-bottom: 2rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 760px) {
+      header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .filters {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Blog</h1>
+    <nav aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="mailto:shan.gao5@mail.mcgill.ca">shan.gao5@mail.mcgill.ca</a>
+    </nav>
+  </header>
+
+  <main>
+    <section aria-label="Blog filters" class="filters">
+      <label>
+        Section
+        <select id="section-filter">
+          <option value="">All sections</option>
+        </select>
+      </label>
+
+      <label>
+        From
+        <input id="from-filter" type="date">
+      </label>
+
+      <label>
+        To
+        <input id="to-filter" type="date">
+      </label>
+
+      <label>
+        Sort
+        <select id="sort-filter">
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+        </select>
+      </label>
+    </section>
+
+    <ul id="posts" class="posts" aria-live="polite"></ul>
+  </main>
+
+  <footer>
+    <a href="index.html">Back to Shan Gao</a>
+  </footer>
+
+  <script>
+    const postsList = document.querySelector("#posts");
+    const sectionFilter = document.querySelector("#section-filter");
+    const fromFilter = document.querySelector("#from-filter");
+    const toFilter = document.querySelector("#to-filter");
+    const sortFilter = document.querySelector("#sort-filter");
+    let posts = [];
+
+    function formatDate(value) {
+      const date = new Date(`${value}T00:00:00`);
+      return new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+      }).format(date);
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function renderPosts() {
+      const section = sectionFilter.value;
+      const from = fromFilter.value;
+      const to = toFilter.value;
+      const direction = sortFilter.value;
+
+      const visiblePosts = posts
+        .filter((post) => !section || post.section === section)
+        .filter((post) => !from || post.date >= from)
+        .filter((post) => !to || post.date <= to)
+        .sort((left, right) => {
+          const comparison = left.date.localeCompare(right.date);
+          return direction === "oldest" ? comparison : -comparison;
+        });
+
+      if (visiblePosts.length === 0) {
+        postsList.innerHTML = '<li class="empty">No blog posts match these filters yet.</li>';
+        return;
+      }
+
+      postsList.innerHTML = visiblePosts.map((post) => `
+        <li class="post">
+          <h2><a href="${escapeHtml(post.url)}">${escapeHtml(post.title)}</a></h2>
+          <div class="meta">${formatDate(post.date)} · ${escapeHtml(post.section)}</div>
+        </li>
+      `).join("");
+    }
+
+    async function loadPosts() {
+      try {
+        const response = await fetch("blog/index.json", { cache: "no-store" });
+        if (!response.ok) {
+          throw new Error("Could not load blog index.");
+        }
+
+        posts = await response.json();
+        const sections = [...new Set(posts.map((post) => post.section).filter(Boolean))].sort();
+        for (const section of sections) {
+          const option = document.createElement("option");
+          option.value = section;
+          option.textContent = section;
+          sectionFilter.append(option);
+        }
+
+        renderPosts();
+      } catch (error) {
+        postsList.innerHTML = '<li class="empty">No blog posts have been published yet.</li>';
+      }
+    }
+
+    for (const control of [sectionFilter, fromFilter, toFilter, sortFilter]) {
+      control.addEventListener("input", renderPosts);
+    }
+
+    loadPosts();
+  </script>
+</body>
+</html>
