@@ -19,5 +19,12 @@
     "section": "test",
     "slug": "test",
     "url": "blog/posts/test.html"
+  },
+  {
+    "title": "Phd Why",
+    "date": "2025-04-30",
+    "section": "stories",
+    "slug": "phd-why",
+    "url": "blog/posts/phd-why.html"
   }
 ]
