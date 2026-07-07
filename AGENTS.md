@@ -114,6 +114,21 @@ Default local credentials (E2E only, not used in production):
 
 After API changes, run `npm run check` and `npm run test:e2e` before opening a pull request.
 
+## Deployment
+
+Production is hosted on Vercel at https://shan-gao5-github-io.vercel.app.
+GitHub Pages also serves the static site at https://shan-gao5.github.io.
+
+Pushes to `master` trigger a Vercel production deploy via `.github/workflows/deploy-vercel.yml`.
+The workflow POSTs to a Vercel deploy hook stored in the `VERCEL_DEPLOY_HOOK` GitHub secret.
+
+Manual deploy from a linked local project:
+
+```bash
+vercel link --yes --project shan-gao5-github-io
+vercel --prod
+```
+
 ## Conventions
 
 - Keep the Turbo C++ pastel theme consistent across pages via `styles/theme.css`.
