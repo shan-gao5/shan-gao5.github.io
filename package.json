@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "check": "node --check api/_auth.js && node --check api/login.js && node --check api/publish.js"
+    "check": "node --check api/_auth.js && node --check api/_github.js && node --check api/_blog.js && node --check api/login.js && node --check api/publish.js && node --check api/post.js && node --check api/delete.js",
+    "dev:e2e": "node scripts/e2e-dev.mjs",
+    "test:e2e": "node scripts/e2e-test.mjs"
   },
   "dependencies": {
     "marked": "^18.0.4"

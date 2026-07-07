@@ -4,231 +4,101 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin | Shan Gao</title>
-  <style>
-    :root {
-      color-scheme: light;
-      --bg: #faf8f3;
-      --text: #1d1b18;
-      --muted: #5f5a52;
-      --accent: #6b4f2a;
-      --line: #ded8cc;
-      --panel: #fffdf8;
-      --error: #8b1e1e;
-      --success: #2d6432;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1.65;
-    }
-
-    header,
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding-right: 1.5rem;
-      padding-left: 1.5rem;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      padding-top: 2rem;
-      padding-bottom: 1rem;
-    }
-
-    h1,
-    h2 {
-      font-weight: 500;
-      line-height: 1.2;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: clamp(2.2rem, 7vw, 4rem);
-      letter-spacing: -0.04em;
-    }
-
-    main {
-      padding-top: 1rem;
-      padding-bottom: 4rem;
-    }
-
-    a {
-      color: var(--accent);
-    }
-
-    .panel {
-      margin-top: 1.5rem;
-      padding: 1.25rem;
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 12px;
-    }
-
-    form {
-      display: grid;
-      gap: 1rem;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 1rem;
-    }
-
-    label {
-      display: grid;
-      gap: 0.35rem;
-      color: var(--muted);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.92rem;
-      font-weight: 600;
-    }
-
-    input,
-    textarea,
-    button {
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      padding: 0.65rem 0.75rem;
-      font: inherit;
-    }
-
-    textarea {
-      min-height: 360px;
-      resize: vertical;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
-      line-height: 1.5;
-    }
-
-    button {
-      width: fit-content;
-      border-color: var(--accent);
-      background: var(--accent);
-      color: #fff;
-      cursor: pointer;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-weight: 700;
-    }
-
-    button:disabled {
-      cursor: wait;
-      opacity: 0.7;
-    }
-
-    .status {
-      min-height: 1.5rem;
-      margin: 0;
-      color: var(--muted);
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-    }
-
-    .status.error {
-      color: var(--error);
-    }
-
-    .status.success {
-      color: var(--success);
-    }
-
-    .hidden {
-      display: none;
-    }
-
-    @media (max-width: 760px) {
-      header {
-        align-items: flex-start;
-        flex-direction: column;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="styles/theme.css">
 </head>
-<body>
-  <header>
+<body class="turbo-site">
+  <header class="turbo-menubar">
     <h1>Blog Admin</h1>
-    <a href="index.html">Home</a>
+    <nav aria-label="Admin navigation">
+      <a href="index.html">Home</a>
+    </nav>
   </header>
 
-  <main>
-    <section id="login-panel" class="panel" aria-labelledby="login-heading">
+  <main class="turbo-shell">
+    <section id="login-panel" class="turbo-panel" aria-labelledby="login-heading">
       <h2 id="login-heading">Sign in</h2>
-      <form id="login-form">
+      <form id="login-form" class="turbo-panel-content">
         <label>
           Password
           <input id="password" type="password" autocomplete="current-password" required>
         </label>
-        <button type="submit">Unlock admin</button>
-        <p id="login-status" class="status" aria-live="polite"></p>
+        <button class="turbo-btn" type="submit">Unlock admin</button>
+        <p id="login-status" class="turbo-status" aria-live="polite"></p>
       </form>
     </section>
 
-    <section id="editor-panel" class="panel hidden" aria-labelledby="editor-heading">
-      <h2 id="editor-heading">New blog post</h2>
-      <form id="post-form">
-        <div class="grid">
-          <label>
-            Title
-            <input id="title" name="title" required>
-          </label>
-
-          <label>
-            Date
-            <input id="date" name="date" type="date" required>
-          </label>
-
-          <label>
-            Section
-            <input id="section" name="section" list="sections" required>
-            <datalist id="sections"></datalist>
-          </label>
+    <section id="dashboard-panel" class="hidden" aria-label="Admin dashboard">
+      <section id="posts-panel" class="turbo-panel" aria-labelledby="posts-heading">
+        <h2 id="posts-heading">Manage posts</h2>
+        <div class="turbo-panel-content">
+          <p id="posts-status" class="turbo-status" aria-live="polite"></p>
+          <ul id="posts-list" class="turbo-list"></ul>
         </div>
+      </section>
 
-        <label>
-          Slug
-          <input id="slug" name="slug" pattern="[a-z0-9-]+" required>
-        </label>
+      <section id="editor-panel" class="turbo-panel" aria-labelledby="editor-heading">
+        <h2 id="editor-heading">New blog post</h2>
+        <form id="post-form" class="turbo-panel-content">
+          <input id="original-slug" type="hidden" name="originalSlug" value="">
 
-        <label>
-          Markdown
-          <textarea id="markdown" name="markdown" required placeholder="Write Markdown here. MathJax delimiters such as $x^2$ and $$\\int_0^1 x dx$$ are supported."></textarea>
-        </label>
+          <div class="turbo-toolbar">
+            <button id="new-post-button" class="turbo-btn" type="button">New post</button>
+          </div>
 
-        <button id="publish-button" type="submit">Publish post</button>
-        <p id="publish-status" class="status" aria-live="polite"></p>
-      </form>
+          <div class="turbo-grid">
+            <label>
+              Title
+              <input id="title" name="title" required>
+            </label>
+
+            <label>
+              Date
+              <input id="date" name="date" type="date" required>
+            </label>
+
+            <label>
+              Section
+              <input id="section" name="section" list="sections" required>
+              <datalist id="sections"></datalist>
+            </label>
+          </div>
+
+          <label>
+            Slug
+            <input id="slug" name="slug" pattern="[a-z0-9-]+" required>
+          </label>
+
+          <label>
+            Markdown
+            <textarea id="markdown" name="markdown" required placeholder="Write Markdown here. MathJax delimiters such as $x^2$ and $$\\int_0^1 x dx$$ are supported."></textarea>
+          </label>
+
+          <button id="publish-button" class="turbo-btn" type="submit">Publish post</button>
+          <p id="publish-status" class="turbo-status" aria-live="polite"></p>
+        </form>
+      </section>
     </section>
   </main>
 
   <script>
     const loginPanel = document.querySelector("#login-panel");
-    const editorPanel = document.querySelector("#editor-panel");
+    const dashboardPanel = document.querySelector("#dashboard-panel");
     const loginForm = document.querySelector("#login-form");
     const postForm = document.querySelector("#post-form");
     const loginStatus = document.querySelector("#login-status");
     const publishStatus = document.querySelector("#publish-status");
+    const postsStatus = document.querySelector("#posts-status");
     const publishButton = document.querySelector("#publish-button");
+    const newPostButton = document.querySelector("#new-post-button");
     const titleInput = document.querySelector("#title");
     const dateInput = document.querySelector("#date");
     const slugInput = document.querySelector("#slug");
     const sectionInput = document.querySelector("#section");
     const markdownInput = document.querySelector("#markdown");
+    const originalSlugInput = document.querySelector("#original-slug");
     const sectionsList = document.querySelector("#sections");
+    const postsList = document.querySelector("#posts-list");
+    const editorHeading = document.querySelector("#editor-heading");
 
     dateInput.value = new Date().toISOString().slice(0, 10);
 
@@ -244,28 +114,128 @@
 
     function setStatus(element, message, type = "") {
       element.textContent = message;
-      element.className = `status ${type}`.trim();
+      element.className = `turbo-status ${type}`.trim();
     }
 
-    async function loadSections() {
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function formatDate(value) {
+      const date = new Date(`${value}T00:00:00`);
+      return new Intl.DateTimeFormat("en", {
+        year: "numeric",
+        month: "short",
+        day: "numeric"
+      }).format(date);
+    }
+
+    function setEditorMode(mode) {
+      const editing = mode === "edit";
+      editorHeading.textContent = editing ? "Edit blog post" : "New blog post";
+      publishButton.textContent = editing ? "Save changes" : "Publish post";
+    }
+
+    function resetEditor() {
+      postForm.reset();
+      originalSlugInput.value = "";
+      dateInput.value = new Date().toISOString().slice(0, 10);
+      delete slugInput.dataset.edited;
+      setEditorMode("new");
+      setStatus(publishStatus, "");
+    }
+
+    async function loadSections(posts) {
+      const sections = [...new Set(posts.map((post) => post.section).filter(Boolean))].sort();
+      sectionsList.replaceChildren();
+
+      for (const section of sections) {
+        const option = document.createElement("option");
+        option.value = section;
+        sectionsList.append(option);
+      }
+    }
+
+    function renderPostsList(posts) {
+      if (posts.length === 0) {
+        postsList.innerHTML = '<li class="turbo-empty">No posts published yet.</li>';
+        return;
+      }
+
+      postsList.innerHTML = posts.map((post) => `
+        <li class="turbo-list-item">
+          <div>
+            <strong>${escapeHtml(post.title)}</strong>
+            <div class="turbo-list-meta">${formatDate(post.date)} · ${escapeHtml(post.section)} · ${escapeHtml(post.slug)}</div>
+          </div>
+          <div class="turbo-list-actions">
+            <button class="turbo-btn small edit-post" type="button" data-slug="${escapeHtml(post.slug)}">Edit</button>
+            <button class="turbo-btn small danger delete-post" type="button" data-slug="${escapeHtml(post.slug)}" data-title="${escapeHtml(post.title)}">Delete</button>
+          </div>
+        </li>
+      `).join("");
+    }
+
+    async function loadPosts() {
+      setStatus(postsStatus, "Loading posts...");
+
       try {
         const response = await fetch("blog/index.json", { cache: "no-store" });
         if (!response.ok) {
-          return;
+          throw new Error("Could not load blog index.");
         }
 
         const posts = await response.json();
-        const sections = [...new Set(posts.map((post) => post.section).filter(Boolean))].sort();
-        sectionsList.replaceChildren();
-
-        for (const section of sections) {
-          const option = document.createElement("option");
-          option.value = section;
-          sectionsList.append(option);
-        }
+        posts.sort((left, right) => right.date.localeCompare(left.date));
+        renderPostsList(posts);
+        await loadSections(posts);
+        setStatus(postsStatus, `${posts.length} post${posts.length === 1 ? "" : "s"} loaded.`);
       } catch (error) {
-        // The first post can be created before the blog index exists remotely.
+        postsList.innerHTML = '<li class="turbo-empty">Could not load posts.</li>';
+        setStatus(postsStatus, error.message, "error");
       }
+    }
+
+    async function loadPostForEditing(slug) {
+      setStatus(publishStatus, "Loading post...");
+      publishButton.disabled = true;
+
+      const response = await fetch(`/api/post?slug=${encodeURIComponent(slug)}`, {
+        credentials: "include"
+      });
+      const result = await response.json().catch(() => ({}));
+      publishButton.disabled = false;
+
+      if (!response.ok) {
+        setStatus(publishStatus, result.error || "Could not load this post.", "error");
+        return;
+      }
+
+      titleInput.value = result.title;
+      dateInput.value = result.date;
+      sectionInput.value = result.section;
+      slugInput.value = result.slug;
+      markdownInput.value = result.markdown;
+      originalSlugInput.value = result.slug;
+      slugInput.dataset.edited = "true";
+      setEditorMode("edit");
+
+      if (!result.hasSource) {
+        setStatus(
+          publishStatus,
+          "No Markdown source found for this post. Re-enter the content before saving.",
+          "error"
+        );
+        return;
+      }
+
+      setStatus(publishStatus, "Loaded post for editing.", "success");
+      document.querySelector("#editor-panel").scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     titleInput.addEventListener("input", () => {
@@ -277,6 +247,52 @@
     slugInput.addEventListener("input", () => {
       slugInput.dataset.edited = "true";
       slugInput.value = slugify(slugInput.value);
+    });
+
+    newPostButton.addEventListener("click", resetEditor);
+
+    postsList.addEventListener("click", async (event) => {
+      const editButton = event.target.closest(".edit-post");
+      const deleteButton = event.target.closest(".delete-post");
+
+      if (editButton) {
+        await loadPostForEditing(editButton.dataset.slug);
+        return;
+      }
+
+      if (deleteButton) {
+        const slug = deleteButton.dataset.slug;
+        const title = deleteButton.dataset.title;
+        const confirmed = window.confirm(`Delete "${title}"? This cannot be undone.`);
+
+        if (!confirmed) {
+          return;
+        }
+
+        setStatus(postsStatus, "Deleting post...");
+        deleteButton.disabled = true;
+
+        const response = await fetch("/api/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+          body: JSON.stringify({ slug })
+        });
+        const result = await response.json().catch(() => ({}));
+        deleteButton.disabled = false;
+
+        if (!response.ok) {
+          setStatus(postsStatus, result.error || "Could not delete this post.", "error");
+          return;
+        }
+
+        if (originalSlugInput.value === slug) {
+          resetEditor();
+        }
+
+        setStatus(postsStatus, `Deleted "${title}".`, "success");
+        await loadPosts();
+      }
     });
 
     loginForm.addEventListener("submit", async (event) => {
@@ -296,42 +312,46 @@
       }
 
       loginPanel.classList.add("hidden");
-      editorPanel.classList.remove("hidden");
+      dashboardPanel.classList.remove("hidden");
       setStatus(loginStatus, "");
-      await loadSections();
+      await loadPosts();
     });
 
     postForm.addEventListener("submit", async (event) => {
       event.preventDefault();
       publishButton.disabled = true;
-      setStatus(publishStatus, "Publishing post...");
+      setStatus(publishStatus, originalSlugInput.value ? "Saving changes..." : "Publishing post...");
+
+      const payload = {
+        title: titleInput.value,
+        date: dateInput.value,
+        section: sectionInput.value,
+        slug: slugInput.value,
+        markdown: markdownInput.value
+      };
+
+      if (originalSlugInput.value) {
+        payload.originalSlug = originalSlugInput.value;
+      }
 
       const response = await fetch("/api/publish", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify({
-          title: titleInput.value,
-          date: dateInput.value,
-          section: sectionInput.value,
-          slug: slugInput.value,
-          markdown: markdownInput.value
-        })
+        body: JSON.stringify(payload)
       });
 
       const result = await response.json().catch(() => ({}));
       publishButton.disabled = false;
 
       if (!response.ok) {
-        setStatus(publishStatus, result.error || "Could not publish this post.", "error");
+        setStatus(publishStatus, result.error || "Could not save this post.", "error");
         return;
       }
 
-      setStatus(publishStatus, `Published: ${result.url}`, "success");
-      postForm.reset();
-      dateInput.value = new Date().toISOString().slice(0, 10);
-      delete slugInput.dataset.edited;
-      await loadSections();
+      setStatus(publishStatus, `Saved: ${result.url}`, "success");
+      resetEditor();
+      await loadPosts();
     });
   </script>
 </body>
